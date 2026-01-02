@@ -1,0 +1,6 @@
+- content: |-
+    Q: {{question}}
+    A: Let's think step by step. {{reasoning}}
+    Therefore, the answer (arabic numerals) is
+  role: user
+  type: message

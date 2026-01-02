@@ -1,0 +1,73 @@
+task_description_template: |-
+  You are crafting in Minecraft. The task is to craft the target item using the actions provided.
+  Crafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:
+    - Top row: [A1] [A2] [A3]
+    - Middle row: [B1] [B2] [B3]
+    - Bottom row: [C1] [C2] [C3]
+  The output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]
+  Inventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]
+
+  Action: 
+  {{tools_description}}
+
+  Example actions:
+    - `move: from [I2] to [A1] with quantity 3`
+    - `smelt: from [I5] to [I6] with quantity 1`
+
+  Constraints:
+  - You cannot move or smelt items into [0]
+  - If an item is not in slot [0] then the recipe is incorrect
+  - You need to move items from [0] to a free inventory slot to complete the crafting process
+  
+
+task_description_with_tools_template: |-
+  You are crafting in Minecraft. The task is to craft the target item using the tools provided.
+  Crafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:
+    - Top row: [A1] [A2] [A3]
+    - Middle row: [B1] [B2] [B3]
+    - Bottom row: [C1] [C2] [C3]
+  The output of the crafting process is placed in a designated output slot labeled [0]. You cannot move or smelt items directly into slot [0].
+  Inventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]
+      
+  Example actions:
+    - `move: from [I2] to [A1] with quantity 3`
+    - `smelt: from [I5] to [I6] with quantity 1`
+
+  Constraints:
+  - You cannot move or smelt items into [0]
+  - If an item is not in slot [0] then the recipe is incorrect
+  - You need to move items from [0] to a free inventory slot to complete the crafting process
+
+task_behavior_template: |-
+
+task_instance_template: |-
+  {{observation}}
+
+task_output_template: |-
+  Your response should be the list of actions to take to complete the crafting process.
+  The action is a JSON object with the following fields:
+  - name: the name of the action
+  - args: the arguments of the action
+
+  Return the list of actions as a JSON array of objects.
+  Example output:
+  ```json
+  [
+    {
+      "name": "move",
+      "args": {
+        "from": "[I2]",
+        "to": "[A1]",
+        "quantity": 3
+      }
+    },
+    {
+      "name": "smelt",
+      "args": {
+        "from": "[I5]",
+        "to": "[I6]",
+        "quantity": 1
+      }
+    }
+  ]
+  ```

@@ -1,0 +1,52 @@
+# Environment & Secrets
+.env
+.env.*
+*.env*
+secrets/
+credentials/
+
+# Logs
+*.log
+logs/
+
+# Cache
+*.cache
+*cache*/
+.litellm_cache/
+.pytest_cache/
+.function_cache/
+__pycache__/
+
+# IDE & Editor
+.vscode/
+.idea/
+*.swp
+
+# Python
+.venv/
+venv/
+*.pyc
+*.pyo
+
+# Experiment outputs (may contain sensitive data)
+exp_outputs/
+exp_outputs_new/
+exp_outputs_test/
+outputs/
+etc/
+
+# Data
+data_preprocess/
+sampled_datasets/
+browsecomp-plus-indexes/
+
+# Notebooks & experimental
+notebooks/
+experimental/
+tests/
+/agents/
+
+# Misc
+*.md
+!README.md
+.nfs*

@@ -1,0 +1,11 @@
+dataset_id: plancraft-test
+from_langfuse: false
+local_path: datasets/plancraft-test.json
+templates_local_path: prompts/dataset-shared/plancraft.yaml
+env:
+  name: plancraft
+  tools:
+    - search
+    - move
+    - smelt
+    - impossible

@@ -1,0 +1,6 @@
+- content: |-
+    You are an expert evaluator. Given the following model answer and reference answer, decide if the model answer is correct. 
+    Model answer: {{model_output}}
+    Reference answer: {{reference}}
+    Respond with JSON: {"correct": true/false, "score": float (0-1), "explanation": "..."}
+  role: user

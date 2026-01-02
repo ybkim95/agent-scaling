@@ -1,0 +1,22 @@
+task_description_template: |-
+  The task is to answer the given question accurately.
+
+task_description_with_tools_template: >-
+  The task is to answer the given question accurately by interacting with a search engine,
+  using the search tool provided, and finding relevant information.
+
+task_behavior_template: |-
+  When doing the task:
+  - Analyze each aspect of the question and identify the most important components.
+  - Consider multiple approaches with complete, thorough reasoning.
+  - Analyze what features of the question are most important - what does the user likely care about most? What are they expecting in the final result?
+  - Determine what form the deliverable should take to fully accomplish the user's task (report, code, analysis, structured data, action plan, creative output, etc.)
+
+task_instance_template: |-
+  Question: {{question}}
+
+task_output_template: |-
+  Your response should be in the following format:
+  Explanation: [your explanation for your final answer]
+  Exact Answer: [your succinct, final answer]
+  Confidence: [your confidence score between 0% and 100% for your answer]

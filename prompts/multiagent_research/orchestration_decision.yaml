@@ -1,0 +1,27 @@
+- content: |-
+    You are the orchestrator of a multi-agent research team. Decide whether to stop research and synthesize an answer.
+  role: system
+- content: |-
+    You are working on: {{query}}
+    
+    Current status after round {{round_num}}:
+    - Total findings gathered across all rounds: {{total_findings}}
+    - Active agents this round: {{active_agents_count}}
+    
+    Agent performance this round:
+    {{agent_performance_summary}}
+    
+    Recent findings from this round:
+    {{recent_findings}}
+    
+    Should you stop the research and synthesize an answer, or continue with more rounds?
+    
+    Consider:
+    - Do you have enough information to answer the original question?
+    - Are the agents still making meaningful progress?
+    - Are you getting diminishing returns from additional rounds?
+    - Would more rounds likely improve the answer quality significantly?
+    - Are agents stuck or repeating similar work?
+    
+    Respond with either "STOP" or "CONTINUE" followed by your reasoning.
+  role: user 

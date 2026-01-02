@@ -1,0 +1,4 @@
+name: single-agent
+prompts:
+  main:
+    local_path: prompts/single-agent/single-agent.yaml

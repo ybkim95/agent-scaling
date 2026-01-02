@@ -1,0 +1,17 @@
+dataset_id: simpleqa_sampled
+from_langfuse: false
+local_path: datasets/simpleqa_sampled.yaml
+templates_local_path: prompts/dataset-shared/simpleqa.yaml
+eval_llm:
+  model: gemini/gemini-2.0-flash
+  params:
+    temperature: 0.0
+eval_prompts:
+  grader: 
+    name: qa-grader
+    local_path: prompts/eval/qa-grader.yaml
+env: 
+  name: web-search
+  tools:
+    - web_search
+    - done

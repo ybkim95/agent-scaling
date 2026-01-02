@@ -1,0 +1,6 @@
+name: single-agent-zero-shot-cot
+prompts:
+  reasoning_extraction:
+    name: gsm8k-reasoning-extraction
+  answer_generation:
+    name: gsm8k-answer-generation

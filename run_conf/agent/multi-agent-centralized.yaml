@@ -1,0 +1,25 @@
+name: multi-agent-centralized
+prompts:
+  lead_agent:
+    local_path: prompts/multi-agent/lead_agent.yaml
+  subagent:
+    local_path: prompts/multi-agent/subagent.yaml
+
+# Centralized multi-agent parameters
+n_base_agents: 3
+min_iterations_per_agent: 3
+max_iterations_per_agent: 10
+max_rounds: 5
+task_blurb: "task coordinator"
+
+# Execution control parameters
+max_execution_time: 300  # Total orchestration time limit in seconds
+worker_timeout: 180      # Increased timeout for rate-limited scenarios
+
+# Memory management parameters  
+max_findings: 100        # Increased to preserve more context
+
+# Communication strategy configuration
+communication:
+  strategy: orchestrated  # Options: orchestrated, blackboard, broadcast, pipeline, consensus, none
+  config_path: communication/orchestrated.yaml  # Path to detailed communication config 

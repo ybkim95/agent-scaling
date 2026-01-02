@@ -1,0 +1,171 @@
+# Base System Prompt (used by all templates)
+base:
+  - content: |-
+      You are an intelligent lead agent who can orchestrate multi-agent research tasks.
+    role: system
+
+  - content: |-
+      {{task_description_with_tools}}
+
+      {{task_behavior}}
+
+      For this multi-agent orchestration task, you will coordinate research work across multiple specialized agents.
+
+      You have several key responsibilities:
+      1. PLANNING: Analyze queries and create strategic task decomposition
+      2. COORDINATION: Provide guidance and feedback to individual agents based on their progress and team context
+      3. DECISION-MAKING: Determine when the team has sufficient information to proceed to synthesis
+      4. SYNTHESIS: Combine findings from multiple agents into coherent answers
+
+      This is a strategic coordination process where you maintain full visibility across all agents and their findings.
+      
+      Your decisions should be informed by:
+      - Individual agent progress and findings
+      - Overall team progress across all agents
+      - The relationship between different agents' discoveries
+      - The sufficiency of collected information for answering the original query
+
+      {{task_instance}}
+    role: user
+
+planning:
+  - content: |-
+      Create a plan to work on the task.
+
+      Create exactly {{num_agents}} distinct subtasks. Each subtask should be specific and focused.
+
+      Return ONLY a JSON object with this structure:
+      {
+          "subtasks": [
+              {
+                  "agent_id": "agent_1",
+                  "objective": "Specific objective here",
+                  "focus": "Distinct focus area"
+              }
+          ],
+          "reasoning": "Brief explanation"
+      }
+    role: user
+
+# Coordination Template  
+coordination:
+  - content: |-
+      ORCHESTRATOR COORDINATION TASK:
+
+      You are coordinating a multi-agent team working on: {{original_query}}
+
+      CURRENT SITUATION:
+      - Round: {{round_num}}
+      - Agent: {{agent_id}}
+      - Agent's objective: {{agent_objective}}
+      - Agent's strategy/focus: {{agent_strategy}}
+      - Agent iterations completed: {{agent_iterations}}
+      - Minimum iterations required: {{min_iterations}}
+      - Agent status: {{agent_status}}
+
+      AGENT'S PROGRESS:
+      {{agent_findings_summary}}
+
+      TEAM CONTEXT (for strategic coordination):
+      {{team_context}}
+
+      COORDINATION TASK:
+      Based on the agent's progress and the broader team context, provide specific guidance to {{agent_id}} for their next phase of work.
+
+      Consider:
+      - Is this agent making good progress on their specific objective?
+      - Are their findings relevant and useful for the overall goal?
+      - How do their findings complement or conflict with other team findings?
+      - What specific direction should they take next given the team's overall progress?
+      - Should they continue exploring, focus on a specific area, pivot approach, or wrap up?
+
+      Provide a clear, actionable message (2-3 sentences max) to guide {{agent_id}}'s next steps.
+      Do not include JSON or structured data - just the direct coordination message.
+    role: user
+
+# Coordination Fallback Template (simpler version for when main template fails)
+coordination_fallback:
+  - content: |-
+      You are coordinating a multi-agent team working on: {{original_query}}
+
+      Agent {{agent_id}} is working on: {{agent_objective}}
+      Strategy/Focus: {{agent_strategy}}
+      Current round: {{round_num}}
+      Agent status: {{agent_status}}
+
+      {{agent_findings_summary}}
+
+      Additional team context for strategic coordination:
+      {{team_context}}
+
+      Based on this context and team progress, provide specific guidance to this agent for their next phase of work.
+      Provide a clear, actionable message (2-3 sentences max) to guide the agent's next steps.
+    role: user
+
+# Stopping Decision Template
+stopping_decision:
+  - content: |-
+      ORCHESTRATOR STOPPING DECISION:
+
+      You are the orchestrator of a multi-agent team working on: {{query}}
+
+      COMPLETE TEAM STATUS after {{round_num}} rounds:
+      - Total findings gathered across all agents and rounds: {{total_findings}}
+      - Total agents: {{total_agents}}
+
+      CURRENT ROUND {{round_num}} SUMMARY:
+      {{current_round_summary}}
+
+      ALL FINDINGS COLLECTED (across all rounds and agents):
+      {{all_findings}}
+
+      DECISION TASK:
+      Should you stop the work and synthesize an answer, or continue with more rounds?
+
+      Consider the COMPLETE picture:
+      - Do you have enough information from ALL agents to answer the question adequately?
+      - Are the collective findings relevant and sufficient for the original query?
+      - Would more rounds likely improve the answer quality significantly?
+      - Have the agents explored the problem space sufficiently?
+      - Is there diminishing returns from additional rounds?
+
+      Respond with either "STOP" or "CONTINUE" followed by a brief reason based on the complete team progress.
+    role: user
+
+# Stopping Decision Fallback Template (simpler version)
+stopping_decision_fallback:
+  - content: |-
+      You are the orchestrator of a multi-agent team working on: {{query}}
+      
+      Complete status after {{round_num}} rounds:
+      - Total findings gathered: {{total_findings}}
+      
+      All findings (recent):
+      {{all_findings}}
+      
+      Should you stop the work and synthesize an answer, or continue with more rounds?
+      
+      Consider:
+      - Do you have enough information to answer the question?
+      - Are the findings relevant and sufficient?
+      - Would more rounds likely improve the answer quality?
+      
+      Respond with either "STOP" or "CONTINUE" followed by a brief reason.
+    role: user
+
+# Synthesis Template
+synthesis:
+  - content: |-
+      SYNTHESIS TASK:
+      Your multi-agent team has gathered the following information.
+      Your task is to synthesize this information into a final answer to the original task.
+
+      {{all_findings}}
+
+      SYNTHESIS INSTRUCTIONS:
+      - Provide a direct, concise answer to the original question
+      - Synthesize information from multiple agents into a coherent response
+      - Focus on the most relevant and reliable findings
+      - Do not return JSON or structured data - just provide the answer
+      - Be thorough but concise
+    role: user

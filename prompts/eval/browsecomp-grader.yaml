@@ -1,0 +1,17 @@
+- content: |-
+    Judge whether the following [response] to [question] is correct or not based on the precise and unambiguous [correct_answer] below.
+
+    [question]: {{question}}
+
+    [response]: {{response}}
+
+    extracted_final_answer: Extract the final exact answer from the [response]. Put 'None' if there is no exact answer.
+
+    [correct_answer]: {{correct_answer}}
+
+    reasoning: Explain whether the extracted answer matches the correct answer.
+
+    correct: Answer 'yes' if extracted_final_answer matches the [correct_answer]. Answer 'no' otherwise.
+
+    confidence: The extracted confidence score from [response]. Put 100 if there is no confidence score.
+  role: user

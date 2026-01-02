@@ -1,0 +1,4 @@
+name: direct-prompt
+prompts:
+  main:
+    local_path: prompts/direct-prompt/direct-prompt.yaml

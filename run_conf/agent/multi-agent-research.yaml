@@ -1,0 +1,13 @@
+name: multi-agent-research
+prompts:
+  lead_agent:
+    local_path: prompts/multiagent_research/lead_agent.yaml
+  subagent:
+    local_path: prompts/multiagent_research/subagent.yaml
+
+# Multi-agent specific parameters
+n_base_agents: 3
+# Orchestrator uses adaptive stopping based on information quality (no fixed turns)
+min_iterations_per_agent: 3
+max_iterations_per_agent: 7
+task_blurb: "research coordinator" 

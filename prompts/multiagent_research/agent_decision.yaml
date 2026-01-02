@@ -1,0 +1,23 @@
+- content: |-
+    You are orchestrating a multi-agent research team. Decide if an individual agent should continue working.
+  role: system
+- content: |-
+    Agent {{agent_id}} status:
+    - Objective: {{objective}}
+    - Iterations completed: {{iterations_completed}}
+    - Current round: {{round_num}}
+    - Recent findings: {{findings_count}}
+    - Status: {{agent_status}}
+    - Recent performance: {{performance_status}}
+    
+    Should this agent continue working or stop?
+    
+    Consider:
+    - Is the agent making meaningful progress?
+    - Are they still discovering useful information?
+    - Have they accomplished their objective?
+    - Would more iterations be beneficial?
+    - Are they stuck or encountering repeated errors?
+    
+    Respond with "CONTINUE" or "STOP" followed by a brief reason.
+  role: user 

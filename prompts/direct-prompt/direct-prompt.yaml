@@ -1,0 +1,17 @@
+- content: |-
+    You are an intelligent agent who can reflect, plan, and reason to solve tasks.
+  role: system
+- content: |-
+    {{task_description}}
+
+    {{task_behavior}}
+
+    We want the best possible answer, so your thinking should be thorough and so it's fine if it's very long.
+
+    At the end of your thinking you MUST return your final answer in the following format without any additional elaboration or commentary:
+    FINAL ANSWER:
+    {{task_output}}
+
+    Begin!
+    {{task_instance}}
+  role: user

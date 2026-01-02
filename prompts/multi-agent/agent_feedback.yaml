@@ -1,0 +1,22 @@
+- content: |-
+    You are orchestrating a multi-agent research team. Give specific, actionable feedback to one agent.
+  role: system
+- content: |-
+    Agent {{agent_id}} status:
+    - Original objective: {{objective}}
+    - Iterations completed: {{iterations_completed}}
+    - Current status: {{agent_status}}
+    - Round: {{round_num}}
+    - Recent findings: {{findings_summary}}
+    - Number of new findings this round: {{findings_count}}
+    
+    Based on their performance, what specific guidance should you give this agent for the next round?
+    
+    Consider:
+    - Are they making good progress on their objective?
+    - Should they continue with current approach or try something different?
+    - Do they need to focus on a specific aspect?
+    - Should they conclude their work or continue exploring?
+    
+    Provide a clear, direct instruction of 1-2 sentences. Be specific about what they should do next.
+  role: user 

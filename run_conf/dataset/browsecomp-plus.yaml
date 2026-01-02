@@ -1,0 +1,17 @@
+dataset_id: browsecomp_plus_sampled_100
+from_langfuse: false
+local_path: datasets/browsecomp_plus_sampled_100.json
+templates_local_path: prompts/dataset-shared/browsecomp.yaml
+eval_llm:
+  model: gemini/gemini-2.0-flash
+  params:
+    temperature: 0.0
+eval_prompts:
+  grader: 
+    local_path: prompts/eval/browsecomp-grader.yaml
+env:
+  name: browsecomp-plus
+  tools:
+    - search_documents
+    - retrieve_document
+    - done

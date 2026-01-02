@@ -1,0 +1,109 @@
+# Multi-Agent System Templates for SimpleQA (following single-agent pattern exactly)
+
+# Required single-agent template fields (for compatibility)
+task_description_template: |-
+  The task is to answer the given question accurately.
+
+task_description_with_tools_template: >-
+  The task is to answer the given question accurately by interacting with a search engine,
+  using the search tool provided, and finding relevant information.
+
+task_behavior_template: |-
+  When doing the task:
+  - Analyze each aspect of the question and identify the most important components.
+  - Consider multiple approaches with complete, thorough reasoning.
+  - Analyze what features of the question are most important - what does the user likely care about most? What are they expecting in the final result?
+  - Determine what form the deliverable should take to fully accomplish the user's task (report, code, analysis, structured data, action plan, creative output, etc.)
+
+task_instance_template: |-
+  Question: {{question}}
+
+task_output_template: |-
+  Your response should be in the following format:
+  Explanation: [your explanation for your final answer]
+  Exact Answer: [your succinct, final answer]
+  Confidence: [your confidence score between 0% and 100% for your answer]
+
+# Multi-Agent System Templates
+lead_agent_task_description_template: |-
+  You are a lead agent in a multi-agent system responsible for orchestrating research tasks. Your role is to:
+  1. Analyze user questions to understand requirements
+  2. Break down complex questions into subtasks
+  3. Delegate subtasks to appropriate subagents
+  4. Coordinate execution and monitor progress
+  5. Synthesize final results from subagent outputs
+
+lead_agent_task_behavior_template: |-
+  When orchestrating the research:
+  - Analyze the question complexity and identify key components
+  - Break down into logical subtasks that can be executed in parallel
+  - Assign appropriate strategies to each subagent
+  - Monitor progress and adjust plans as needed
+  - Synthesize findings into a coherent final answer
+
+lead_agent_task_instance_template: |-
+  Question: {{question}}
+
+lead_agent_output_template: |-
+  Your response should be in the following JSON format:
+  ```json
+  {
+    "query_analysis": {
+      "task_type": "depth-first|breadth-first|sequential|straightforward",
+      "complexity": 1-10,
+      "key_objectives": ["objective1", "objective2"],
+      "constraints": ["constraint1", "constraint2"],
+      "success_criteria": "description of what constitutes success"
+    },
+    "subtasks": [
+      {
+        "agent_id": "agent_1",
+        "strategy": "strategy_name",
+        "objective": "clear objective description",
+        "focus": "specific focus area",
+        "initial_actions": ["action1", "action2"]
+      }
+    ],
+    "lead_analysis": "Your strategic analysis and reasoning for this approach"
+  }
+  ```
+
+# Subagent Templates
+subagent_task_description_template: |-
+  You are a specialized research subagent in a multi-agent system. Your role is to:
+  1. Understand your assigned objective and constraints
+  2. Execute research tasks using available tools and strategies
+  3. Adapt your approach based on findings and feedback
+  4. Deliver high-quality results that contribute to the overall goal
+
+subagent_task_behavior_template: |-
+  When executing your research task:
+  - Focus on your specific objective and strategy
+  - Use available tools systematically and purposefully
+  - Make at least {{min_searches_per_agent}} different searches
+  - Adapt your approach based on intermediate results
+  - Provide comprehensive findings that contribute to the team goal
+
+subagent_task_instance_template: |-
+  Objective: {{objective}}
+  Strategy: {{strategy}}
+  Focus Area: {{focus}}
+  Original Question: {{original_question}}
+  Available Tools: {{tools}}
+  Min Actions Required: {{min_searches_per_agent}}
+
+subagent_output_template: |-
+  Your response should be in the following format:
+  ```
+  Thought: [Your reasoning about what to do next]
+  Action: [Exact tool name]
+  Action Input: [The input string for the tool]
+  Observation: [Tool output will appear here automatically]
+  ```
+  
+  This pattern repeats until you have sufficient information, then:
+  
+  ```
+  Thought: [Final reasoning and synthesis]
+  Final Answer: [Your complete response]
+  ``` 

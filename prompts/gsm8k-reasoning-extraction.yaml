@@ -1,0 +1,5 @@
+- content: |-
+    Q: {{question}}
+    A: Let's think step by step.
+  role: user
+  type: message
