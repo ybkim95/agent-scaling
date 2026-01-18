@@ -2,7 +2,7 @@
 
 ## 🚀 Quick Start
 
-Agent scaling uses [uv](https://docs.astral.sh/uv/getting-started/installation/) to manage dependencies. After installing uv, run the following command to install dependencies.
+Agent scaling uses [uv](https://docs.astral.sh/uv/getting-started/installation/) to manage dependencies (e.g. python version, libraries, etc). After installing uv, run the following command to install dependencies.
 ```bash
 # install dependencies (creates virtual environment) and sync to latest environment
 uv sync --prerelease=allow
@@ -32,7 +32,16 @@ LANGFUSE_SECRET_KEY=""
 LANGFUSE_PUBLIC_KEY=""
 ```
 
-### Quickstart Code
+### Benchmarks
+
+For the evaluations, we have used the following state-of-the-art benchmarks:
+
+1. BrowseComp-Plus (https://github.com/texttron/BrowseComp-Plus)
+2. Finance-Agent (https://www.vals.ai/benchmarks/finance_agent)
+3. Plancraft (https://github.com/gautierdag/plancraft)
+4. WorkBench (https://github.com/olly-styles/WorkBench)
+
+### Quickstart
 To run a LLM with tracing, we use a custom langchain BaseChatModel class.
 ```python
 from agent_scaling.llm import ChatLiteLLMLC
@@ -59,3 +68,4 @@ python run_scripts/run_experiment.py debug=true
 - [ ] function to specify which samples to run (should just preprocess this)
 - [ ] a way to adapt the input arguments to a tool
 - [ ] a shared output for the tool
+- [ ] ablation runs
