@@ -100,22 +100,6 @@ python run_scripts/run_experiment.py max_instances=10
 | Workbench | `workbench` | Tool use benchmark tasks |
 | FinanceAgent | `finance-agent` | Financial reasoning tasks |
 
-#### Supported LLMs
-
-The experiments use models from three providers via [LiteLLM](https://docs.litellm.ai/docs/providers):
-
-```bash
-# OpenAI
-llm.model=gpt-4o
-llm.model=gpt-4o-mini
-
-# Anthropic Claude
-llm.model=anthropic/claude-3-5-sonnet-20241022
-
-# Google Gemini
-llm.model=gemini/gemini-2.0-flash
-```
-
 ## Example Experiments
 
 ### Single-Agent on PlanCraft
