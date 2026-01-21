@@ -100,6 +100,14 @@ python run_scripts/run_experiment.py max_instances=10
 | Workbench | `workbench` | Tool use benchmark tasks |
 | FinanceAgent | `finance-agent` | Financial reasoning tasks |
 
+#### Supported LLMs
+
+| Provider | Models |
+|----------|--------|
+| OpenAI | GPT-5, GPT-5-mini, GPT-5-nano |
+| Google | Gemini-2.5 Pro, Gemini-2.5 Flash, Gemini-2.0 Flash |
+| Anthropic | Claude 4.5 Sonnet, Claude 4.0 Sonnet, Claude 3.7 Sonnet |
+
 ## Example Experiments
 
 ### Single-Agent on PlanCraft
