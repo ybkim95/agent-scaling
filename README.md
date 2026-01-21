@@ -35,7 +35,6 @@ Create a `.env` file with your LLM API keys. See [LiteLLM providers](https://doc
 OPENAI_API_KEY="your-openai-key"
 GEMINI_API_KEY="your-gemini-key"
 ANTHROPIC_API_KEY="your-anthropic-key"
-DEEPSEEK_API_KEY="your-deepseek-key"
 
 # Optional: LangFuse for LLM call tracing
 LANGFUSE_HOST="https://us.cloud.langfuse.com"
@@ -90,33 +89,31 @@ python run_scripts/run_experiment.py max_instances=10
 | Multi-Agent Centralized | `multi-agent-centralized` | Orchestrated multi-agent system with lead agent |
 | Multi-Agent Decentralized | `multi-agent-decentralized` | Peer-to-peer multi-agent coordination |
 | Multi-Agent Hybrid | `multi-agent-hybrid` | Hybrid coordination approach |
-| Direct Prompt | `direct-prompt` | Direct prompting baseline (no tools) |
+| Multi-Agent Independent | `multi-agent-independent` | Independent parallel agents |
 
 #### Datasets
 
 | Dataset | Config Name | Description |
 |---------|-------------|-------------|
-| PlanCraft | `plancraft-test` | Minecraft crafting planning tasks |
 | BrowseComp+ | `browsecomp-plus` | Web browsing comprehension tasks |
+| PlanCraft | `plancraft` | Minecraft crafting planning tasks |
+| Workbench | `workbench` | Tool use benchmark tasks |
+| FinanceAgent | `finance-agent` | Financial reasoning tasks |
 
 #### Supported LLMs
 
-Any model supported by [LiteLLM](https://docs.litellm.ai/docs/providers):
+The experiments use models from three providers via [LiteLLM](https://docs.litellm.ai/docs/providers):
 
 ```bash
-# OpenAI models
+# OpenAI
 llm.model=gpt-4o
 llm.model=gpt-4o-mini
-
-# Google Gemini
-llm.model=gemini/gemini-2.0-flash
-llm.model=gemini/gemini-1.5-pro
 
 # Anthropic Claude
 llm.model=anthropic/claude-3-5-sonnet-20241022
 
-# DeepSeek
-llm.model=deepseek/deepseek-chat
+# Google Gemini
+llm.model=gemini/gemini-2.0-flash
 ```
 
 ## Example Experiments
@@ -272,10 +269,10 @@ communication:
 If you use this code in your research, please cite:
 
 ```bibtex
-@article{agent-scaling-2025,
-  title={Agent Scaling: Studying Scaling Behaviors of LLM-Based Multi-Agent Systems},
-  author={...},
-  journal={Nature Machine Intelligence},
+@article{kim2025towards,
+  title={Towards a science of scaling agent systems},
+  author={Kim, Yubin and Gu, Ken and Park, Chanwoo and Park, Chunjong and Schmidgall, Samuel and Heydari, A Ali and Yan, Yao and Zhang, Zhihan and Zhuang, Yuchen and Malhotra, Mark and others},
+  journal={arXiv preprint arXiv:2512.08296},
   year={2025}
 }
 ```
