@@ -1,0 +1,31 @@
+agent:
+  name: multi-agent-centralized
+  prompts:
+    lead_agent:
+      name: lead_agent
+    subagent:
+      name: subagent
+dataset:
+  dataset_id: plancraft-test
+  env:
+    done_determined_by_env: true
+    name: plancraft
+    prompts: {}
+    tools:
+    - search
+    - move
+    - smelt
+    - impossible
+  eval_prompts: {}
+  from_langfuse: false
+  local_path: datasets/plancraft-test.json
+  templates_local_path: prompts/dataset-shared/plancraft.yaml
+  use_llm_eval: false
+llm:
+  model: gemini/gemini-2.0-flash
+  params:
+    cache: {}
+    temperature: 0.0
+num_workers: 1
+run_name: multi-agent-centralized_gemini/gemini-2.0-flash_2025-09-10_19-12-09
+save_dir: /home/dmcduff_fitbit_com/agent-scaling/exp_outputs_new/plancraft-test/multi-agent-centralized/gemini/gemini-2.0-flash/2025-09-10

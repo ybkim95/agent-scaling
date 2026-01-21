@@ -4,10 +4,9 @@ defaults:
   - agent: multi-agent-centralized
   # - agent: multi-agent-decentralized
   # - agent: multi-agent-hybrid
-  
-  # - dataset: browsecomp
-  # - dataset: simpleqa-sampled
+
   - dataset: plancraft-test
+  # - dataset: browsecomp-plus
 
 llm:
   model: gemini/gemini-2.0-flash  #gpt-4o-mini
