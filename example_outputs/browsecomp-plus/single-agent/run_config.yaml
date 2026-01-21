@@ -22,43 +22,15 @@ dataset:
     grader:
       local_path: prompts/eval/browsecomp-grader.yaml
       name: grader
-      prompt_template:
-      - content: 'Judge whether the following [response] to [question] is correct
-          or not based on the precise and unambiguous [correct_answer] below.
-
-
-          [question]: {{question}}
-
-
-          [response]: {{response}}
-
-
-          extracted_final_answer: Extract the final exact answer from the [response].
-          Put ''None'' if there is no exact answer.
-
-
-          [correct_answer]: {{correct_answer}}
-
-
-          reasoning: Explain whether the extracted answer matches the correct answer.
-
-
-          correct: Answer ''yes'' if extracted_final_answer matches the [correct_answer].
-          Answer ''no'' otherwise.
-
-
-          confidence: The extracted confidence score from [response]. Put 100 if there
-          is no confidence score.'
-        role: user
   from_langfuse: false
   local_path: datasets/browsecomp_plus_sampled_100.json
   templates_local_path: prompts/dataset-shared/browsecomp.yaml
-  use_llm_eval: false
+  use_llm_eval: true
 llm:
   model: openai/gpt-5-mini
   params:
     cache: {}
     temperature: 0.0
 num_workers: 1
-run_name: single-agent_openai/gpt-5-mini_2025-10-09_01-41-20
-save_dir: /u/ybkim95/agent-scaling/exp_outputs_new/browsecomp_plus_sampled_100/single-agent/openai/gpt-5-mini/2025-10-09
+run_name: single-agent_gpt-5-mini
+save_dir: exp_outputs/browsecomp-plus/single-agent/openai/gpt-5-mini
