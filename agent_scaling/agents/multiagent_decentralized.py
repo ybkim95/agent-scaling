@@ -1,10 +1,27 @@
-"""Decentralized multi-agent system: no orchestrator, peer debate with consensus."""
+"""Decentralized multi-agent system: peer debate over d sequential rounds with consensus aggregation.
+
+Implements Du et al. 2023 (arXiv:2305.14325) "Improving Factuality and Reasoning in
+Language Models through Multi-Agent Debate" adapted to tool-using LLM agents.
+
+Algorithm (matches manuscript Section 3.1):
+    1. Round 1: each of N agents independently produces a candidate answer.
+    2. Rounds 2..d: each agent receives the FULL set of peer responses from the
+       previous round (no truncation) and is asked to critique / refine / replace
+       its own answer.
+    3. Consensus aggregation: majority vote over the final-round answers; the
+       deterministic tie-break is the first-submitted answer that matches.
+"""
 import asyncio
 import os.path as osp
 import time
-from typing import Dict, Optional
+from collections import Counter
+from typing import Dict, List, Optional, Tuple
 
 from agent_scaling.agents.base import AgentSystemWithTools
+from agent_scaling.agents.multiagent_utils.communication_strategy import (
+    ConsensusStrategy,
+    create_communication_strategy,
+)
 from agent_scaling.config.llm import LLMParams
 from agent_scaling.datasets import DatasetInstance, DatasetInstanceOutputWithTrajectory
 from agent_scaling.logger import logger
@@ -18,10 +35,11 @@ from .registry import register_agent
 
 @register_agent("multi-agent-decentralized")
 class DecentralizedMultiAgentSystem(AgentSystemWithTools):
-    """Decentralized multi-agent system with peer debate and consensus.
+    """Decentralized multi-agent system with peer debate and consensus voting.
 
-    Unlike centralized: no lead agent. All agents work independently on the
-    full task, share findings between rounds, and the first to solve wins.
+    No orchestrator. N peer agents iterate over `max_rounds` sequential debate
+    rounds, exchanging full prior-round responses. After the last round, a
+    consensus vote over the agents' final answers selects the system output.
     """
 
     required_prompts = ["subagent"]
@@ -32,8 +50,8 @@ class DecentralizedMultiAgentSystem(AgentSystemWithTools):
         n_base_agents: int = 3,
         min_iterations_per_agent: int = 3,
         max_iterations_per_agent: int = 25,
-        max_rounds: int = 10,
-        consensus_threshold: float = 0.7,
+        max_rounds: int = 3,
+        consensus_threshold: float = 0.5,
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
@@ -44,92 +62,169 @@ class DecentralizedMultiAgentSystem(AgentSystemWithTools):
         self.max_rounds = max_rounds
         self.consensus_threshold = consensus_threshold
         self.subagents: Dict[str, WorkerSubagent] = {}
+        self.consensus = create_communication_strategy(
+            "consensus", {"consensus_threshold": consensus_threshold}
+        )
 
         logger.info(
-            f"DecentralizedMultiAgentSystem: {n_base_agents} agents, "
-            f"{max_rounds} max rounds, {consensus_threshold} consensus threshold"
+            f"DecentralizedMultiAgentSystem: N={n_base_agents} agents, "
+            f"d={max_rounds} debate rounds, consensus_threshold={consensus_threshold}"
         )
 
     def _create_subagents(self, task_instance: DatasetInstance):
-        """Create N independent agents, each working on the full task."""
+        """Create N peer agents that will each produce a candidate answer per round."""
         self.subagents = {}
-        filtered_kwargs = {
-            k: v
-            for k, v in self.__dict__.items()
-            if k
-            not in [
-                "llm_w_tools", "env", "llm", "dataset", "prompts",
-                "env_prompts", "tools", "memory", "subagents",
-                "n_base_agents", "min_iterations_per_agent", "max_rounds",
-                "consensus_threshold",
-            ]
-            and not k.startswith("_")
-        }
-
         for i in range(self.n_base_agents):
             agent_id = f"agent_{i + 1}"
-            # Each agent gets a slightly different strategy to promote diversity
             strategies = [
-                "Analyze the problem systematically and implement a targeted fix",
-                "Explore the codebase broadly first, then identify and fix the root cause",
-                "Focus on understanding the test expectations, then work backwards to the fix",
+                "Analyze the problem systematically and produce a complete solution",
+                "Explore the problem broadly, identify the root cause, then solve it",
+                "Focus on the target outcome and work backwards to a solution",
             ]
-            strategy = strategies[i % len(strategies)]
-
             subagent = WorkerSubagent.init_from_agent(
                 agent=self,
                 agent_id=agent_id,
-                objective="Solve the full task independently",
+                objective="Independently produce your best answer to the task",
                 original_query=self.memory.original_task,
-                strategy=strategy,
+                strategy=strategies[i % len(strategies)],
                 task_instance=task_instance,
                 min_iterations_per_agent=self.min_iterations_per_agent,
                 max_iterations_per_agent=self.max_iterations_per_agent,
             )
             self.subagents[agent_id] = subagent
+        logger.info(f"Created {len(self.subagents)} peer agents for debate")
 
-        logger.info(f"Created {len(self.subagents)} independent agents")
-
-    def _build_peer_context(self, current_agent_id: str) -> str:
-        """Build a summary of peer findings for an agent."""
-        peer_findings = []
+    def _build_full_debate_context(
+        self, current_agent_id: str, round_num: int
+    ) -> str:
+        """Build the FULL set of peer responses from the previous round (no truncation)."""
+        peer_blocks: List[str] = []
         for agent_id, agent in self.subagents.items():
             if agent_id == current_agent_id:
                 continue
-            findings = agent.conv_history.last_outgoing_external_message
-            if findings:
-                peer_findings.append(f"- {agent_id}: {findings[:300]}")
-        if peer_findings:
-            return "Peer agent findings:\n" + "\n".join(peer_findings)
-        return "No peer findings yet."
+            answer = agent.conv_history.last_outgoing_external_message
+            if not answer:
+                continue
+            peer_blocks.append(
+                f"--- Peer response from {agent_id} (round {round_num - 1}) ---\n"
+                f"{answer}"
+            )
+        if not peer_blocks:
+            return "(no peer responses available from the previous round)"
+        return "\n\n".join(peer_blocks)
 
-    def _auto_submit(self, synthesized_answer: str) -> str:
-        """Auto-submit using the first available agent's environment."""
-        for agent_id, agent in self.subagents.items():
-            env = agent.env
-            if env.env_done():
-                break
-            reasoning = (synthesized_answer or "Decentralized consensus")[:500]
-            submit_tool_name = None
-            if "submit_patch" in env.tools:
-                submit_tool_name = "submit_patch"
-            elif "submit" in env.tools:
-                submit_tool_name = "submit"
-            if submit_tool_name:
-                logger.info(f"Auto-submitting via {agent_id} using {submit_tool_name}")
-                try:
-                    tool_call = {
-                        "name": submit_tool_name,
-                        "args": {"reasoning": reasoning},
-                        "id": "auto_submit_decentralized",
-                        "type": "tool_call",
-                    }
-                    tool_msg = env.execute_tool(tool_call)
-                    return str(tool_msg.content)
-                except Exception as e:
-                    logger.warning(f"Auto {submit_tool_name} failed: {e}")
-            break
-        return synthesized_answer
+    def _round_prompt(self, current_agent_id: str, round_num: int) -> str:
+        """Compose the message handed to an agent at the start of a debate round."""
+        if round_num == 1:
+            return (
+                "Round 1: produce your best candidate answer to the task independently. "
+                "Use the available tools and submit your final answer when ready."
+            )
+        peer_context = self._build_full_debate_context(current_agent_id, round_num)
+        return (
+            f"Debate round {round_num} of {self.max_rounds}.\n\n"
+            "Below are your peers' answers from the previous round. Read them carefully. "
+            "Identify points where you agree, points where they erred, and points where "
+            "you missed something. Then produce your updated final answer for this round. "
+            "You may defend your previous answer, refine it, or replace it.\n\n"
+            f"{peer_context}\n\n"
+            "Produce your updated final answer now."
+        )
+
+    def _consensus_vote(
+        self, final_round_answers: List[Tuple[str, str]]
+    ) -> Tuple[str, Optional[str]]:
+        """Majority-vote over final-round answers using the ConsensusStrategy.
+
+        Each distinct answer is submitted as a candidate finding; every agent
+        then votes yes if it gave that answer, no otherwise. The
+        ConsensusStrategy approves findings whose yes/total ratio meets the
+        consensus_threshold. The winner is the candidate with the most yes
+        votes; ties break to the first answer in iteration order.
+
+        Returns (winning_answer, winning_agent_id). When no answers exist,
+        returns ("", None).
+        """
+        non_empty = [(aid, ans) for aid, ans in final_round_answers if ans]
+        if not non_empty:
+            return "", None
+
+        answer_to_supporters: Dict[str, List[str]] = {}
+        for aid, ans in non_empty:
+            answer_to_supporters.setdefault(ans, []).append(aid)
+
+        all_agent_ids = [aid for aid, _ in non_empty]
+        for ans, supporters in answer_to_supporters.items():
+            proposer = supporters[0]
+            finding_id = len(self.consensus.pending_findings)
+            self.consensus.share_finding(
+                proposer,
+                {
+                    "answer_excerpt": ans[:200],
+                    "supporters": list(supporters),
+                },
+            )
+            for aid in all_agent_ids:
+                if aid == proposer:
+                    continue  # proposer's yes vote is recorded by share_finding
+                self.consensus.vote_on_finding(aid, finding_id, aid in supporters)
+        self.consensus.synchronize()
+
+        counts = Counter(
+            {ans: len(supporters) for ans, supporters in answer_to_supporters.items()}
+        )
+        winning_answer, vote_count = counts.most_common(1)[0]
+        winning_agent = answer_to_supporters[winning_answer][0]
+        share = vote_count / len(non_empty)
+        logger.info(
+            f"Consensus vote: '{winning_answer[:80]}...' wins with "
+            f"{vote_count}/{len(non_empty)} votes ({share:.0%}); "
+            f"threshold={self.consensus_threshold}; winner={winning_agent}"
+        )
+        return winning_answer, winning_agent
+
+    def _auto_submit_consensus(
+        self, consensus_answer: str, winning_agent_id: Optional[str]
+    ) -> str:
+        """Ensure the consensus answer is submitted via at least one agent's env.
+
+        If `winning_agent_id`'s env has not yet submitted, call env.submit there.
+        Otherwise the winning answer is already on record in that env.
+        """
+        if not consensus_answer:
+            return ""
+
+        target_id = winning_agent_id or next(iter(self.subagents), None)
+        if target_id is None:
+            return consensus_answer
+        agent = self.subagents[target_id]
+        env = agent.env
+        if env.env_done():
+            return consensus_answer
+
+        submit_tool_name = None
+        if "submit_patch" in env.tools:
+            submit_tool_name = "submit_patch"
+        elif "submit" in env.tools:
+            submit_tool_name = "submit"
+        if not submit_tool_name:
+            return consensus_answer
+
+        logger.info(
+            f"Submitting consensus answer via {target_id} using {submit_tool_name}"
+        )
+        try:
+            tool_call = {
+                "name": submit_tool_name,
+                "args": {"reasoning": consensus_answer[:500]},
+                "id": "consensus_submit_decentralized",
+                "type": "tool_call",
+            }
+            tool_msg = env.execute_tool(tool_call)
+            return str(tool_msg.content)
+        except Exception as e:
+            logger.warning(f"Consensus auto-submit failed: {e}")
+            return consensus_answer
 
     def run_agent(
         self,
@@ -151,7 +246,6 @@ class DecentralizedMultiAgentSystem(AgentSystemWithTools):
     ) -> DatasetInstanceOutputWithTrajectory:
         start_time = time.time()
 
-        # Get shared templates
         shared_prompt_templates = self.get_dataset_prompt_templates(
             dataset_instance=instance
         )
@@ -159,125 +253,139 @@ class DecentralizedMultiAgentSystem(AgentSystemWithTools):
             "task_instance", str(instance.get_prompt_info())
         )
 
-        # Create independent agents
         self._create_subagents(instance)
 
-        # Run rounds of independent work with peer sharing
+        # Track each round's per-agent final answer for inspection / output.
+        per_round_answers: List[List[Tuple[str, str]]] = []
+        # Per-task time budget: only enforce if the dataset instance explicitly
+        # sets a positive `time_limit`. Defaults to no limit so that the d
+        # debate rounds always complete.
+        time_limit = getattr(instance, "time_limit", None)
+
         for round_num in range(1, self.max_rounds + 1):
-            time_limit = getattr(instance, "time_limit", 600)
-            if time.time() - start_time > time_limit:
-                logger.warning("Execution timeout reached")
+            if time_limit is not None and time_limit > 0 and time.time() - start_time > time_limit:
+                logger.warning(
+                    f"Execution timeout reached before round {round_num}"
+                )
                 break
+            logger.info(
+                f"\n=== Decentralized debate round {round_num}/{self.max_rounds} ==="
+            )
 
-            logger.info(f"\n=== Decentralized Round {round_num} ===")
-
-            # Build peer context for each agent
-            messages_for_agents = {}
-            for agent_id in self.subagents:
-                peer_context = self._build_peer_context(agent_id)
-                if round_num == 1:
-                    msg = f"Work on your assigned strategy. {peer_context}"
-                else:
-                    msg = (
-                        f"Round {round_num}: Continue working. "
-                        f"Consider your peers' progress:\n{peer_context}"
-                    )
-                messages_for_agents[agent_id] = msg
-
-            # Run all agents in parallel
             active_agents = [
-                aid for aid, a in self.subagents.items()
+                aid
+                for aid, a in self.subagents.items()
                 if a.conv_history.status == "active"
                 and not a.should_stop_due_to_rate_limiting()
             ]
-
             if not active_agents:
-                logger.info("No active agents remaining")
+                logger.info(
+                    f"No active agents remain at round {round_num}; ending debate early"
+                )
                 break
 
-            tasks = []
+            tasks: List[Tuple[str, asyncio.Task]] = []
             for agent_id in active_agents:
                 subagent = self.subagents[agent_id]
-                msg = messages_for_agents[agent_id]
+                msg = self._round_prompt(agent_id, round_num)
                 task = asyncio.create_task(
                     asyncio.to_thread(subagent.process_orchestrator_message, msg)
                 )
                 tasks.append((agent_id, task))
 
-            # Wait for results
+            # No asyncio.wait timeout — let each debate round complete fully so
+            # the consensus aggregation sees real answers from every agent.
             done, pending = await asyncio.wait(
-                [t for _, t in tasks], timeout=300
+                [t for _, t in tasks], return_when=asyncio.ALL_COMPLETED
             )
             for t in pending:
                 t.cancel()
 
-            results: Dict[str, SubAgentRoundResult] = {}
+            round_results: Dict[str, SubAgentRoundResult] = {}
             for agent_id, task in tasks:
                 if task in done:
                     try:
-                        results[agent_id] = await task
+                        round_results[agent_id] = await task
                     except Exception as e:
-                        logger.warning(f"Agent {agent_id} failed: {e}")
+                        logger.warning(
+                            f"Agent {agent_id} failed in round {round_num}: {e}"
+                        )
 
-            # Check if any agent solved it
-            any_done = any(
-                self.subagents[aid].env.env_done() for aid in results
-            )
-            if any_done:
-                logger.info(f"Solution found in round {round_num}")
-                break
-
-            # Update memory
-            for agent_id, result in results.items():
+            for agent_id, result in round_results.items():
                 if result.findings:
                     self.memory.add_findings(agent_id, result.findings)
 
-        # Auto-submit if no agent submitted
-        any_done = any(a.env.env_done() for a in self.subagents.values())
-        final_answer = ""
-        if not any_done:
-            # Synthesize from all findings
-            all_findings = []
-            for agent_id, findings_list in self.memory.agent_findings.items():
-                for f in findings_list:
-                    all_findings.append(f"{agent_id}: {f}")
-            synthesis = "\n".join(all_findings) if all_findings else "No findings"
-            final_answer = self._auto_submit(synthesis)
-        else:
-            for a in self.subagents.values():
-                if a.env.env_done():
-                    final_answer = a.conv_history.last_outgoing_external_message or ""
-                    break
+            # Snapshot each agent's last outgoing answer at this round's close
+            round_answers: List[Tuple[str, str]] = []
+            for agent_id in self.subagents:
+                ans = self.subagents[agent_id].conv_history.last_outgoing_external_message or ""
+                round_answers.append((agent_id, ans))
+            per_round_answers.append(round_answers)
 
-        # Get final env status
+            # NOTE: we do NOT exit early when any single agent's env is done.
+            # All `d` debate rounds run so the consensus aggregation has full
+            # information from each agent. Agents whose env terminated early
+            # simply keep their last answer in subsequent rounds.
+
+        # Consensus aggregation over the FINAL round's per-agent answers.
+        final_round_answers = per_round_answers[-1] if per_round_answers else []
+        consensus_answer, winning_agent = self._consensus_vote(final_round_answers)
+
+        # Make sure the consensus answer reaches an environment for scoring.
+        submission_response = self._auto_submit_consensus(
+            consensus_answer, winning_agent
+        )
+
+        # Pick the canonical env_status: prefer the winning agent's env if it
+        # has reported a status; otherwise fall back to the first available.
         final_env_status = None
-        for agent in self.subagents.values():
-            if agent.env.env_done():
-                final_env_status = agent.env.env_status()
-                break
+        if winning_agent is not None:
+            env = self.subagents[winning_agent].env
+            final_env_status = env.env_status()
+        if final_env_status is None:
+            for agent in self.subagents.values():
+                if agent.env.env_done():
+                    final_env_status = agent.env.env_status()
+                    break
         if final_env_status is None:
             for agent in self.subagents.values():
                 final_env_status = agent.env.env_status()
                 break
+
+        final_answer = consensus_answer or submission_response
 
         execution_time = time.time() - start_time
         total_iterations = sum(
             a.conv_history.total_iterations for a in self.subagents.values()
         )
         logger.info(
-            f"Decentralized processing completed in {execution_time:.2f}s "
-            f"with {total_iterations} total iterations across {len(self.subagents)} agents"
+            f"Decentralized debate completed in {execution_time:.2f}s with "
+            f"{total_iterations} total iterations across {len(self.subagents)} agents "
+            f"and {len(per_round_answers)} debate rounds; winner={winning_agent}"
         )
 
         if instance_dir is not None:
             output_data = {
                 "architecture": "decentralized",
+                "algorithm": "multi_agent_debate_with_consensus",
                 "n_agents": self.n_base_agents,
+                "max_rounds": self.max_rounds,
+                "rounds_executed": len(per_round_answers),
+                "consensus_threshold": self.consensus_threshold,
+                "winning_agent": winning_agent,
                 "total_iterations": total_iterations,
                 "execution_time": execution_time,
                 "agent_findings": {
                     aid: findings
                     for aid, findings in self.memory.agent_findings.items()
+                },
+                "per_round_answers": [
+                    {aid: ans for aid, ans in round_pairs}
+                    for round_pairs in per_round_answers
+                ],
+                "consensus_record": {
+                    "approved_findings": self.consensus.approved_findings,
+                    "pending_findings": self.consensus.pending_findings,
                 },
             }
             write_yaml(

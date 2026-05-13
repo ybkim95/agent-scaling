@@ -1,7 +1,7 @@
 """
 Error Amplification Analysis Across 6 Benchmarks
 =================================================
-Addresses Reviewer 2: "I don't believe it was defined what an 'error' is
+Defines the error rate used throughout: "the proportion of trials with an 'error'
 or how it is measured."
 
 This script provides TWO distinct analyses:
@@ -371,7 +371,7 @@ print(SEP)
 print("ERROR AMPLIFICATION ANALYSIS -- FORMAL DEFINITION AND COMPUTATION")
 print(SEP)
 print("""
-CLARIFICATION FOR REVIEWER 2
+ERROR-RATE CLARIFICATION
 -----------------------------
 The paper's Table 4 lists two DISTINCT kinds of "error amplification":
 

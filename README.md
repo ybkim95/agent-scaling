@@ -93,7 +93,7 @@ python scripts/run_experiment.py max_instances=10
 
 #### Datasets
 
-The paper evaluates on six benchmarks. Four are integrated directly into this repository. Two (Workbench and Finance Agent) were run using their upstream implementations; see `DATA_AVAILABILITY.md` for details.
+The paper evaluates on six benchmarks. All six are runnable from this repository. Four ship with direct config files; two (Workbench and Finance Agent) ship with setup scripts that download the upstream tasks and generate the dataset config in one command — see `DATA_AVAILABILITY.md` and `REPRODUCTION.md` for the per-benchmark workflow.
 
 | Dataset | Config Name | Description |
 |---------|-------------|-------------|
@@ -101,8 +101,8 @@ The paper evaluates on six benchmarks. Four are integrated directly into this re
 | PlanCraft | `plancraft-test` | Minecraft crafting planning tasks |
 | SWE-bench Verified | `swebench-verified` | Real-world GitHub issue resolution (Docker; 7 tools) |
 | Terminal-Bench | `terminalbench` | CLI task execution (Docker; 2 tools) |
-| Workbench | _(upstream)_ | Common business tool-use tasks. Run from https://github.com/olly-styles/WorkBench |
-| Finance Agent | _(upstream)_ | Multi-step financial reasoning. Run from https://github.com/vals-ai/finance-agent |
+| Workbench | `workbench` | Common business tool-use tasks. Run `bash scripts/setup_workbench.sh` to download upstream and generate the dataset config (upstream: https://github.com/olly-styles/WorkBench). |
+| Finance Agent | `finance-agent` | Multi-step financial reasoning. Run `bash scripts/setup_finance_agent.sh` to download upstream and generate the dataset config (upstream: https://github.com/vals-ai/finance-agent). |
 
 #### Supported LLMs
 

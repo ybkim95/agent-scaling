@@ -1,8 +1,21 @@
-"""Independent multi-agent system: N agents work independently, best result wins."""
+"""Independent multi-agent system: N agents work in parallel with synthesis_only aggregation.
+
+Matches manuscript Section 3.1:
+    A = {a_1, ..., a_n}, C = {(a_i, a_agg)},  Omega = synthesis_only.
+
+The synthesis_only aggregator concatenates sub-agent outputs without
+cross-validation or majority voting; the aggregator performs no analytical
+comparison of responses, so any performance differences arise purely from
+parallel exploration rather than error correction.
+
+This is a best-of-N parallelism baseline that measures the value of pure
+ensembling without coordination. It is intentionally the weakest aggregator
+in the architectural ablation, isolating "parallelism" from "coordination".
+"""
 import asyncio
 import os.path as osp
 import time
-from typing import Dict, Optional
+from typing import Dict, List, Optional, Tuple
 
 from agent_scaling.agents.base import AgentSystemWithTools
 from agent_scaling.config.llm import LLMParams
@@ -17,11 +30,11 @@ from .registry import register_agent
 
 @register_agent("multi-agent-independent")
 class IndependentMultiAgentSystem(AgentSystemWithTools):
-    """Independent multi-agent system: N agents work in parallel with NO coordination.
+    """N agents run in parallel with no inter-agent communication.
 
-    Each agent independently attempts to solve the full task. The first agent
-    to successfully complete the task determines the result. This is a best-of-N
-    baseline that measures the value of pure parallelism without coordination.
+    Aggregator policy: synthesis_only - concatenates each sub-agent's final
+    answer into a single response. No voting, no cross-validation, no
+    analytic comparison.
     """
 
     required_prompts = ["subagent"]
@@ -42,14 +55,13 @@ class IndependentMultiAgentSystem(AgentSystemWithTools):
         self.subagents: Dict[str, WorkerSubagent] = {}
 
         logger.info(
-            f"IndependentMultiAgentSystem: {n_base_agents} agents, "
-            f"NO coordination (best-of-N)"
+            f"IndependentMultiAgentSystem: {n_base_agents} agents in parallel, "
+            f"synthesis_only aggregation (concatenation, no voting)"
         )
 
     def _create_subagents(self, task_instance: DatasetInstance):
         """Create N fully independent agents, each working on the full task."""
         self.subagents = {}
-
         for i in range(self.n_base_agents):
             agent_id = f"agent_{i + 1}"
             subagent = WorkerSubagent.init_from_agent(
@@ -63,11 +75,27 @@ class IndependentMultiAgentSystem(AgentSystemWithTools):
                 max_iterations_per_agent=self.max_iterations_per_agent,
             )
             self.subagents[agent_id] = subagent
+        logger.info(
+            f"Created {len(self.subagents)} independent agents (no coordination)"
+        )
 
-        logger.info(f"Created {len(self.subagents)} independent agents (no coordination)")
+    def _synthesize_only(self) -> Tuple[str, List[str]]:
+        """Concatenate each sub-agent's final answer without analysis or voting.
 
-    def _auto_submit(self) -> str:
-        """Auto-submit using the first available agent's environment."""
+        Returns (synthesized_answer, contributing_agent_ids).
+        """
+        parts: List[str] = []
+        contributing: List[str] = []
+        for agent_id, agent in self.subagents.items():
+            answer = agent.conv_history.last_outgoing_external_message or ""
+            if not answer:
+                continue
+            parts.append(f"=== {agent_id} ===\n{answer}")
+            contributing.append(agent_id)
+        return ("\n\n".join(parts), contributing)
+
+    def _auto_submit(self, synthesized_answer: str) -> str:
+        """Submit the synthesized answer via the first available agent's env."""
         for agent_id, agent in self.subagents.items():
             env = agent.env
             if env.env_done():
@@ -78,18 +106,20 @@ class IndependentMultiAgentSystem(AgentSystemWithTools):
             elif "submit" in env.tools:
                 submit_tool_name = "submit"
             if submit_tool_name:
-                logger.info(f"Auto-submitting via {agent_id} using {submit_tool_name}")
+                logger.info(
+                    f"Submitting synthesis via {agent_id} using {submit_tool_name}"
+                )
                 try:
                     tool_call = {
                         "name": submit_tool_name,
-                        "args": {"reasoning": "Auto-submit: independent agent budget exhausted"},
-                        "id": "auto_submit_independent",
+                        "args": {"reasoning": synthesized_answer[:500]},
+                        "id": "synthesis_submit_independent",
                         "type": "tool_call",
                     }
                     tool_msg = env.execute_tool(tool_call)
                     return str(tool_msg.content)
                 except Exception as e:
-                    logger.warning(f"Auto {submit_tool_name} failed: {e}")
+                    logger.warning(f"Synthesis auto-submit failed: {e}")
             break
         return ""
 
@@ -113,7 +143,6 @@ class IndependentMultiAgentSystem(AgentSystemWithTools):
     ) -> DatasetInstanceOutputWithTrajectory:
         start_time = time.time()
 
-        # Get shared templates
         shared_prompt_templates = self.get_dataset_prompt_templates(
             dataset_instance=instance
         )
@@ -121,94 +150,91 @@ class IndependentMultiAgentSystem(AgentSystemWithTools):
             "task_instance", str(instance.get_prompt_info())
         )
 
-        # Create independent agents
         self._create_subagents(instance)
 
-        # Run ALL agents in parallel with NO coordination between rounds
-        # Each agent gets a single "go" message and works independently
+        # Single message: each agent works fully independently on the task.
         message = (
-            "Solve the task completely. Work systematically and submit when done.\n\n"
-            "CRITICAL: You MUST make code changes and submit within your iteration budget. "
+            "Solve the task completely on your own. Work systematically and submit "
+            "when done.\n\n"
+            "CRITICAL: You MUST make changes and submit within your iteration budget. "
             "Do NOT spend more than half your iterations on exploration/analysis. "
             "After understanding the problem, immediately start implementing the fix. "
-            "If you reach 50% of your budget without editing any files, STOP exploring "
+            "If you reach 50% of your budget without making changes, STOP exploring "
             "and START implementing your best solution immediately."
         )
 
-        tasks = []
+        tasks: List[Tuple[str, asyncio.Task]] = []
         for agent_id, subagent in self.subagents.items():
             task = asyncio.create_task(
                 asyncio.to_thread(subagent.process_orchestrator_message, message)
             )
             tasks.append((agent_id, task))
 
-        # Wait for all agents (generous timeout since they work independently)
-        time_limit = getattr(instance, "time_limit", 600)
-        done, pending = await asyncio.wait(
-            [t for _, t in tasks], timeout=time_limit
-        )
+        # Per-task time budget: only enforced if the dataset instance sets a
+        # positive `time_limit`. Defaults to no limit so all N agents run to
+        # completion before synthesis_only aggregates their answers.
+        time_limit = getattr(instance, "time_limit", None)
+        if time_limit is not None and time_limit > 0:
+            done, pending = await asyncio.wait(
+                [t for _, t in tasks], timeout=time_limit
+            )
+        else:
+            done, pending = await asyncio.wait(
+                [t for _, t in tasks], return_when=asyncio.ALL_COMPLETED
+            )
         for t in pending:
             t.cancel()
 
-        # Collect results
-        results = {}
+        # Drain each task (logs failures but does not stop synthesis).
         for agent_id, task in tasks:
             if task in done:
                 try:
-                    results[agent_id] = await task
+                    await task
                 except Exception as e:
                     logger.warning(f"Agent {agent_id} failed: {e}")
 
-        # Find winning agent (first one that solved it)
-        final_answer = ""
+        # synthesis_only aggregator: concatenate every agent's last answer.
+        synthesized_answer, contributing_ids = self._synthesize_only()
+
+        # Ensure the synthesis reaches at least one env for scoring.
+        submission_response = ""
+        any_done = any(a.env.env_done() for a in self.subagents.values())
+        if not any_done and synthesized_answer:
+            submission_response = self._auto_submit(synthesized_answer)
+
+        # Canonical env status: prefer any env that reached terminal state;
+        # otherwise fall back to the first agent's env.
         final_env_status = None
-        winner = None
-
-        for agent_id, agent in self.subagents.items():
+        for agent in self.subagents.values():
             if agent.env.env_done():
-                status = agent.env.env_status()
-                if hasattr(status, 'success') and status.success:
-                    winner = agent_id
-                    final_answer = agent.conv_history.last_outgoing_external_message or ""
-                    final_env_status = status
-                    break
-
-        # If no successful agent, take the first done agent
+                final_env_status = agent.env.env_status()
+                break
         if final_env_status is None:
-            for agent_id, agent in self.subagents.items():
-                if agent.env.env_done():
-                    final_answer = agent.conv_history.last_outgoing_external_message or ""
-                    final_env_status = agent.env.env_status()
-                    winner = agent_id
-                    break
-
-        # If no agent submitted, auto-submit
-        if final_env_status is None:
-            final_answer = self._auto_submit()
             for agent in self.subagents.values():
-                if agent.env.env_done():
-                    final_env_status = agent.env.env_status()
-                    break
-            if final_env_status is None:
-                final_env_status = next(iter(self.subagents.values())).env.env_status()
+                final_env_status = agent.env.env_status()
+                break
+
+        final_answer = synthesized_answer or submission_response
 
         execution_time = time.time() - start_time
         total_iterations = sum(
             a.conv_history.total_iterations for a in self.subagents.values()
         )
         logger.info(
-            f"Independent processing completed in {execution_time:.2f}s "
+            f"Independent (synthesis_only) processing completed in {execution_time:.2f}s "
             f"with {total_iterations} total iterations across {len(self.subagents)} agents. "
-            f"Winner: {winner}"
+            f"Contributing agents: {contributing_ids}"
         )
 
         if instance_dir is not None:
             output_data = {
                 "architecture": "independent",
+                "aggregator": "synthesis_only",
                 "n_agents": self.n_base_agents,
+                "contributing_agents": contributing_ids,
                 "total_iterations": total_iterations,
                 "execution_time": execution_time,
-                "winner": winner,
+                "synthesized_answer": synthesized_answer,
             }
             write_yaml(
                 output_data,

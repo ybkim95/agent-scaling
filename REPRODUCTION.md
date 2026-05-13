@@ -110,6 +110,12 @@ python scripts/run_experiment.py agent=single-agent dataset=swebench-verified ll
 
 # Terminal-Bench (20-instance subset)
 python scripts/run_experiment.py agent=single-agent dataset=terminalbench llm.model=openai/gpt-5-mini
+
+# Finance-Agent (after `bash scripts/setup_finance_agent.sh`)
+python scripts/run_experiment.py agent=single-agent dataset=finance-agent llm.model=openai/gpt-4o-mini
+
+# Workbench (after `bash scripts/setup_workbench.sh`)
+python scripts/run_experiment.py agent=single-agent dataset=workbench llm.model=openai/gpt-4o-mini
 ```
 
 #### Multi-agent centralized (lead + subagents)
@@ -119,24 +125,32 @@ python scripts/run_experiment.py agent=multi-agent-centralized dataset=plancraft
 python scripts/run_experiment.py agent=multi-agent-centralized dataset=browsecomp-plus llm.model=openai/gpt-5-mini
 python scripts/run_experiment.py agent=multi-agent-centralized dataset=swebench-verified llm.model=openai/gpt-5-mini
 python scripts/run_experiment.py agent=multi-agent-centralized dataset=terminalbench llm.model=openai/gpt-5-mini
+python scripts/run_experiment.py agent=multi-agent-centralized dataset=finance-agent llm.model=openai/gpt-4o-mini
+python scripts/run_experiment.py agent=multi-agent-centralized dataset=workbench llm.model=openai/gpt-4o-mini
 ```
 
-#### Multi-agent decentralized (peer consensus)
+#### Multi-agent decentralized (Du-et-al-2023-style debate with consensus voting)
 
 ```bash
 python scripts/run_experiment.py agent=multi-agent-decentralized dataset=plancraft-test llm.model=gemini/gemini-2.0-flash
+python scripts/run_experiment.py agent=multi-agent-decentralized dataset=finance-agent llm.model=openai/gpt-4o-mini
+python scripts/run_experiment.py agent=multi-agent-decentralized dataset=workbench llm.model=openai/gpt-4o-mini
 ```
 
 #### Multi-agent hybrid
 
 ```bash
 python scripts/run_experiment.py agent=multi-agent-hybrid dataset=plancraft-test llm.model=gemini/gemini-2.0-flash
+python scripts/run_experiment.py agent=multi-agent-hybrid dataset=finance-agent llm.model=openai/gpt-4o-mini
+python scripts/run_experiment.py agent=multi-agent-hybrid dataset=workbench llm.model=openai/gpt-4o-mini
 ```
 
-#### Multi-agent independent (no coordination)
+#### Multi-agent independent (synthesis_only concatenation)
 
 ```bash
 python scripts/run_experiment.py agent=multi-agent-independent dataset=plancraft-test llm.model=gemini/gemini-2.0-flash
+python scripts/run_experiment.py agent=multi-agent-independent dataset=finance-agent llm.model=openai/gpt-4o-mini
+python scripts/run_experiment.py agent=multi-agent-independent dataset=workbench llm.model=openai/gpt-4o-mini
 ```
 
 ### Output location
@@ -181,6 +195,8 @@ All prompt templates are under `prompts/`. They use `{{variable}}` placeholder s
 | `prompts/dataset-shared/browsecomp.yaml` | BrowseComp-Plus |
 | `prompts/dataset-shared/swebench.yaml` | SWE-bench Verified |
 | `prompts/dataset-shared/terminalbench.yaml` | Terminal-Bench |
+| `prompts/dataset-shared/finance_agent.yaml` | Finance-Agent |
+| `prompts/dataset-shared/workbench.yaml` | Workbench |
 
 ### Evaluation / grading prompts
 
@@ -189,6 +205,8 @@ All prompt templates are under `prompts/`. They use `{{variable}}` placeholder s
 | `prompts/eval/grader.yaml` | General LLM-as-judge grader |
 | `prompts/eval/qa-grader.yaml` | QA-specific grader |
 | `prompts/eval/browsecomp-grader.yaml` | BrowseComp-Plus answer judge |
+| `prompts/eval/finance_agent-grader.yaml` | Finance-Agent rubric judge (per-criterion against the `Rubric` column of `data/public.csv`) |
+| `prompts/eval/workbench-grader.yaml` | (Reserved.) Workbench scoring is structural (regex-based action matching against `expected_actions`); see `WorkbenchDataset.get_instance_eval_metrics`. |
 
 ---
 
@@ -217,7 +235,7 @@ max_rounds: 10
 
 ## Dataset Files
 
-The paper evaluates on six benchmarks. Four are integrated into this repository; two are run from their upstream implementations. Dataset JSON files for the integrated benchmarks are **not redistributed** here due to licensing and size constraints: users must download each benchmark from its original source and place the files under `datasets/`. Dataset configuration files (`run_conf/dataset/*.yaml`) are provided for the integrated benchmarks.
+The paper evaluates on six benchmarks. All six are runnable from this repository. Dataset JSON files are **not redistributed** due to licensing and size: users must download each benchmark from its original source and place files under `datasets/`. Dataset configuration files (`run_conf/dataset/*.yaml`) are provided for benchmarks integrated directly, and a `.yaml.template` plus `scripts/setup_*.sh` adapter is provided for benchmarks downloaded from upstream.
 
 ### Integrated benchmarks (run directly from this repository)
 
@@ -228,14 +246,23 @@ The paper evaluates on six benchmarks. Four are integrated into this repository;
 | SWE-bench Verified | `run_conf/dataset/swebench-verified.yaml` | `datasets/swebench-verified.json` | 20 | Deterministic shuffle (seed 42), first 20 |
 | Terminal-Bench | `run_conf/dataset/terminalbench.yaml` | `datasets/terminalbench.json` | 20 | First 20 in canonical order |
 
-### Upstream benchmarks (run from external repositories)
+### Upstream benchmarks (downloaded via setup scripts, then run from this repository)
 
-| Dataset | Upstream repository | Instances used |
-|---------|---------------------|----------------|
-| Workbench | https://github.com/olly-styles/WorkBench | 100 (full evaluation set) |
-| Finance Agent | https://github.com/vals-ai/finance-agent | 50 (full evaluation set) |
+| Dataset | Setup script | Config template | Upstream repository | Instances used |
+|---------|--------------|-----------------|---------------------|----------------|
+| Finance-Agent | `bash scripts/setup_finance_agent.sh` | `run_conf/dataset/finance-agent.yaml.template` | https://github.com/vals-ai/finance-agent | 50 (full evaluation set) |
+| WorkBench | `bash scripts/setup_workbench.sh` | `run_conf/dataset/workbench.yaml.template` | https://github.com/olly-styles/WorkBench | 100 (full evaluation set) |
 
-For Workbench and Finance Agent, the same five coordination architectures were applied to the upstream task loaders. See `DATA_AVAILABILITY.md` for full benchmark sources and licensing.
+Each `setup_*.sh` script:
+1. Clones the upstream repository into `third_party/<benchmark>/` (skippable via `--upstream-dir`).
+2. Runs the adapter `scripts/_convert_<benchmark>.py` to convert upstream task definitions into the normalized JSON schema this repository consumes.
+3. Copies the config template to `run_conf/dataset/<benchmark>.yaml` if not already present.
+
+Once setup completes, the same `python scripts/run_experiment.py dataset=finance-agent ...` (and `dataset=workbench ...`) commands run the experiments using our five coordination architectures.
+
+If the upstream layout changes, edit the field-mapping helpers in `scripts/_convert_finance_agent.py` / `scripts/_convert_workbench.py` (the relevant `extract_*` functions are deliberately small and tolerant of schema drift). The adapter loaders themselves (`agent_scaling/datasets/finance_agent.py`, `workbench.py`) consume the normalized JSON schema and are stable.
+
+See `DATA_AVAILABILITY.md` for full benchmark sources and licensing.
 
 ---
 
@@ -253,9 +280,58 @@ All estimates assume `num_workers=1`, `temperature=0.0`, `n_base_agents=3`.
 | SWE-bench Verified (20 inst.) | Multi-agent-centralized | gpt-5-mini | ~3 hr | ~$14 |
 | Terminal-Bench (20 inst.) | Single-agent | gpt-5-mini | ~1 hr | ~$4 |
 | Terminal-Bench (20 inst.) | Multi-agent-centralized | gpt-5-mini | ~3 hr | ~$14 |
+| Finance-Agent (50 inst.) | Single-agent | gpt-4o-mini | ~1.5 hr | ~$3 |
+| Finance-Agent (50 inst.) | Multi-agent-centralized | gpt-4o-mini | ~4 hr | ~$10 |
+| Workbench (100 inst., user-sampled from 690) | Single-agent | gpt-4o-mini | ~1.5 hr | ~$3 |
+| Workbench (100 inst., user-sampled from 690) | Multi-agent-centralized | gpt-4o-mini | ~4 hr | ~$10 |
 
 **Notes:**
 - Estimates are approximate; actual cost depends on task difficulty and model verbosity.
 - Using `num_workers=4` reduces wall time by ~3-4x with proportional cost.
 - SWE-bench and Terminal-Bench require Docker and pull benchmark container images on first run (~5–10 min overhead).
+- Finance-Agent: `web_search` (Tavily) requires `TAVILY_API_KEY`; without it the agent falls back to `python_repl + submit` and many factual questions will be unanswerable. This is expected and documented in `agent_scaling/env/finance_agent.py`.
+- Workbench: grading uses structural action-match (mirrors upstream `is_exact_match`); the harder upstream `is_correct` (state-change simulation) is documented in CHANGELOG.md as an out-of-scope item.
 - Cost estimates use pricing at time of submission; check current provider pricing before large runs.
+
+---
+
+## Quick Start (fresh clone)
+
+If you are a reviewer or first-time user, the minimum end-to-end sequence is:
+
+```bash
+# 1. Clone + install
+git clone https://github.com/ybkim95/agent-scaling.git
+cd agent-scaling
+uv sync --prerelease=allow
+source .venv/bin/activate
+
+# 2. Set at least one LLM API key
+cp .env.example .env  # then fill in OPENAI_API_KEY or GEMINI_API_KEY
+
+# 3. Set up the two upstream-downloaded benchmarks (5 min each, no API key needed for setup)
+bash scripts/setup_finance_agent.sh
+bash scripts/setup_workbench.sh
+
+# 4. (Optional) Download the four directly-integrated benchmarks
+#     - PlanCraft:           install `plancraft` upstream and place test JSON at datasets/plancraft-test.json
+#     - BrowseComp-Plus:     follow upstream README; place sampled JSON at datasets/browsecomp_plus_sampled_100.json
+#     - SWE-bench Verified:  download from https://www.swebench.com/; produces datasets/swebench-verified.json
+#     - Terminal-Bench:      install `terminalbench` upstream; place at datasets/terminalbench.json
+
+# 5. Run a smoke test (1 instance, cheap model, no Docker required)
+python scripts/run_experiment.py agent=single-agent dataset=finance-agent \
+    llm.model=openai/gpt-4o-mini max_instances=1 num_workers=1
+
+# 6. Inspect the output
+ls exp_outputs/finance_agent/single-agent/openai/gpt-4o-mini/<date>/<time>/
+#     run_config.yaml   |  dataset_eval_metrics.json   |  instance_runs/0000/instance_save.yaml
+
+# 7. Run unit tests to verify the algorithm implementations
+PYTHONPATH="" PYTHONNOUSERSITE=1 .venv/bin/python -m pytest \
+    tests/test_decentralized_debate.py \
+    tests/test_independent_synthesis.py \
+    tests/test_finance_workbench_env.py -v
+```
+
+Expected result of step 7: **26 passed**.

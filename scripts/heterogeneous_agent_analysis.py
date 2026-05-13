@@ -1,21 +1,14 @@
 #!/usr/bin/env python3
-"""
-Heterogeneous Agent Scaling Analysis
-=====================================
-Addresses Reviewer 1's concern (R1.1):
-  "Recent concurrent literature strongly indicates that introducing true heterogeneity
-   (mixing different models or capabilities) creates effective information channels
-   that bypass the saturation limits observed in homogeneous scaling. The 45%
-   capability ceiling might be an artifact of homogeneous correlation rather than
-   an absolute physical limit of MAS."
+"""Heterogeneous agent scaling analysis.
 
-This script analyzes heterogeneous MAS experiments on BrowseComp-Plus and compares
-them against homogeneous baselines to test whether capability mixing breaks through
-the observed saturation ceiling.
+Compares heterogeneous multi-agent configurations (mixing models with
+different capabilities) against homogeneous baselines on BrowseComp-Plus, to
+test whether capability mixing changes the ~45% single-agent-baseline
+saturation behaviour observed under homogeneous scaling.
 
-LIMITATION: Results are based on a single benchmark (BrowseComp-Plus, n=100 instances).
-Conclusions should be treated as preliminary and warrant replication across additional
-benchmarks and task types.
+Limitation: results are based on a single benchmark (BrowseComp-Plus,
+n=100 instances). Conclusions should be treated as preliminary and warrant
+replication across additional benchmarks and task types.
 
 Data location: etc/exp_outputs_heterogeneous/browsecomp-plus/
 """

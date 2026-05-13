@@ -1,0 +1,28 @@
+# WorkBench dataset config TEMPLATE.
+#
+# Copy to `run_conf/dataset/workbench.yaml` and edit `local_path` after running
+# `scripts/setup_workbench.sh` to download the upstream data and produce the
+# normalized JSON.
+#
+# Upstream source: https://github.com/olly-styles/WorkBench
+# License: see upstream repository.
+
+dataset_id: workbench
+from_langfuse: false
+local_path: datasets/workbench.json  # populated by scripts/setup_workbench.sh
+templates_local_path: prompts/dataset-shared/workbench.yaml
+eval_llm:
+  model: gemini/gemini-2.0-flash
+  params:
+    temperature: 0.0
+eval_prompts:
+  grader:
+    local_path: prompts/eval/workbench-grader.yaml
+env:
+  name: workbench
+  tools:
+    - send_email
+    - search_emails
+    - create_event
+    - search_events
+    - submit

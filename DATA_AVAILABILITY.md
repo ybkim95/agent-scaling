@@ -28,7 +28,7 @@ This document lists all benchmarks used in the paper, their sources, and the sub
 - **Expected local path:** `datasets/browsecomp_plus_sampled_100.json`
 - **Dataset config:** `run_conf/dataset/browsecomp-plus.yaml`
 
-### 3. Finance Agent _(run from upstream)_
+### 3. Finance Agent
 
 - **Reference:** Bigeard et al., "Finance-Agent" (2025), arXiv:2508.00828
 - **URL:** https://github.com/vals-ai/finance-agent
@@ -36,9 +36,13 @@ This document lists all benchmarks used in the paper, their sources, and the sub
 - **Total instances:** 50
 - **Instances used:** 50 (full evaluation set)
 - **Subset selection:** All instances
-- **Integration:** Not integrated into this repository. Paper experiments were run using the upstream implementation at the URL above; apply the five coordination architectures (single-agent, centralized, decentralized, hybrid, independent) using the upstream task loader.
+- **Expected local path:** `datasets/finance_agent.json`
+- **Dataset config template:** `run_conf/dataset/finance-agent.yaml.template`
+- **Adapter loader:** `agent_scaling/datasets/finance_agent.py`
+- **Setup script:** `bash scripts/setup_finance_agent.sh`
+- **Integration:** The repository ships a loader (`FinanceAgentDataset`) plus a setup script that (i) clones the upstream repo, (ii) converts upstream task definitions into the normalized JSON consumed by the loader, and (iii) writes the dataset config. Upstream raw data is not redistributed.
 
-### 4. Workbench _(run from upstream)_
+### 4. Workbench
 
 - **Reference:** Styles et al., "WorkBench: A Benchmark Dataset for Agents in a Realistic Workplace Setting" (2024), arXiv:2405.00823
 - **URL:** https://github.com/olly-styles/WorkBench
@@ -46,7 +50,11 @@ This document lists all benchmarks used in the paper, their sources, and the sub
 - **Total instances:** 100
 - **Instances used:** 100
 - **Subset selection:** All instances
-- **Integration:** Not integrated into this repository. Paper experiments were run using the upstream implementation at the URL above; apply the five coordination architectures (single-agent, centralized, decentralized, hybrid, independent) using the upstream task loader.
+- **Expected local path:** `datasets/workbench.json`
+- **Dataset config template:** `run_conf/dataset/workbench.yaml.template`
+- **Adapter loader:** `agent_scaling/datasets/workbench.py`
+- **Setup script:** `bash scripts/setup_workbench.sh`
+- **Integration:** The repository ships a loader (`WorkbenchDataset`) plus a setup script that (i) clones the upstream repo, (ii) converts upstream task definitions into the normalized JSON consumed by the loader, and (iii) writes the dataset config. Upstream raw data is not redistributed.
 
 ### 5. SWE-bench Verified
 

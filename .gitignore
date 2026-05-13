@@ -2,6 +2,7 @@
 .env
 .env.*
 *.env*
+!.env.example
 secrets/
 credentials/
 
@@ -43,8 +44,16 @@ browsecomp-plus-indexes/
 # Notebooks & experimental
 notebooks/
 experimental/
-tests/
 /agents/
+
+# Tests: keep only the round-2 unit tests for re-implemented architectures
+tests/__pycache__/
+tests/test_cache.py
+tests/test_langfuse_experiment.py
+tests/test_langfuse_prompt_management.py
+tests/test_langfuse.py
+tests/test_llm.py
+tests/test_tool_and_env.py
 
 # Misc
 *.md
@@ -63,3 +72,9 @@ datasets/*.json
 # Allow key documentation files despite *.md exclusion
 !REPRODUCTION.md
 !DATA_AVAILABILITY.md
+!CHANGELOG.md
+
+# Allow round-2 unit tests for the re-implemented architectures
+!tests/test_decentralized_debate.py
+!tests/test_independent_synthesis.py
+!tests/test_finance_workbench_env.py

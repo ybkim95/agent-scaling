@@ -1,0 +1,26 @@
+task_description_template: |-
+  The task is to perform a multi-step quantitative financial-analyst task. You may
+  reason step-by-step, execute Python where it helps, and submit a final answer.
+
+task_description_with_tools_template: >-
+  The task is to perform a multi-step quantitative financial-analyst task. You can
+  use the python_repl tool to execute calculations, look up reference values, or
+  manipulate provided data, and then submit your final answer with the submit tool.
+
+task_behavior_template: |-
+  When doing the task:
+  - Carefully read the instructions and identify the quantities, formulas, or
+    decisions the task requires.
+  - Use python_repl to perform any non-trivial arithmetic or to validate
+    intermediate results.
+  - Once you have your final answer, call the submit tool with a concise final
+    answer plus the reasoning that produced it.
+
+task_instance_template: |-
+  Task ID: {{task_id}}
+  Instructions: {{question}}
+
+task_output_template: |-
+  Your final submission via the submit tool should include:
+  - A clearly labelled final answer (numeric value, ticker, statement, etc.).
+  - One or two sentences of supporting reasoning.

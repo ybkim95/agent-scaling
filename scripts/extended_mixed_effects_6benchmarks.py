@@ -1,7 +1,7 @@
 """
 Extended Mixed-Effects Regression Analysis: 4 → 6 Benchmarks
 =============================================================
-Nature Machine Intelligence Revision
+Statistical robustness analysis
 
 Extends the original 4-benchmark analysis (Cell 6, mixed_effect_model.ipynb)
 to include swebench-verified and terminalbench, for a total of 270 data points
@@ -742,10 +742,9 @@ def run_multiple_comparison_correction(model):
     Apply Holm-Bonferroni and Bonferroni multiple comparison corrections to all
     19 predictor p-values from the 6-benchmark OLS model (intercept excluded).
 
-    Reviewer 2 requested clarification on how many hypotheses were evaluated and
-    whether any correction was applied (Nature Machine Intelligence revision).
+    We report the number of hypotheses evaluated and the multiple-comparison correction applied (the robustness analysis).
     """
-    print_section("MULTIPLE COMPARISON CORRECTION (Reviewer 2 Response)")
+    print_section("MULTIPLE COMPARISON CORRECTION (robustness check)")
     print("  Total hypotheses tested: 19 predictors (intercept excluded)")
     print("  Methods: Holm-Bonferroni (step-down) and standard Bonferroni")
     print("  Significance threshold: p < 0.05 after correction")
@@ -828,7 +827,7 @@ def run_multiple_comparison_correction(model):
 
 # ==============================================================================
 # CLUSTER-ROBUST STANDARD ERRORS ANALYSIS
-# Addresses Reviewer 2's pseudoreplication concern:
+# Addresses the pseudoreplication concern:
 #   "tool count is constant within each dataset, treating per-task/per-run points
 #    as independent inflates the effective sample size and can yield spuriously
 #    small p-values."
@@ -864,12 +863,12 @@ def run_cluster_robust_analysis(model, df_scaled: pd.DataFrame) -> None:
     import scipy.stats as sp_stats
 
     print_section(
-        "CLUSTER-ROBUST STANDARD ERRORS — REVIEWER 2 PSEUDOREPLICATION CHECK\n"
+        "CLUSTER-ROBUST STANDARD ERRORS — PSEUDOREPLICATION CHECK\n"
         "  Clustering on 'dataset'  (G = 6 clusters)"
     )
 
     print("""
-  MOTIVATION (Reviewer 2):
+  MOTIVATION (the prior critique):
     Tool count is constant within each dataset. Treating the 270 per-configuration
     observations as i.i.d. may overstate effective sample size and yield spuriously
     small p-values for predictors that vary only at the dataset level (e.g.,
@@ -890,7 +889,7 @@ def run_cluster_robust_analysis(model, df_scaled: pd.DataFrame) -> None:
         (two-tailed) is t_{5, 0.025} ~= 2.571 vs naive z ~= 1.960.
       - This critical-value shift alone widens p-values substantially.
       - Wild cluster bootstrap (not implemented) would be more reliable for G<10.
-    These results are presented as a sensitivity analysis for Reviewer 2.
+    These results are presented as a sensitivity analysis for the prior critique.
     The primary analysis uses homoskedastic OLS SEs consistent with the original
     4-benchmark methodology.
     """)
@@ -1041,7 +1040,7 @@ def run_cluster_robust_analysis(model, df_scaled: pd.DataFrame) -> None:
     With only G={n_clusters} clusters, the CR1 estimator has high finite-sample
     variability.  Wild cluster bootstrap (Cameron, Gelbach & Miller 2008)
     would be preferable but is not standard in statsmodels.  Results above
-    are reported as a robustness check addressing Reviewer 2's concern about
+    are reported as a robustness check addressing the prior critique's concern about
     pseudoreplication.  The primary analysis uses homoskedastic OLS SEs,
     consistent with the original 4-benchmark methodology and with the fact
     that the regression already conditions on dataset-level predictors
@@ -1052,7 +1051,7 @@ def run_cluster_robust_analysis(model, df_scaled: pd.DataFrame) -> None:
 
 def main():
     print_section("EXTENDED MIXED-EFFECTS REGRESSION: 4 → 6 BENCHMARKS")
-    print("  Nature Machine Intelligence Revision")
+    print("  Statistical robustness analysis")
     print("  Methodology: identical to mixed_effect_model.ipynb Cell 6")
     print("  New data source: scripts/per_instance_results_swe_tb.csv")
 
@@ -1184,12 +1183,12 @@ def main():
     """)
 
     # ------------------------------------------------------------------
-    # Step 12: Multiple comparison correction (Reviewer 2 response)
+    # Step 12: Multiple comparison correction (the prior critique response)
     # ------------------------------------------------------------------
     run_multiple_comparison_correction(model_6bm)
 
     # ------------------------------------------------------------------
-    # Step 13: Cluster-robust standard errors (Reviewer 2 pseudoreplication)
+    # Step 13: Cluster-robust standard errors (the prior critique pseudoreplication)
     # ------------------------------------------------------------------
     run_cluster_robust_analysis(model_6bm, df_6bm_scaled)
 

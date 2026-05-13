@@ -1,0 +1,26 @@
+- content: |-
+    Judge whether the following [response] to a WorkBench [question] is correct
+    based on the [correct_answer] below. Treat the response as correct if it
+    enumerates the same set of business actions (or their semantic equivalents)
+    that the correct_answer specifies, in any order, and provides matching key
+    arguments (recipients, subjects, dates, etc.). Minor wording differences do
+    not count as errors.
+
+    [question]: {{question}}
+
+    [response]: {{response}}
+
+    extracted_final_answer: Extract the planned action list (and any final answer)
+      from the [response]. Put 'None' if no action list is present.
+
+    [correct_answer]: {{correct_answer}}
+
+    reasoning: Explain whether the planned actions semantically match the
+      correct_answer's required actions and key arguments.
+
+    correct: Answer 'yes' if the planned actions semantically match the
+      correct_answer. Answer 'no' otherwise.
+
+    confidence: Extract the confidence score from [response]. Put 100 if there is no
+      confidence score.
+  role: user

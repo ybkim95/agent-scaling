@@ -1,0 +1,26 @@
+task_description_template: |-
+  The task is to plan and describe the actions an office worker should take to
+  complete a realistic business request, using a small set of common tools
+  (email, calendar, customer-service, etc.).
+
+task_description_with_tools_template: >-
+  The task is to plan and describe the actions an office worker should take to
+  complete a realistic business request, using a small set of common tools
+  (email, calendar, customer-service, etc.). Use the submit tool to record the
+  ordered list of actions plus any final answer.
+
+task_behavior_template: |-
+  When doing the task:
+  - Carefully read the instructions and identify the user's intent.
+  - Plan the minimum set of business actions needed: who to email, what events
+    to create, what records to update, etc.
+  - Use the submit tool to record the action plan and any final answer.
+
+task_instance_template: |-
+  Task ID: {{task_id}}
+  Instructions: {{question}}
+
+task_output_template: |-
+  Your final submission via the submit tool should include:
+  - An ordered list of the actions you would take (tool name + key arguments).
+  - The final answer or status the user requested, if applicable.

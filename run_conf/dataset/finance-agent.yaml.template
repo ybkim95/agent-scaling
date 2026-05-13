@@ -1,0 +1,26 @@
+# Finance-Agent dataset config TEMPLATE.
+#
+# This is a template. Copy it to `run_conf/dataset/finance-agent.yaml` and edit
+# `local_path` after you have run `scripts/setup_finance_agent.sh` to download
+# the upstream data and produce the normalized JSON.
+#
+# Upstream source: https://github.com/vals-ai/finance-agent
+# License: see upstream repository.
+
+dataset_id: finance_agent
+from_langfuse: false
+local_path: datasets/finance_agent.json  # populated by scripts/setup_finance_agent.sh
+templates_local_path: prompts/dataset-shared/finance_agent.yaml
+eval_llm:
+  model: gemini/gemini-2.0-flash
+  params:
+    temperature: 0.0
+eval_prompts:
+  grader:
+    local_path: prompts/eval/finance_agent-grader.yaml
+env:
+  name: finance-agent
+  tools:
+    - web_search       # Tavily — matches upstream Finance-Agent
+    - python_repl
+    - submit

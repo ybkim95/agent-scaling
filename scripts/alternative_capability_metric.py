@@ -1,38 +1,29 @@
-"""
-Alternative Capability Metric Robustness Check
-===============================================
-Nature Machine Intelligence Revision — Response to Reviewers R1.2 and R2.2
+"""Alternative capability-metric robustness check.
 
-REVIEWER CONCERN (R1.2 / R2.2):
-  Both reviewers questioned using the Artificial Analysis Intelligence Index
-  (a composite of single-turn benchmarks) as the capability metric for agentic
-  tasks.  Reviewer 1 specifically noted that GPT-5.2 and Gemini-3.0-Pro share
-  the same Intelligence Index (75) yet exhibit vastly different agentic
-  performance, suggesting the static index conflates models that behave
-  differently in agentic settings.
+The 19-predictor OLS regression is sensitive to the choice of model
+capability metric. The default specification uses the Artificial Analysis
+Intelligence Index, which is a composite of single-turn benchmarks and may
+conflate models with different agentic behaviour. This script re-runs the
+regression with two alternative capability metrics and reports whether the
+core findings are robust to the choice of metric.
 
-THIS SCRIPT:
-  Re-runs the identical 19-predictor OLS regression from
-  extended_mixed_effects_6benchmarks.py with TWO alternative capability metrics:
-
-  Metric A — "Agentic Capability Index" (ACI):
-    Each model's mean single-agent performance across ALL 6 benchmarks.
+Metric A — Agentic Capability Index (ACI):
+    Each model's mean single-agent performance across all six benchmarks.
     Directly measures agentic ability rather than static benchmark composites.
-    Addresses R1.2 / R2.2 directly: differentiated by actual task performance.
 
-  Metric B — "Per-dataset Single-Agent Baseline" (PSB):
-    Each model's single-agent performance on the SAME dataset as the
-    regression row. This already exists in the formula as `single_agent_baseline`
-    but here we use it INSTEAD OF (not in addition to) the Intelligence Index,
-    replacing intelligence_centered / intelligence_sq_centered.
+Metric B — Per-dataset Single-Agent Baseline (PSB):
+    Each model's single-agent performance on the same dataset as the
+    regression row. This is already present in the formula as
+    ``single_agent_baseline`` but is here used in place of (not in addition
+    to) the Intelligence Index, replacing ``intelligence_centered`` and
+    ``intelligence_sq_centered``.
 
-  For each metric: R²_train, R²_CV (5-fold), coefficient table, key-findings check.
-
-  A final comparison table answers: Are the core findings robust to the choice
-  of capability metric?
+For each metric the script reports R²_train, R²_CV (5-fold), a full
+coefficient table, and a key-findings check. A final comparison summarises
+which findings are robust to the choice of capability metric.
 
 Run:
-  python scripts/alternative_capability_metric.py
+    python scripts/alternative_capability_metric.py
 """
 
 import os
@@ -764,7 +755,7 @@ def print_comparison_table(results_dict: dict):
     """
     print_section("ROBUSTNESS CHECK: COMPARISON ACROSS CAPABILITY METRICS")
     print("""
-  MOTIVATION (R1.2 / R2.2):
+  MOTIVATION :
     Both reviewers questioned whether the Artificial Analysis Intelligence Index
     (a composite of static single-turn benchmarks) is appropriate for predicting
     agentic task performance.  This table shows whether the core findings are
@@ -879,7 +870,7 @@ def print_comparison_table(results_dict: dict):
              {min(results_dict[l]['r2_cv'] for l in labels):.4f} – {max(results_dict[l]['r2_cv'] for l in labels):.4f} (5-fold CV)
 
   INTERPRETATION:
-    Metric A (Agentic Capability Index) directly addresses R1.2 and R2.2:
+    Metric A (Agentic Capability Index) directly addresses the capability-metric concern:
     it uses task performance on the six actual benchmarks rather than a static
     benchmark composite.  If findings hold under Metric A, the core results
     do not depend on the choice of Intelligence Index.
@@ -903,8 +894,8 @@ def print_comparison_table(results_dict: dict):
 
 def main():
     print_section("ALTERNATIVE CAPABILITY METRIC ROBUSTNESS CHECK")
-    print("  Nature Machine Intelligence Revision")
-    print("  Addresses: Reviewer 1 (R1.2) and Reviewer 2 (R2.2)")
+    print("  Capability-metric robustness check")
+    print("  Capability-metric robustness analysis")
     print("  Question: Are the findings robust to the choice of capability metric?")
     print("  Methodology: identical 19-predictor OLS to extended_mixed_effects_6benchmarks.py")
 
@@ -936,7 +927,7 @@ def main():
   ACI = mean single-agent performance across all 6 benchmarks.
   This directly measures what each model achieves on agentic tasks.
   Correlation with Intelligence Index indicates whether the static proxy
-  tracks real agentic ability (R1.2 / R2.2 concern).
+  tracks real agentic ability .
     """)
 
     df_base = build_base_dataframe(all_rows)
@@ -1069,7 +1060,7 @@ def main():
     ACI = mean single-agent performance across all 6 benchmarks.
     Computed from the same 270-row dataset (single-agent rows only).
     No external source; fully reproducible from the paper's own data.
-    Addresses R1.2 / R2.2: distinguishes models with identical static indices
+    distinguishes models with identical static indices
     but different actual agentic performance.
 
   Metric B rationale:
