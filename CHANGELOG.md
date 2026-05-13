@@ -15,10 +15,10 @@
 - WorkBench integration:
   - `agent_scaling/env/workbench.py` — env class with stub business tools (`send_email`, `search_emails`, `create_event`, `search_events`) plus `submit`.
   - `agent_scaling/datasets/workbench.py` — dataset loader.
-  - `scripts/setup_workbench.sh` — clones the upstream repo and writes a normalized JSON file (690 tasks across analytics, calendar, CRM, email, multi-domain, and project-management).
+  - `scripts/setup_workbench.sh` — clones the upstream repo and writes two normalized JSON files: `datasets/workbench.json` (a deterministic stratified 100-instance subset, 16–17 per query split with seed 42) and `datasets/workbench_full_690.json` (the complete upstream conversion of 690 tasks across analytics, calendar, CRM, email, multi-domain, and project-management).
   - `prompts/dataset-shared/workbench.yaml` and `prompts/eval/workbench-grader.yaml`.
   - Structural action-call matching for scoring (parses tool calls from the agent's submission and compares them to the expected action list by tool name + keyword-argument set).
-- Unit tests under `tests/` covering the new helpers and end-to-end dataset loading (26 tests total).
+- Unit tests under `tests/` covering the new helpers and end-to-end dataset loading, including a determinism test for the WorkBench stratified subset (27 tests total).
 - `.env.example` at the repo root for documenting expected API keys.
 
 ### Changed

@@ -251,7 +251,7 @@ The paper evaluates on six benchmarks. All six are runnable from this repository
 | Dataset | Setup script | Config template | Upstream repository | Instances used |
 |---------|--------------|-----------------|---------------------|----------------|
 | Finance-Agent | `bash scripts/setup_finance_agent.sh` | `run_conf/dataset/finance-agent.yaml.template` | https://github.com/vals-ai/finance-agent | 50 (full evaluation set) |
-| WorkBench | `bash scripts/setup_workbench.sh` | `run_conf/dataset/workbench.yaml.template` | https://github.com/olly-styles/WorkBench | 100 (full evaluation set) |
+| WorkBench | `bash scripts/setup_workbench.sh` | `run_conf/dataset/workbench.yaml.template` | https://github.com/olly-styles/WorkBench | 100 (stratified per-domain subset of 690 upstream tasks, seed 42; full set also written to `datasets/workbench_full_690.json`) |
 
 Each `setup_*.sh` script:
 1. Clones the upstream repository into `third_party/<benchmark>/` (skippable via `--upstream-dir`).
@@ -282,8 +282,8 @@ All estimates assume `num_workers=1`, `temperature=0.0`, `n_base_agents=3`.
 | Terminal-Bench (20 inst.) | Multi-agent-centralized | gpt-5-mini | ~3 hr | ~$14 |
 | Finance-Agent (50 inst.) | Single-agent | gpt-4o-mini | ~1.5 hr | ~$3 |
 | Finance-Agent (50 inst.) | Multi-agent-centralized | gpt-4o-mini | ~4 hr | ~$10 |
-| Workbench (100 inst., user-sampled from 690) | Single-agent | gpt-4o-mini | ~1.5 hr | ~$3 |
-| Workbench (100 inst., user-sampled from 690) | Multi-agent-centralized | gpt-4o-mini | ~4 hr | ~$10 |
+| Workbench (100 inst., stratified subset of 690, seed 42) | Single-agent | gpt-4o-mini | ~1.5 hr | ~$3 |
+| Workbench (100 inst., stratified subset of 690, seed 42) | Multi-agent-centralized | gpt-4o-mini | ~4 hr | ~$10 |
 
 **Notes:**
 - Estimates are approximate; actual cost depends on task difficulty and model verbosity.
