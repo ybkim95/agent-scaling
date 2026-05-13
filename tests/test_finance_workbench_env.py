@@ -376,3 +376,53 @@ def test_workbench_converter_emits_dataset_envelope(tmp_path):
     analytics = next(i for i in payload["instances"] if i["task_id"] == "analytics-0000")
     assert "expected_actions" in analytics
     assert analytics["expected_actions"][0]["call"].startswith("analytics.create_plot")
+
+
+def test_workbench_converter_stratified_subset_is_deterministic():
+    """The converter must produce a deterministic stratified 100-instance subset
+    matching the paper: exactly 100 tasks, balanced across the 6 domains, seed=42.
+
+    Uses the in-memory ``stratified_subset`` helper so the test runs without
+    cloning the upstream repository.
+    """
+    import importlib.util
+    from pathlib import Path
+
+    spec = importlib.util.spec_from_file_location(
+        "_convert_workbench",
+        Path(__file__).resolve().parent.parent / "scripts" / "_convert_workbench.py",
+    )
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+
+    domains = [
+        "analytics",
+        "calendar",
+        "customer_relationship_manager",
+        "email",
+        "multi_domain",
+        "project_management",
+    ]
+    records = [
+        {"task_id": f"{d}-{i:04d}", "instructions": f"task {d} {i}"}
+        for d in domains
+        for i in range(115)
+    ]
+    a = mod.stratified_subset(records, sample_size=100, seed=42)
+    b = mod.stratified_subset(records, sample_size=100, seed=42)
+    assert len(a) == 100
+    assert a == b, "Stratified subset must be deterministic across calls"
+
+    from collections import Counter
+    per_domain = Counter(r["task_id"].split("-", 1)[0] for r in a)
+    assert sum(per_domain.values()) == 100
+    counts = sorted(per_domain.values())
+    assert counts == [16, 16, 17, 17, 17, 17], (
+        f"Expected 17+17+17+17+16+16 balance across 6 domains, got {counts}"
+    )
+    assert set(per_domain.keys()) == set(domains), (
+        f"All six domains must be represented, got {set(per_domain.keys())}"
+    )
+
+    c = mod.stratified_subset(records, sample_size=100, seed=43)
+    assert c != a, "Different seed must yield a different subset"

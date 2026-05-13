@@ -47,14 +47,14 @@ This document lists all benchmarks used in the paper, their sources, and the sub
 - **Reference:** Styles et al., "WorkBench: A Benchmark Dataset for Agents in a Realistic Workplace Setting" (2024), arXiv:2405.00823
 - **URL:** https://github.com/olly-styles/WorkBench
 - **Task type:** Common business tool-use tasks (16 tools)
-- **Total instances:** 100
-- **Instances used:** 100
-- **Subset selection:** All instances
+- **Upstream total instances:** 690 (across 6 domain CSVs: analytics, calendar, customer relationship management, email, multi-domain, project management)
+- **Instances used in study:** 100
+- **Subset selection:** Stratified per-domain sample (16–17 instances per domain) selected by a deterministic shuffle with seed 42 in `scripts/_convert_workbench.py`. Default `setup_workbench.sh` writes both `datasets/workbench.json` (the 100-instance subset, matching the paper) and `datasets/workbench_full_690.json` (the complete upstream set).
 - **Expected local path:** `datasets/workbench.json`
 - **Dataset config template:** `run_conf/dataset/workbench.yaml.template`
 - **Adapter loader:** `agent_scaling/datasets/workbench.py`
 - **Setup script:** `bash scripts/setup_workbench.sh`
-- **Integration:** The repository ships a loader (`WorkbenchDataset`) plus a setup script that (i) clones the upstream repo, (ii) converts upstream task definitions into the normalized JSON consumed by the loader, and (iii) writes the dataset config. Upstream raw data is not redistributed.
+- **Integration:** The repository ships a loader (`WorkbenchDataset`) plus a setup script that (i) clones the upstream repo, (ii) converts upstream task definitions into the normalized JSON consumed by the loader, applying a deterministic stratified 100-instance subsample by default, and (iii) writes the dataset config. Upstream raw data is not redistributed.
 
 ### 5. SWE-bench Verified
 

@@ -18,11 +18,17 @@ set -euo pipefail
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 UPSTREAM_DIR="${UPSTREAM_DIR:-${REPO_ROOT}/third_party/WorkBench}"
 OUT_JSON="${OUT_JSON:-${REPO_ROOT}/datasets/workbench.json}"
+FULL_OUT_JSON="${FULL_OUT_JSON:-${REPO_ROOT}/datasets/workbench_full_690.json}"
+SAMPLE_SIZE="${SAMPLE_SIZE:-100}"
+SEED="${SEED:-42}"
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --upstream-dir) UPSTREAM_DIR="$2"; shift 2;;
     --out)          OUT_JSON="$2"; shift 2;;
+    --full-out)     FULL_OUT_JSON="$2"; shift 2;;
+    --sample-size)  SAMPLE_SIZE="$2"; shift 2;;
+    --seed)         SEED="$2"; shift 2;;
     *)              echo "Unknown argument: $1" >&2; exit 2;;
   esac
 done
@@ -37,10 +43,14 @@ else
   echo "[setup_workbench] upstream already cloned at ${UPSTREAM_DIR}"
 fi
 
-echo "[setup_workbench] converting upstream tasks -> ${OUT_JSON}"
+echo "[setup_workbench] converting upstream tasks -> ${OUT_JSON} (stratified ${SAMPLE_SIZE}-instance subset, seed ${SEED})"
+echo "[setup_workbench] full upstream JSON also written to -> ${FULL_OUT_JSON}"
 python "${REPO_ROOT}/scripts/_convert_workbench.py" \
   --upstream-dir "${UPSTREAM_DIR}" \
-  --out "${OUT_JSON}"
+  --out "${OUT_JSON}" \
+  --full-out "${FULL_OUT_JSON}" \
+  --sample-size "${SAMPLE_SIZE}" \
+  --seed "${SEED}"
 
 CFG_TEMPLATE="${REPO_ROOT}/run_conf/dataset/workbench.yaml.template"
 CFG_TARGET="${REPO_ROOT}/run_conf/dataset/workbench.yaml"
