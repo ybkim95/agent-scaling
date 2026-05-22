@@ -8,9 +8,11 @@ cross-validation or majority voting; the aggregator performs no analytical
 comparison of responses, so any performance differences arise purely from
 parallel exploration rather than error correction.
 
-This is a best-of-N parallelism baseline that measures the value of pure
-ensembling without coordination. It is intentionally the weakest aggregator
-in the architectural ablation, isolating "parallelism" from "coordination".
+This is a parallel ensemble without coordination. The aggregator is
+intentionally the weakest in the architectural ablation, isolating
+"parallelism" from "coordination". All N sub-agents run to completion and
+their outputs are concatenated in insertion order; the system does not
+perform any first-to-succeed race, voting, or cross-validation.
 """
 import asyncio
 import os.path as osp
