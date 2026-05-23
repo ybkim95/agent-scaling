@@ -336,4 +336,4 @@ PYTHONPATH="" PYTHONNOUSERSITE=1 .venv/bin/python -m pytest \
     tests/test_finance_workbench_env.py -v
 ```
 
-Expected result of step 7: **26 passed**.
+Expected result of step 7: **28 passed**.
