@@ -196,16 +196,22 @@ class IndependentMultiAgentSystem(AgentSystemWithTools):
                     logger.warning(f"Agent {agent_id} failed: {e}")
 
         # synthesis_only aggregator: concatenate every agent's last answer.
+        # The synthesized text is the canonical agent output returned to the
+        # caller and used for grading; individual agent env statuses are
+        # secondary and reported only as infrastructure metadata.
         synthesized_answer, contributing_ids = self._synthesize_only()
 
-        # Ensure the synthesis reaches at least one env for scoring.
+        # Always attempt to submit the synthesized answer to an env so that
+        # the grader sees the aggregated output rather than any single
+        # agent's intermediate submission. _auto_submit is a no-op on
+        # already-done envs, so this never double-submits.
         submission_response = ""
-        any_done = any(a.env.env_done() for a in self.subagents.values())
-        if not any_done and synthesized_answer:
+        if synthesized_answer:
             submission_response = self._auto_submit(synthesized_answer)
 
         # Canonical env status: prefer any env that reached terminal state;
-        # otherwise fall back to the first agent's env.
+        # otherwise fall back to the first agent's env. The text returned
+        # to the caller as agent_output is always the synthesized answer.
         final_env_status = None
         for agent in self.subagents.values():
             if agent.env.env_done():

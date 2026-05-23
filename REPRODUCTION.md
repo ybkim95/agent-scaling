@@ -19,9 +19,10 @@ This document provides step-by-step instructions for reproducing all experiments
 **Prerequisites:** Python 3.11+, [uv](https://docs.astral.sh/uv/getting-started/installation/), Docker (required for SWE-bench and Terminal-Bench)
 
 ```bash
-# 1. Clone the repository
+# 1. Clone the repository at the canonical release tag
 git clone https://github.com/ybkim95/agent-scaling.git
 cd agent-scaling
+git checkout v2.1.0
 
 # 2. Install dependencies
 uv sync --prerelease=allow
@@ -58,8 +59,9 @@ Add the following to a `.env` file in the repository root. At minimum, one LLM p
 # LLM providers (add keys for the models you intend to use)
 OPENAI_API_KEY="your-openai-key"          # for gpt-5, gpt-5-mini, gpt-5-nano
 GEMINI_API_KEY="your-gemini-key"          # for gemini-2.0-flash, gemini-2.5-pro
+ANTHROPIC_API_KEY="your-anthropic-key"    # for claude-sonnet-4-5, claude-sonnet-4, claude-sonnet-3-7
 
-# Required for BrowseComp-Plus web-search environment
+# Required for BrowseComp-Plus and Finance-Agent web-search environments
 TAVILY_API_KEY="your-tavily-key"
 
 # Optional: LangFuse tracing

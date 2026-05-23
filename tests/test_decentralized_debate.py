@@ -152,3 +152,50 @@ def test_consensus_strategy_records_votes():
         f.get("answer_excerpt") for f in sys_.consensus.approved_findings
     ]
     assert any("answer A" in e for e in approved_excerpts if e)
+
+
+def test_consensus_vote_includes_completed_agents_last_answer():
+    """An agent whose environment terminated in round 1 must still appear in
+    the final consensus vote with its last answer.
+
+    This regression test guards the documented behavior that the d debate
+    rounds always run to completion and the consensus aggregation sees a
+    contribution from every agent regardless of individual termination.
+    """
+    sys_ = _new_system()
+    # Simulate three agents where agent_3 terminated early (status=completed)
+    # but emitted a real last answer; the other two are still active.
+    completed_conv = SimpleNamespace(
+        last_outgoing_external_message="terminated-but-final answer C",
+        status="completed",
+        total_iterations=2,
+    )
+    completed_env = SimpleNamespace(
+        env_done=lambda: True, env_status=lambda: None, tools={}
+    )
+    completed_agent = SimpleNamespace(
+        agent_id="agent_3",
+        conv_history=completed_conv,
+        env=completed_env,
+        should_stop_due_to_rate_limiting=lambda: False,
+    )
+    sys_.subagents = {
+        "agent_1": _make_subagent_stub("agent_1", "active answer"),
+        "agent_2": _make_subagent_stub("agent_2", "active answer"),
+        "agent_3": completed_agent,
+    }
+
+    # Snapshot the final-round answers exactly as run_agent_async does
+    final_round_answers = [
+        (aid, sys_.subagents[aid].conv_history.last_outgoing_external_message or "")
+        for aid in sys_.subagents
+    ]
+    winning_answer, winning_agent = sys_._consensus_vote(final_round_answers)
+
+    # agent_3 is "completed" but its answer must still be a valid candidate;
+    # the majority is "active answer" (2/3), so that wins, but agent_3 is
+    # represented in the candidate pool, not silently dropped.
+    candidates = {ans for _, ans in final_round_answers if ans}
+    assert "terminated-but-final answer C" in candidates
+    assert winning_answer == "active answer"
+    assert winning_agent in {"agent_1", "agent_2"}

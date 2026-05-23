@@ -272,17 +272,18 @@ class DecentralizedMultiAgentSystem(AgentSystemWithTools):
                 f"\n=== Decentralized debate round {round_num}/{self.max_rounds} ==="
             )
 
+            # All d debate rounds run to completion. Agents whose environment
+            # already terminated do not produce new responses, but their last
+            # answer is preserved in conv_history and re-emitted in the
+            # per-round snapshot below, so the final consensus vote always
+            # sees every agent's contribution regardless of individual
+            # termination.
             active_agents = [
                 aid
                 for aid, a in self.subagents.items()
                 if a.conv_history.status == "active"
                 and not a.should_stop_due_to_rate_limiting()
             ]
-            if not active_agents:
-                logger.info(
-                    f"No active agents remain at round {round_num}; ending debate early"
-                )
-                break
 
             tasks: List[Tuple[str, asyncio.Task]] = []
             for agent_id in active_agents:
@@ -295,11 +296,14 @@ class DecentralizedMultiAgentSystem(AgentSystemWithTools):
 
             # No asyncio.wait timeout — let each debate round complete fully so
             # the consensus aggregation sees real answers from every agent.
-            done, pending = await asyncio.wait(
-                [t for _, t in tasks], return_when=asyncio.ALL_COMPLETED
-            )
-            for t in pending:
-                t.cancel()
+            if tasks:
+                done, pending = await asyncio.wait(
+                    [t for _, t in tasks], return_when=asyncio.ALL_COMPLETED
+                )
+                for t in pending:
+                    t.cancel()
+            else:
+                done, pending = set(), set()
 
             round_results: Dict[str, SubAgentRoundResult] = {}
             for agent_id, task in tasks:
