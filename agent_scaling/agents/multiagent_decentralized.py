@@ -3,7 +3,7 @@
 Implements Du et al. 2023 (arXiv:2305.14325) "Improving Factuality and Reasoning in
 Language Models through Multi-Agent Debate" adapted to tool-using LLM agents.
 
-Algorithm (matches manuscript Section 3.1):
+Algorithm (matches the Methods section of the revised manuscript, Section 6.1):
     1. Round 1: each of N agents independently produces a candidate answer.
     2. Rounds 2..d: each agent receives the FULL set of peer responses from the
        previous round (no truncation) and is asked to critique / refine / replace

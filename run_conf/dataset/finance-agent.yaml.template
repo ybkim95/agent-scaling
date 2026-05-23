@@ -21,6 +21,6 @@ eval_prompts:
 env:
   name: finance-agent
   tools:
-    - web_search       # Tavily — matches upstream Finance-Agent
+    - web_search       # Tavily web search in the normalized public adapter; not the full upstream Finance-Agent tool surface.
     - python_repl
     - submit

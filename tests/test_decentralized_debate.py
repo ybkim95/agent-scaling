@@ -3,8 +3,6 @@
 These tests target the deterministic, infrastructure-free helpers:
 - _build_full_debate_context (peer-context assembly, no truncation)
 - _consensus_vote (majority vote, deterministic tie-break)
-
-Full end-to-end execution is exercised by the smoke tests in tests/test_smoke.py.
 """
 from types import SimpleNamespace
 

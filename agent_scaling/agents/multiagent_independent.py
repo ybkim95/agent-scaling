@@ -1,6 +1,6 @@
 """Independent multi-agent system: N agents work in parallel with synthesis_only aggregation.
 
-Matches manuscript Section 3.1:
+Matches the Methods section of the revised manuscript (Section 6.1):
     A = {a_1, ..., a_n}, C = {(a_i, a_agg)},  Omega = synthesis_only.
 
 The synthesis_only aggregator concatenates sub-agent outputs without
