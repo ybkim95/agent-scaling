@@ -290,11 +290,11 @@ communication:
 If you use this code in your research, please cite:
 
 ```bibtex
-@article{kim2026beyond,
-  title={Beyond more agents: quantifying when multi-agent collaboration benefits large language model agents},
-  author={Kim, Yubin and Gu, Ken and Park, Chanwoo and Park, Chunjong and Schmidgall, Samuel and Heydari, A. Ali and Yan, Yao and Zhang, Zhihan and Zhuang, Yuchen and Liu, Yun and Malhotra, Mark and Liang, Paul Pu and Park, Hae Won and Yang, Yuzhe and Xu, Xuhai and Du, Yilun and Patel, Shwetak and Althoff, Tim and McDuff, Daniel and Liu, Xin},
+@article{kim2025towards,
+  title={Towards a science of scaling agent systems},
+  author={Kim, Yubin and Gu, Ken and Park, Chanwoo and Park, Chunjong and Schmidgall, Samuel and Heydari, A Ali and Yan, Yao and Zhang, Zhihan and Zhuang, Yuchen and Liu, Yun and others},
   journal={arXiv preprint arXiv:2512.08296},
-  year={2026}
+  year={2025}
 }
 ```
 
