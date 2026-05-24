@@ -8,8 +8,10 @@ This environment provides the integration point used by the five coordination
 architectures in this repository. It exposes the common business tools as
 stubs that record the agent's calls into ``self.action_log``, plus a
 ``submit`` tool through which the agent reports a final action summary. The
-dataset's ``get_instance_eval_metrics`` method then LLM-grades the submission
-against ``expected_answer`` produced by ``scripts/_convert_workbench.py``.
+dataset's ``get_instance_eval_metrics`` method then structurally grades the
+submission by parsing the agent's tool-call sequence and comparing it with
+the ``expected_actions`` list produced by ``scripts/_convert_workbench.py``;
+no LLM grader is used by the released WorkBench adapter.
 
 For bit-for-bit fidelity with the upstream WorkBench evaluator (which checks
 expected_actions exactly), users should run the upstream framework directly;

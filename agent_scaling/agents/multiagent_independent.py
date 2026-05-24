@@ -209,9 +209,16 @@ class IndependentMultiAgentSystem(AgentSystemWithTools):
         if synthesized_answer:
             submission_response = self._auto_submit(synthesized_answer)
 
-        # Canonical env status: prefer any env that reached terminal state;
-        # otherwise fall back to the first agent's env. The text returned
-        # to the caller as agent_output is always the synthesized answer.
+        # Canonical env status. For text-output benchmarks (Finance-Agent,
+        # WorkBench, BrowseComp-Plus, PlanCraft) the grader reads
+        # agent_output, so env_status is only infrastructure metadata. For
+        # environment-state benchmarks evaluated against a Docker container's
+        # terminal state (SWE-bench Verified, Terminal-Bench), independent
+        # container states cannot be physically merged across sub-agent runs,
+        # so we deterministically report the first sub-agent's env status in
+        # insertion order. This is not first-to-succeed: there is no
+        # success-based selection, consistent with the synthesis-only
+        # contract that prohibits voting or cross-validation.
         final_env_status = None
         for agent in self.subagents.values():
             if agent.env.env_done():
