@@ -40,6 +40,16 @@ class DecentralizedMultiAgentSystem(AgentSystemWithTools):
     No orchestrator. N peer agents iterate over `max_rounds` sequential debate
     rounds, exchanging full prior-round responses. After the last round, a
     consensus vote over the agents' final answers selects the system output.
+
+    Constructor defaults vs. canonical configuration. The default values for
+    `max_rounds` (3) and `consensus_threshold` (0.5) below are minimal-config
+    fallbacks intended for ad-hoc tests and notebook usage; they are not the
+    values used for the experiments reported in the accompanying paper. The
+    canonical runs invoke this class through Hydra with the configuration
+    in ``run_conf/agent/multi-agent-decentralized.yaml``, which sets
+    ``max_rounds=10``, ``consensus_threshold=0.7``, and
+    ``max_iterations_per_agent=25``. Downstream users should treat the YAML
+    values as the reference configuration.
     """
 
     required_prompts = ["subagent"]
@@ -245,6 +255,16 @@ class DecentralizedMultiAgentSystem(AgentSystemWithTools):
         instance_idx: Optional[int] = None,
     ) -> DatasetInstanceOutputWithTrajectory:
         start_time = time.time()
+
+        # Reset per-instance consensus state. The canonical runner constructs a
+        # fresh system per instance, so this is defensive only; it makes the
+        # class safe under non-canonical reuse (e.g., a notebook reusing the
+        # same instance across tasks, or future test harnesses), where stale
+        # pending_findings/votes/approved_findings could otherwise leak across
+        # calls.
+        self.consensus = create_communication_strategy(
+            "consensus", {"consensus_threshold": self.consensus_threshold}
+        )
 
         shared_prompt_templates = self.get_dataset_prompt_templates(
             dataset_instance=instance

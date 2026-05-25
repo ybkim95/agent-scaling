@@ -37,6 +37,15 @@ class IndependentMultiAgentSystem(AgentSystemWithTools):
     Aggregator policy: synthesis_only - concatenates each sub-agent's final
     answer into a single response. No voting, no cross-validation, no
     analytic comparison.
+
+    Constructor defaults vs. canonical configuration. The default value for
+    `max_iterations_per_agent` (10) below is a minimal-config fallback
+    intended for ad-hoc tests and notebook usage; it is not the value used
+    for the experiments reported in the accompanying paper. The canonical
+    runs invoke this class through Hydra with the configuration in
+    ``run_conf/agent/multi-agent-independent.yaml``, which sets
+    ``max_iterations_per_agent=25``. Downstream users should treat the YAML
+    value as the reference configuration.
     """
 
     required_prompts = ["subagent"]
