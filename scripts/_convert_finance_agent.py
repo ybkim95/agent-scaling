@@ -1,10 +1,21 @@
 """Convert upstream Finance-Agent's public test data to our normalized JSON schema.
 
 The upstream vals-ai/finance-agent repository ships a public CSV at
-``data/public.csv`` containing 188 questions, expected answers, question
-types, expert time estimates, and grading rubrics. The full Vals platform
-benchmark requires ``VALS_API_KEY`` access; the public CSV is what we wire
-up for unrestricted reproduction here.
+``data/public.csv`` with expected answers, question types, expert time
+estimates, and grading rubrics. The number of rows in this CSV may grow
+over time as upstream adds questions; the canonical cluster runs used
+the 50-instance release snapshot listed as Finance-Agent (50 instances)
+in our ``DATA_AVAILABILITY.md`` and Code Availability statement. The
+full Vals platform benchmark requires ``VALS_API_KEY`` access; the
+public CSV is what we wire up for unrestricted reproduction here.
+
+This converter normalizes every row present in the upstream CSV; the
+50-instance snapshot is selected at dataset-load time via the
+``run_conf/dataset/finance-agent.yaml`` template, which sets the
+canonical instance count for paper-exact reproduction. The full upstream
+row count is preserved in the output JSON so reviewers can reproduce
+either the 50-instance paper subset or any larger subset by adjusting
+``max_instances`` in the dataset config.
 
 Output schema (matching the format consumed by ``Dataset.from_json``):
     {
@@ -14,7 +25,7 @@ Output schema (matching the format consumed by ``Dataset.from_json``):
           "task_id": "<string>",
           "instructions": "<natural-language question>",
           "expected_answer": "<ground-truth answer text>",
-          "tools": ["python_repl", "submit"],
+          "tools": ["web_search", "python_repl", "submit"],
           "metadata": {
             "source": "finance-agent",
             "question_type": "<e.g. Market Analysis>",
@@ -71,7 +82,7 @@ def convert_public_csv(public_csv: Path) -> List[Dict[str, Any]]:
                     "task_id": f"fa-{i:04d}",
                     "instructions": question,
                     "expected_answer": answer or None,
-                    "tools": ["python_repl", "submit"],
+                    "tools": ["web_search", "python_repl", "submit"],
                     "metadata": {
                         "source": "finance-agent",
                         "question_type": (row.get("Question Type") or "").strip()
