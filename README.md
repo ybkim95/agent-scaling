@@ -288,7 +288,7 @@ communication:
 
 ## Citation
 
-If you use this code in your research, please cite:
+This work is currently under revision at *Nature Machine Intelligence* under the title *"Beyond more agents: quantifying when multi-agent collaboration benefits large language model agents"*. While the revision is in review, please cite the arXiv preprint (which retains the original title):
 
 ```bibtex
 @article{kim2025towards,
@@ -298,6 +298,8 @@ If you use this code in your research, please cite:
   year={2025}
 }
 ```
+
+For the archived code release accompanying this work, please also cite the Zenodo record (version-specific DOI `10.5281/zenodo.20387283` for v2.1.1, or concept DOI `10.5281/zenodo.20144433` which resolves to the latest archived version).
 
 ## License
 

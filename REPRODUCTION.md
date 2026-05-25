@@ -19,10 +19,10 @@ This document provides step-by-step instructions for reproducing all experiments
 **Prerequisites:** Python 3.11+, [uv](https://docs.astral.sh/uv/getting-started/installation/), Docker (required for SWE-bench and Terminal-Bench)
 
 ```bash
-# 1. Clone the repository at the canonical release tag
+# 1. Clone the repository at the canonical release tag (the version archived on Zenodo for this manuscript)
 git clone https://github.com/ybkim95/agent-scaling.git
 cd agent-scaling
-git checkout v2.1.0
+git checkout v2.1.1
 
 # 2. Install dependencies
 uv sync --prerelease=allow
