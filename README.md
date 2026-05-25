@@ -279,8 +279,9 @@ max_instances: 3                    # Max instances to process
 name: multi-agent-centralized
 n_base_agents: 3                    # Number of agents
 min_iterations_per_agent: 3         # Min iterations per agent
-max_iterations_per_agent: 10        # Max iterations per agent
-max_rounds: 5                       # Max orchestration rounds
+max_iterations_per_agent: 25        # Max iterations per agent (release ceiling)
+max_rounds: 10                      # Max orchestration / debate rounds (release ceiling)
+consensus_threshold: 0.7            # Decentralized only: agreement fraction for consensus
 communication:
   strategy: orchestrated            # Communication strategy
 ```
