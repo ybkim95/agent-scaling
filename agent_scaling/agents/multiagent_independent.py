@@ -225,18 +225,19 @@ class IndependentMultiAgentSystem(AgentSystemWithTools):
         # terminal state (SWE-bench Verified, Terminal-Bench), independent
         # container states cannot be physically merged across sub-agent runs,
         # so we deterministically report the first sub-agent's env status in
-        # insertion order. This is not first-to-succeed: there is no
-        # success-based selection, consistent with the synthesis-only
-        # contract that prohibits voting or cross-validation.
-        final_env_status = None
-        for agent in self.subagents.values():
-            if agent.env.env_done():
-                final_env_status = agent.env.env_status()
-                break
-        if final_env_status is None:
-            for agent in self.subagents.values():
-                final_env_status = agent.env.env_status()
-                break
+        # insertion order, unconditionally and without any success-based
+        # selection. This is not first-to-succeed: env_done() is not
+        # consulted as a filter, consistent with the synthesis-only contract
+        # that prohibits voting or cross-validation. Under the canonical
+        # all-sub-agents-complete runs reported in the paper this resolves
+        # to the first sub-agent's status; the unconditional rule makes the
+        # behaviour identical under non-canonical reuse (e.g., early
+        # termination of a later sub-agent), where it remains positional
+        # rather than success-based.
+        agents_in_order = list(self.subagents.values())
+        final_env_status = (
+            agents_in_order[0].env.env_status() if agents_in_order else None
+        )
 
         final_answer = synthesized_answer or submission_response
 

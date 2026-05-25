@@ -97,6 +97,8 @@ All benchmark data remain the property of their respective authors. This reposit
 
 ## How to Obtain the Data
 
-Dataset JSON files are **not redistributed** in this repository. Users must download each benchmark from its original source (URLs above) and place the resulting JSON files under `datasets/` at the expected local paths listed in the sections above.
+Dataset JSON files are **not redistributed** in this repository. The acquisition workflow depends on the benchmark:
 
-For benchmarks requiring Docker (SWE-bench Verified, Terminal-Bench), Docker images are pulled automatically from public registries on first run. Users need a working Docker installation; no additional data download steps are required beyond the benchmark JSON files listed above.
+- **Finance-Agent and WorkBench:** acquisition is automated. Run the documented setup scripts (`scripts/setup_finance_agent.py` and `scripts/setup_workbench.py`) once; each script clones the upstream repository, converts upstream task definitions into the normalized JSON consumed by the loader (applying the deterministic stratified 100-instance subsample for WorkBench), and writes the dataset config. No manual JSON placement is required for these two benchmarks.
+
+- **BrowseComp-Plus, PlanCraft, SWE-bench Verified, and Terminal-Bench:** download each benchmark from its original source (URLs above) and place the resulting JSON files under `datasets/` at the expected local paths listed in the sections above. For benchmarks requiring Docker (SWE-bench Verified, Terminal-Bench), Docker images are pulled automatically from public registries on first run. Users need a working Docker installation; no additional data download steps are required beyond the benchmark JSON files listed above.

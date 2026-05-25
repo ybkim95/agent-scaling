@@ -135,6 +135,9 @@ python scripts/run_experiment.py agent=multi-agent-centralized dataset=workbench
 
 ```bash
 python scripts/run_experiment.py agent=multi-agent-decentralized dataset=plancraft-test llm.model=gemini/gemini-2.0-flash
+python scripts/run_experiment.py agent=multi-agent-decentralized dataset=browsecomp-plus llm.model=openai/gpt-5-mini
+python scripts/run_experiment.py agent=multi-agent-decentralized dataset=swebench-verified llm.model=openai/gpt-5-mini
+python scripts/run_experiment.py agent=multi-agent-decentralized dataset=terminalbench llm.model=openai/gpt-5-mini
 python scripts/run_experiment.py agent=multi-agent-decentralized dataset=finance-agent llm.model=openai/gpt-4o-mini
 python scripts/run_experiment.py agent=multi-agent-decentralized dataset=workbench llm.model=openai/gpt-4o-mini
 ```
@@ -143,6 +146,9 @@ python scripts/run_experiment.py agent=multi-agent-decentralized dataset=workben
 
 ```bash
 python scripts/run_experiment.py agent=multi-agent-hybrid dataset=plancraft-test llm.model=gemini/gemini-2.0-flash
+python scripts/run_experiment.py agent=multi-agent-hybrid dataset=browsecomp-plus llm.model=openai/gpt-5-mini
+python scripts/run_experiment.py agent=multi-agent-hybrid dataset=swebench-verified llm.model=openai/gpt-5-mini
+python scripts/run_experiment.py agent=multi-agent-hybrid dataset=terminalbench llm.model=openai/gpt-5-mini
 python scripts/run_experiment.py agent=multi-agent-hybrid dataset=finance-agent llm.model=openai/gpt-4o-mini
 python scripts/run_experiment.py agent=multi-agent-hybrid dataset=workbench llm.model=openai/gpt-4o-mini
 ```
@@ -151,9 +157,14 @@ python scripts/run_experiment.py agent=multi-agent-hybrid dataset=workbench llm.
 
 ```bash
 python scripts/run_experiment.py agent=multi-agent-independent dataset=plancraft-test llm.model=gemini/gemini-2.0-flash
+python scripts/run_experiment.py agent=multi-agent-independent dataset=browsecomp-plus llm.model=openai/gpt-5-mini
+python scripts/run_experiment.py agent=multi-agent-independent dataset=swebench-verified llm.model=openai/gpt-5-mini
+python scripts/run_experiment.py agent=multi-agent-independent dataset=terminalbench llm.model=openai/gpt-5-mini
 python scripts/run_experiment.py agent=multi-agent-independent dataset=finance-agent llm.model=openai/gpt-4o-mini
 python scripts/run_experiment.py agent=multi-agent-independent dataset=workbench llm.model=openai/gpt-4o-mini
 ```
+
+The full reproduction matrix above covers all 30 (architecture, dataset) combinations: 5 architectures (single-agent, multi-agent-centralized, multi-agent-decentralized, multi-agent-hybrid, multi-agent-independent) times 6 benchmarks (plancraft-test, browsecomp-plus, swebench-verified, terminalbench, finance-agent, workbench). Swap the `llm.model=` override to any model in the paper's pool (see Supplementary Information Table S1 for the full list) to reproduce a different cell of the experiment grid. Models are matched per-benchmark in the canonical runs to control for per-system compute as described in the Methods.
 
 ### Output location
 
