@@ -78,7 +78,10 @@ class WorkbenchEnvironment(AgentEnvironmentTools):
 
         The full ``reasoning`` content is returned verbatim alongside a
         compact summary of the business-tool calls the agent already made.
-        The downstream LLM grader uses both signals to score the response.
+        The downstream structural grader parses both signals, extracting
+        action calls from the returned text and comparing them with the
+        ``expected_actions`` list; no LLM grader is used in the released
+        WorkBench adapter.
 
         Args:
             reasoning: A natural-language summary of the tool calls / actions
