@@ -19,12 +19,13 @@ This document provides step-by-step instructions for reproducing all experiments
 **Prerequisites:** Python 3.11+, [uv](https://docs.astral.sh/uv/getting-started/installation/), Docker (required for SWE-bench and Terminal-Bench)
 
 ```bash
-# 1. Clone the repository at the canonical release tag (the version archived on Zenodo for this manuscript).
-# Use the version-specific tag cited in the manuscript's Code Availability section.
-# The concept DOI 10.5281/zenodo.20144433 always resolves to the latest archived release.
+# 1. Clone the repository and check out the exact release tag cited in the manuscript.
+# The Nature Machine Intelligence manuscript cites release v2.1.3 (Zenodo version-specific
+# DOI 10.5281/zenodo.20388843). The concept DOI 10.5281/zenodo.20144433 always resolves to
+# the latest archived release; for reproducing the manuscript-reported numbers use v2.1.3.
 git clone https://github.com/ybkim95/agent-scaling.git
 cd agent-scaling
-git checkout $(git describe --tags --abbrev=0 --match 'v2.1.*')   # or replace with the explicit tag from the manuscript, e.g. git checkout v2.1.3
+git checkout v2.1.3
 
 # 2. Install dependencies
 uv sync --prerelease=allow

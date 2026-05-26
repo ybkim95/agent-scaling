@@ -1,6 +1,6 @@
 # Agent Scaling
 
-A framework for studying scaling behaviors of LLM-based single-agent and multi-agent systems on complex reasoning tasks.
+A framework for studying scaling behaviors of LLM-based single-agent and multi-agent systems on complex reasoning tasks. Code release accompanying the Nature Machine Intelligence manuscript *"Beyond more agents: quantifying when multi-agent collaboration benefits large language model agents"* (the arXiv preprint at arXiv:2512.08296 retains the earlier title *"Towards a science of scaling agent systems"*).
 
 ## Quick Start
 
@@ -69,8 +69,9 @@ python scripts/run_experiment.py agent=single-agent dataset=plancraft-test
 # Run multi-agent centralized system
 python scripts/run_experiment.py agent=multi-agent-centralized dataset=plancraft-test
 
-# Run with different LLM
-python scripts/run_experiment.py llm.model=gpt-4o-mini
+# Run with different LLM (use any model from the paper pool: gpt-5, gpt-5-mini, gpt-5-nano,
+# gemini/gemini-2.0-flash, gemini/gemini-2.5-pro, anthropic/claude-sonnet-4-5, etc.)
+python scripts/run_experiment.py llm.model=openai/gpt-5-mini
 
 # Run with parallel workers
 python scripts/run_experiment.py num_workers=4
