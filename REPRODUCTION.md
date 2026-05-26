@@ -251,7 +251,7 @@ max_rounds: 10
 
 ## Dataset Files
 
-The paper evaluates on six benchmarks. All six are runnable from this repository. Dataset JSON files are **not redistributed** due to licensing and size: users must download each benchmark from its original source and place files under `datasets/`. Dataset configuration files (`run_conf/dataset/*.yaml`) are provided for benchmarks integrated directly, and a `.yaml.template` plus `scripts/setup_*.sh` adapter is provided for benchmarks downloaded from upstream.
+The paper evaluates on six benchmarks. All six are runnable from this repository. Dataset acquisition depends on the benchmark's upstream licensing: `datasets/browsecomp_plus_sampled_100.json` (BrowseComp-Plus, Apache 2.0) and `datasets/plancraft-test.json` (PlanCraft, MIT) are shipped directly in this repository under their permissive upstream licenses. Finance-Agent, WorkBench, SWE-bench Verified, and Terminal-Bench raw or derived dataset files are not redistributed; users obtain them from upstream sources, either via the documented setup scripts (Finance-Agent and WorkBench) or by manual download (SWE-bench Verified and Terminal-Bench). Dataset configuration files (`run_conf/dataset/*.yaml`) are provided for benchmarks integrated directly, and a `.yaml.template` plus `scripts/setup_*.sh` adapter is provided for benchmarks downloaded from upstream.
 
 ### Integrated benchmarks (run directly from this repository)
 
