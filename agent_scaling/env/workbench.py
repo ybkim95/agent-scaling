@@ -13,11 +13,13 @@ submission by parsing the agent's tool-call sequence and comparing it with
 the ``expected_actions`` list produced by ``scripts/_convert_workbench.py``;
 no LLM grader is used by the released WorkBench adapter.
 
-For bit-for-bit fidelity with the upstream WorkBench evaluator (which checks
-expected_actions exactly), users should run the upstream framework directly;
-this environment is intended for architectural comparison studies where
-coordination structure, not exact action-by-action grading, is the object of
-interest.
+For bit-for-bit fidelity with the upstream WorkBench state-change evaluator
+(which runs predicted and ground-truth action sequences against the upstream
+mock databases and compares resulting states), users should run the upstream
+framework directly. This released adapter implements a structural
+action-call matching proxy for reproducible architecture comparisons and is
+the configuration described in the accompanying manuscript's Code
+Availability statement.
 """
 from typing import Any, Dict, List, Optional
 

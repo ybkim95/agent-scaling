@@ -299,7 +299,7 @@ This work is currently under revision at *Nature Machine Intelligence* under the
 }
 ```
 
-For the archived code release accompanying this work, please also cite the Zenodo record (version-specific DOI `10.5281/zenodo.20387283` for v2.1.1, or concept DOI `10.5281/zenodo.20144433` which resolves to the latest archived version).
+For the archived code release accompanying this work, please cite the version-specific Zenodo DOI given in the accompanying manuscript's Code Availability section, or the persistent concept DOI `10.5281/zenodo.20144433` which always resolves to the latest archived release of this repository.
 
 ## License
 
