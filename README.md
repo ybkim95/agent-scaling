@@ -1,6 +1,6 @@
 # Agent Scaling
 
-A framework for studying scaling behaviors of LLM-based single-agent and multi-agent systems on complex reasoning tasks. Code release accompanying the Nature Machine Intelligence manuscript *"Beyond more agents: quantifying when multi-agent collaboration benefits large language model agents"* (the arXiv preprint at arXiv:2512.08296 retains the earlier title *"Towards a science of scaling agent systems"*).
+A framework for studying scaling behaviors of LLM-based single-agent and multi-agent systems on complex reasoning tasks. Code release accompanying [*Capable language models can outgrow the benefits of collaboration*](https://doi.org/10.1038/s42256-026-01268-y), published in *Nature Machine Intelligence* in 2026. The [arXiv preprint](https://arxiv.org/abs/2512.08296) retains the earlier title *Towards a science of scaling agent systems*.
 
 ## Quick Start
 
@@ -290,16 +290,22 @@ communication:
 
 ## Citation
 
-This work is currently under revision at *Nature Machine Intelligence* under the title *"Beyond more agents: quantifying when multi-agent collaboration benefits large language model agents"*. While the revision is in review, please cite the arXiv preprint (which retains the original title):
+This repository accompanies the study published in *Nature Machine Intelligence* in 2026. Please cite the published article:
 
 ```bibtex
-@article{kim2025towards,
-  title={Towards a science of scaling agent systems},
-  author={Kim, Yubin and Gu, Ken and Park, Chanwoo and Park, Chunjong and Schmidgall, Samuel and Heydari, A Ali and Yan, Yao and Zhang, Zhihan and Zhuang, Yuchen and Liu, Yun and others},
-  journal={arXiv preprint arXiv:2512.08296},
-  year={2025}
+@article{kim2026capable,
+  title={Capable language models can outgrow the benefits of collaboration},
+  author={Kim, Yubin and Gu, Ken and Park, Chanwoo and others},
+  journal={Nature Machine Intelligence},
+  volume={8},
+  pages={1157--1172},
+  year={2026},
+  doi={10.1038/s42256-026-01268-y},
+  url={https://doi.org/10.1038/s42256-026-01268-y}
 }
 ```
+
+The [earlier arXiv version](https://arxiv.org/abs/2512.08296) is titled *Towards a science of scaling agent systems*.
 
 For the archived code release accompanying this work, please cite the version-specific Zenodo DOI given in the accompanying manuscript's Code Availability section, or the persistent concept DOI `10.5281/zenodo.20144433` which always resolves to the latest archived release of this repository.
 
