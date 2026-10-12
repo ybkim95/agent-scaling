@@ -15,7 +15,7 @@ A framework for studying scaling behaviors of LLM-based single-agent and multi-a
 # Clone the repository and check out the release used for the manuscript
 git clone https://github.com/ybkim95/agent-scaling.git
 cd agent-scaling
-git checkout v2.1.3   # release tag cited in the Code Availability section of the manuscript
+git checkout v2.2.0   # v2.1.3 is the tag cited in the manuscript; v2.2.0 corrects its analysis scripts (see CHANGELOG)
 
 # Install dependencies
 uv sync --prerelease=allow
@@ -306,6 +306,8 @@ This repository accompanies the study published in *Nature Machine Intelligence*
 ```
 
 The [earlier arXiv version](https://arxiv.org/abs/2512.08296) is titled *Towards a science of scaling agent systems*.
+
+**Note on v2.1.3.** The analysis scripts in the v2.1.3 release built 270 configurations by default, including ten `gemini-3-flash-preview` runs that Supplementary Table S11 reports as out of sample, and so did not reproduce the regression values given in the article. Release v2.2.0 corrects the default to the 260 configurations the article analyses and adds the scripts and data for the regression and selection analyses. See `CHANGELOG.md`.
 
 For the archived code release accompanying this work, please cite the version-specific Zenodo DOI given in the accompanying manuscript's Code Availability section, or the persistent concept DOI `10.5281/zenodo.20144433` which always resolves to the latest archived release of this repository.
 

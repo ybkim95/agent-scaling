@@ -1,0 +1,261 @@
+choice_set,benchmark,model,architecture,performance,is_observed_optimum,score_eq1_measured_sa,score_eq1_all_predicted,score_eq1_benchmark_mean_baseline,baseline_feature_pair_specific,baseline_feature_benchmark_mean
+browsecomp_plus_sampled_100|claude-3-7-sonnet-20250219,BrowseComp-Plus,claude-3-7-sonnet-20250219,multi-agent-centralized,0.3434343434,1,0.2226467565,0.2226467565,0.2661187927,0.2626262626,0.3245454545
+browsecomp_plus_sampled_100|claude-3-7-sonnet-20250219,BrowseComp-Plus,claude-3-7-sonnet-20250219,multi-agent-decentralized,0.2929292929,0,0.229201354,0.229201354,0.2663220053,0.2626262626,0.3245454545
+browsecomp_plus_sampled_100|claude-3-7-sonnet-20250219,BrowseComp-Plus,claude-3-7-sonnet-20250219,multi-agent-hybrid,0.3333333333,0,0.2270023794,0.2270023794,0.2776787789,0.2626262626,0.3245454545
+browsecomp_plus_sampled_100|claude-3-7-sonnet-20250219,BrowseComp-Plus,claude-3-7-sonnet-20250219,multi-agent-independent,0.1818181818,0,0.1634034582,0.1634034582,0.2264628125,0.2626262626,0.3245454545
+browsecomp_plus_sampled_100|claude-3-7-sonnet-20250219,BrowseComp-Plus,claude-3-7-sonnet-20250219,single-agent,0.2626262626,0,0.2626262626,0.1877193215,0.1912581392,0.3176655443,0.3245454545
+browsecomp_plus_sampled_100|claude-sonnet-4-20250514,BrowseComp-Plus,claude-sonnet-4-20250514,multi-agent-centralized,0.3232323232,0,0.2680255852,0.2680255852,0.3081786977,0.2929292929,0.3207575758
+browsecomp_plus_sampled_100|claude-sonnet-4-20250514,BrowseComp-Plus,claude-sonnet-4-20250514,multi-agent-decentralized,0.3737373737,0,0.2744172576,0.2744172576,0.306215986,0.2929292929,0.3207575758
+browsecomp_plus_sampled_100|claude-sonnet-4-20250514,BrowseComp-Plus,claude-sonnet-4-20250514,multi-agent-hybrid,0.4141414141,1,0.2755768166,0.2755768166,0.3201171343,0.2929292929,0.3207575758
+browsecomp_plus_sampled_100|claude-sonnet-4-20250514,BrowseComp-Plus,claude-sonnet-4-20250514,multi-agent-independent,0.1111111111,0,0.2157919561,0.2157919561,0.2771622013,0.2929292929,0.3207575758
+browsecomp_plus_sampled_100|claude-sonnet-4-20250514,BrowseComp-Plus,claude-sonnet-4-20250514,single-agent,0.2929292929,0,0.2929292929,0.2337273297,0.2324372419,0.3176655443,0.3207575758
+browsecomp_plus_sampled_100|claude-sonnet-4-5,BrowseComp-Plus,claude-sonnet-4-5,multi-agent-centralized,0.4285714286,0,0.3223825944,0.3223825944,0.3655386393,0.3434343434,0.3144444444
+browsecomp_plus_sampled_100|claude-sonnet-4-5,BrowseComp-Plus,claude-sonnet-4-5,multi-agent-decentralized,0.4343434343,1,0.3327768761,0.3327768761,0.3640155135,0.3434343434,0.3144444444
+browsecomp_plus_sampled_100|claude-sonnet-4-5,BrowseComp-Plus,claude-sonnet-4-5,multi-agent-hybrid,0.404040404,0,0.3395578626,0.3395578626,0.3828276601,0.3434343434,0.3144444444
+browsecomp_plus_sampled_100|claude-sonnet-4-5,BrowseComp-Plus,claude-sonnet-4-5,multi-agent-independent,0.1414141414,0,0.2755697849,0.2755697849,0.3426357208,0.3434343434,0.3144444444
+browsecomp_plus_sampled_100|claude-sonnet-4-5,BrowseComp-Plus,claude-sonnet-4-5,single-agent,0.3434343434,0,0.3434343434,0.2900392323,0.2883877089,0.3176655443,0.3144444444
+browsecomp_plus_sampled_100|gemini-2.0-flash,BrowseComp-Plus,gemini-2.0-flash,multi-agent-centralized,0.22,1,0.2805874349,0.2805874349,0.3148669897,0.17,0.3361237374
+browsecomp_plus_sampled_100|gemini-2.0-flash,BrowseComp-Plus,gemini-2.0-flash,multi-agent-decentralized,0.18,0,0.2779518541,0.2779518541,0.3151420127,0.17,0.3361237374
+browsecomp_plus_sampled_100|gemini-2.0-flash,BrowseComp-Plus,gemini-2.0-flash,multi-agent-hybrid,0.2,0,0.2918273762,0.2918273762,0.3270002839,0.17,0.3361237374
+browsecomp_plus_sampled_100|gemini-2.0-flash,BrowseComp-Plus,gemini-2.0-flash,multi-agent-independent,0.1,0,0.2453804242,0.2453804242,0.2730925026,0.17,0.3361237374
+browsecomp_plus_sampled_100|gemini-2.0-flash,BrowseComp-Plus,gemini-2.0-flash,single-agent,0.17,0,0.17,0.2528677101,0.2507587959,0.3176655443,0.3361237374
+browsecomp_plus_sampled_100|gemini-2.5-flash,BrowseComp-Plus,gemini-2.5-flash,multi-agent-centralized,0.31,0,0.3490678478,0.3490678478,0.391557774,0.28,0.3223737374
+browsecomp_plus_sampled_100|gemini-2.5-flash,BrowseComp-Plus,gemini-2.5-flash,multi-agent-decentralized,0.26,0,0.3543460507,0.3543460507,0.3901111752,0.28,0.3223737374
+browsecomp_plus_sampled_100|gemini-2.5-flash,BrowseComp-Plus,gemini-2.5-flash,multi-agent-hybrid,0.32,1,0.3703114627,0.3703114627,0.4089213964,0.28,0.3223737374
+browsecomp_plus_sampled_100|gemini-2.5-flash,BrowseComp-Plus,gemini-2.5-flash,multi-agent-independent,0.21,0,0.3138621066,0.3138621066,0.3624104481,0.28,0.3223737374
+browsecomp_plus_sampled_100|gemini-2.5-flash,BrowseComp-Plus,gemini-2.5-flash,single-agent,0.28,0,0.28,0.3226914579,0.3203327463,0.3176655443,0.3223737374
+browsecomp_plus_sampled_100|gemini-2.5-pro,BrowseComp-Plus,gemini-2.5-pro,multi-agent-centralized,0.37,0,0.3922499182,0.3922499182,0.4399087235,0.36,0.3123737374
+browsecomp_plus_sampled_100|gemini-2.5-pro,BrowseComp-Plus,gemini-2.5-pro,multi-agent-decentralized,0.43,1,0.4008211737,0.4008211737,0.4348956211,0.36,0.3123737374
+browsecomp_plus_sampled_100|gemini-2.5-pro,BrowseComp-Plus,gemini-2.5-pro,multi-agent-hybrid,0.4,0,0.4208711006,0.4208711006,0.4625964826,0.36,0.3123737374
+browsecomp_plus_sampled_100|gemini-2.5-pro,BrowseComp-Plus,gemini-2.5-pro,multi-agent-independent,0.24,0,0.3591578826,0.3591578826,0.4225111432,0.36,0.3123737374
+browsecomp_plus_sampled_100|gemini-2.5-pro,BrowseComp-Plus,gemini-2.5-pro,single-agent,0.36,0,0.36,0.3656901113,0.3629670687,0.3176655443,0.3123737374
+browsecomp_plus_sampled_100|gpt-5,BrowseComp-Plus,gpt-5,multi-agent-centralized,0.34,0,0.436044293,0.436044293,0.4903155908,0.37,0.3111237374
+browsecomp_plus_sampled_100|gpt-5,BrowseComp-Plus,gpt-5,multi-agent-decentralized,0.5,1,0.4421350043,0.4421350043,0.480873261,0.37,0.3111237374
+browsecomp_plus_sampled_100|gpt-5,BrowseComp-Plus,gpt-5,multi-agent-hybrid,0.38,0,0.470847742,0.470847742,0.515667477,0.37,0.3111237374
+browsecomp_plus_sampled_100|gpt-5,BrowseComp-Plus,gpt-5,multi-agent-independent,0.44,0,0.4045488149,0.4045488149,0.4677137384,0.37,0.3111237374
+browsecomp_plus_sampled_100|gpt-5,BrowseComp-Plus,gpt-5,single-agent,0.37,0,0.37,0.4117212396,0.4110711452,0.3176655443,0.3111237374
+browsecomp_plus_sampled_100|gpt-5-mini,BrowseComp-Plus,gpt-5-mini,multi-agent-centralized,0.26,0,0.4216213416,0.4216213416,0.4755928637,0.41,0.3061237374
+browsecomp_plus_sampled_100|gpt-5-mini,BrowseComp-Plus,gpt-5-mini,multi-agent-decentralized,0.33,0,0.4332309508,0.4332309508,0.4674716038,0.41,0.3061237374
+browsecomp_plus_sampled_100|gpt-5-mini,BrowseComp-Plus,gpt-5-mini,multi-agent-hybrid,0.24,0,0.4550204599,0.4550204599,0.5021861359,0.41,0.3061237374
+browsecomp_plus_sampled_100|gpt-5-mini,BrowseComp-Plus,gpt-5-mini,multi-agent-independent,0.25,0,0.3808586574,0.3808586574,0.4553383065,0.41,0.3061237374
+browsecomp_plus_sampled_100|gpt-5-mini,BrowseComp-Plus,gpt-5-mini,single-agent,0.41,1,0.41,0.3841619144,0.3820534176,0.3176655443,0.3061237374
+browsecomp_plus_sampled_100|gpt-5-nano,BrowseComp-Plus,gpt-5-nano,multi-agent-centralized,0.27,0,0.3562557422,0.3562557422,0.403765071,0.37,0.3111237374
+browsecomp_plus_sampled_100|gpt-5-nano,BrowseComp-Plus,gpt-5-nano,multi-agent-decentralized,0.32,0,0.3669621477,0.3669621477,0.3989148018,0.37,0.3111237374
+browsecomp_plus_sampled_100|gpt-5-nano,BrowseComp-Plus,gpt-5-nano,multi-agent-hybrid,0.33,0,0.3759039791,0.3759039791,0.4209793423,0.37,0.3111237374
+browsecomp_plus_sampled_100|gpt-5-nano,BrowseComp-Plus,gpt-5-nano,multi-agent-independent,0.18,0,0.307169812,0.307169812,0.3774857307,0.37,0.3111237374
+browsecomp_plus_sampled_100|gpt-5-nano,BrowseComp-Plus,gpt-5-nano,single-agent,0.37,1,0.37,0.3200249816,0.3183494714,0.3176655443,0.3111237374
+finance-agent|claude-3-7-sonnet-20250219,Finance Agent,claude-3-7-sonnet-20250219,multi-agent-centralized,0.3,1,0.3758683042,0.3758683042,0.4498146389,0.3,0.355
+finance-agent|claude-3-7-sonnet-20250219,Finance Agent,claude-3-7-sonnet-20250219,multi-agent-decentralized,0.2,0,0.3887376998,0.3887376998,0.4600736673,0.3,0.355
+finance-agent|claude-3-7-sonnet-20250219,Finance Agent,claude-3-7-sonnet-20250219,multi-agent-hybrid,0.24,0,0.3803771483,0.3803771483,0.4651354718,0.3,0.355
+finance-agent|claude-3-7-sonnet-20250219,Finance Agent,claude-3-7-sonnet-20250219,multi-agent-independent,0.12,0,0.3129907719,0.3129907719,0.4107535652,0.3,0.355
+finance-agent|claude-3-7-sonnet-20250219,Finance Agent,claude-3-7-sonnet-20250219,single-agent,0.3,1,0.3,0.3211193758,0.3510360247,0.3488888889,0.355
+finance-agent|claude-sonnet-4-20250514,Finance Agent,claude-sonnet-4-20250514,multi-agent-centralized,0.42,1,0.3843410272,0.3843410272,0.450943014,0.32,0.3525
+finance-agent|claude-sonnet-4-20250514,Finance Agent,claude-sonnet-4-20250514,multi-agent-decentralized,0.32,0,0.3983255445,0.3983255445,0.4617020913,0.32,0.3525
+finance-agent|claude-sonnet-4-20250514,Finance Agent,claude-sonnet-4-20250514,multi-agent-hybrid,0.38,0,0.3925163558,0.3925163558,0.4664047136,0.32,0.3525
+finance-agent|claude-sonnet-4-20250514,Finance Agent,claude-sonnet-4-20250514,multi-agent-independent,0.16,0,0.3306798078,0.3306798078,0.4213020878,0.32,0.3525
+finance-agent|claude-sonnet-4-20250514,Finance Agent,claude-sonnet-4-20250514,single-agent,0.32,0,0.32,0.3395947378,0.3618938848,0.3488888889,0.3525
+finance-agent|claude-sonnet-4-5,Finance Agent,claude-sonnet-4-5,multi-agent-centralized,0.46,1,0.4273041129,0.4273041129,0.4921144276,0.28,0.3575
+finance-agent|claude-sonnet-4-5,Finance Agent,claude-sonnet-4-5,multi-agent-decentralized,0.44,0,0.4356179736,0.4356179736,0.5016722881,0.28,0.3575
+finance-agent|claude-sonnet-4-5,Finance Agent,claude-sonnet-4-5,multi-agent-hybrid,0.46,1,0.4435870141,0.4435870141,0.5090997405,0.28,0.3575
+finance-agent|claude-sonnet-4-5,Finance Agent,claude-sonnet-4-5,multi-agent-independent,0.28,0,0.3929284757,0.3929284757,0.4635908308,0.28,0.3575
+finance-agent|claude-sonnet-4-5,Finance Agent,claude-sonnet-4-5,single-agent,0.28,0,0.28,0.3945427758,0.4168257389,0.3488888889,0.3575
+finance-agent|gemini-2.0-flash,Finance Agent,gemini-2.0-flash,multi-agent-centralized,0.7,0,0.3405887762,0.3405887762,0.4081028066,0.1,0.38
+finance-agent|gemini-2.0-flash,Finance Agent,gemini-2.0-flash,multi-agent-decentralized,0.72,1,0.3387456785,0.3387456785,0.4218782325,0.1,0.38
+finance-agent|gemini-2.0-flash,Finance Agent,gemini-2.0-flash,multi-agent-hybrid,0.68,0,0.3480634237,0.3480634237,0.4169438528,0.1,0.38
+finance-agent|gemini-2.0-flash,Finance Agent,gemini-2.0-flash,multi-agent-independent,0.62,0,0.3216783381,0.3216783381,0.3640822121,0.1,0.38
+finance-agent|gemini-2.0-flash,Finance Agent,gemini-2.0-flash,single-agent,0.1,0,0.1,0.3602674982,0.3829369226,0.3488888889,0.38
+finance-agent|gemini-2.5-flash,Finance Agent,gemini-2.5-flash,multi-agent-centralized,0.74,1,0.4097870674,0.4097870674,0.4787717004,0.16,0.3725
+finance-agent|gemini-2.5-flash,Finance Agent,gemini-2.5-flash,multi-agent-decentralized,0.74,1,0.4102769163,0.4102769163,0.4903339526,0.16,0.3725
+finance-agent|gemini-2.5-flash,Finance Agent,gemini-2.5-flash,multi-agent-hybrid,0.74,1,0.430609207,0.430609207,0.4963181318,0.16,0.3725
+finance-agent|gemini-2.5-flash,Finance Agent,gemini-2.5-flash,multi-agent-independent,0.68,0,0.3993241009,0.3993241009,0.4447392185,0.16,0.3725
+finance-agent|gemini-2.5-flash,Finance Agent,gemini-2.5-flash,single-agent,0.16,0,0.16,0.4154710611,0.4366008496,0.3488888889,0.3725
+finance-agent|gemini-2.5-pro,Finance Agent,gemini-2.5-pro,multi-agent-centralized,0.78,1,0.466457595,0.466457595,0.5475187192,0.58,0.32
+finance-agent|gemini-2.5-pro,Finance Agent,gemini-2.5-pro,multi-agent-decentralized,0.76,0,0.4973538733,0.4973538733,0.5498482935,0.58,0.32
+finance-agent|gemini-2.5-pro,Finance Agent,gemini-2.5-pro,multi-agent-hybrid,0.76,0,0.4873500234,0.4873500234,0.5690922134,0.58,0.32
+finance-agent|gemini-2.5-pro,Finance Agent,gemini-2.5-pro,multi-agent-independent,0.76,0,0.3923402602,0.3923402602,0.5319214154,0.58,0.32
+finance-agent|gemini-2.5-pro,Finance Agent,gemini-2.5-pro,single-agent,0.58,0,0.58,0.4147238772,0.4298939017,0.3488888889,0.32
+finance-agent|gpt-5,Finance Agent,gpt-5,multi-agent-centralized,0.8,1,0.4792066528,0.4792066528,0.5688425005,0.62,0.315
+finance-agent|gpt-5,Finance Agent,gpt-5,multi-agent-decentralized,0.78,0,0.5127018796,0.5127018796,0.569841933,0.62,0.315
+finance-agent|gpt-5,Finance Agent,gpt-5,multi-agent-hybrid,0.78,0,0.5057799895,0.5057799895,0.5948088257,0.62,0.315
+finance-agent|gpt-5,Finance Agent,gpt-5,multi-agent-independent,0.76,0,0.4099364953,0.4099364953,0.5624590623,0.62,0.315
+finance-agent|gpt-5,Finance Agent,gpt-5,single-agent,0.62,0,0.62,0.4297513259,0.4478107721,0.3488888889,0.315
+finance-agent|gpt-5-mini,Finance Agent,gpt-5-mini,multi-agent-centralized,0.72,0,0.4843736083,0.4843736083,0.5650875091,0.54,0.325
+finance-agent|gpt-5-mini,Finance Agent,gpt-5-mini,multi-agent-decentralized,0.76,0,0.509579756,0.509579756,0.5658062971,0.54,0.325
+finance-agent|gpt-5-mini,Finance Agent,gpt-5-mini,multi-agent-hybrid,0.66,0,0.5102535548,0.5102535548,0.589100158,0.54,0.325
+finance-agent|gpt-5-mini,Finance Agent,gpt-5-mini,multi-agent-independent,0.78,1,0.4211773486,0.4211773486,0.5474448302,0.54,0.325
+finance-agent|gpt-5-mini,Finance Agent,gpt-5-mini,single-agent,0.54,0,0.54,0.4372875396,0.4536608536,0.3488888889,0.325
+finance-agent|gpt-5-nano,Finance Agent,gpt-5-nano,multi-agent-centralized,0.76,1,0.4237433585,0.4237433585,0.4885672267,0.24,0.3625
+finance-agent|gpt-5-nano,Finance Agent,gpt-5-nano,multi-agent-decentralized,0.76,1,0.4278672663,0.4278672663,0.4983492168,0.24,0.3625
+finance-agent|gpt-5-nano,Finance Agent,gpt-5-nano,multi-agent-hybrid,0.74,0,0.4442583638,0.4442583638,0.5067825988,0.24,0.3625
+finance-agent|gpt-5-nano,Finance Agent,gpt-5-nano,multi-agent-independent,0.76,1,0.3971522118,0.3971522118,0.4564736491,0.24,0.3625
+finance-agent|gpt-5-nano,Finance Agent,gpt-5-nano,single-agent,0.24,0,0.24,0.4124926636,0.4326930907,0.3488888889,0.3625
+plancraft-test|claude-3-7-sonnet-20250219,PlanCraft,claude-3-7-sonnet-20250219,multi-agent-centralized,0.1919191919,0,0.3295531496,0.3295531496,0.1932190235,0.595959596,0.5643055556
+plancraft-test|claude-3-7-sonnet-20250219,PlanCraft,claude-3-7-sonnet-20250219,multi-agent-decentralized,0.1111111111,0,0.3648724983,0.3648724983,0.2245238113,0.595959596,0.5643055556
+plancraft-test|claude-3-7-sonnet-20250219,PlanCraft,claude-3-7-sonnet-20250219,multi-agent-hybrid,0.303030303,0,0.3236518524,0.3236518524,0.1871510177,0.595959596,0.5643055556
+plancraft-test|claude-3-7-sonnet-20250219,PlanCraft,claude-3-7-sonnet-20250219,multi-agent-independent,0.09090909091,0,0.2029798695,0.2029798695,0.04213354452,0.595959596,0.5643055556
+plancraft-test|claude-3-7-sonnet-20250219,PlanCraft,claude-3-7-sonnet-20250219,single-agent,0.595959596,1,0.595959596,0.4350047595,0.4192427688,0.5678226712,0.5643055556
+plancraft-test|claude-sonnet-4-20250514,PlanCraft,claude-sonnet-4-20250514,multi-agent-centralized,0.1717171717,0,0.3561624297,0.3561624297,0.2309358954,0.6767676768,0.5542045455
+plancraft-test|claude-sonnet-4-20250514,PlanCraft,claude-sonnet-4-20250514,multi-agent-decentralized,0.202020202,0,0.3937272182,0.3937272182,0.2572840144,0.6767676768,0.5542045455
+plancraft-test|claude-sonnet-4-20250514,PlanCraft,claude-sonnet-4-20250514,multi-agent-hybrid,0.2828282828,0,0.3569316135,0.3569316135,0.2310040041,0.6767676768,0.5542045455
+plancraft-test|claude-sonnet-4-20250514,PlanCraft,claude-sonnet-4-20250514,multi-agent-independent,0.09090909091,0,0.2312388313,0.2312388313,0.08996787256,0.6767676768,0.5542045455
+plancraft-test|claude-sonnet-4-20250514,PlanCraft,claude-sonnet-4-20250514,single-agent,0.6767676768,1,0.6767676768,0.4577269357,0.4513739847,0.5678226712,0.5542045455
+plancraft-test|claude-sonnet-4-5,PlanCraft,claude-sonnet-4-5,multi-agent-centralized,0.1919191919,0,0.4123290675,0.4123290675,0.2832938607,0.7676767677,0.5428409091
+plancraft-test|claude-sonnet-4-5,PlanCraft,claude-sonnet-4-5,multi-agent-decentralized,0.1616161616,0,0.4597202149,0.4597202149,0.3103250878,0.7676767677,0.5428409091
+plancraft-test|claude-sonnet-4-5,PlanCraft,claude-sonnet-4-5,multi-agent-hybrid,0.3434343434,0,0.4192848085,0.4192848085,0.286976508,0.7676767677,0.5428409091
+plancraft-test|claude-sonnet-4-5,PlanCraft,claude-sonnet-4-5,multi-agent-independent,0.07070707071,0,0.2998915058,0.2998915058,0.1599484029,0.7676767677,0.5428409091
+plancraft-test|claude-sonnet-4-5,PlanCraft,claude-sonnet-4-5,single-agent,0.7676767677,1,0.7676767677,0.5149578165,0.5033144528,0.5678226712,0.5428409091
+plancraft-test|gemini-2.0-flash,PlanCraft,gemini-2.0-flash,multi-agent-centralized,0.3,0,0.3363233615,0.3363233615,0.213126776,0.52,0.5738005051
+plancraft-test|gemini-2.0-flash,PlanCraft,gemini-2.0-flash,multi-agent-decentralized,0.44,0,0.3610346709,0.3610346709,0.2412607304,0.52,0.5738005051
+plancraft-test|gemini-2.0-flash,PlanCraft,gemini-2.0-flash,multi-agent-hybrid,0.32,0,0.3414330192,0.3414330192,0.215020326,0.52,0.5738005051
+plancraft-test|gemini-2.0-flash,PlanCraft,gemini-2.0-flash,multi-agent-independent,0.15,0,0.2455733805,0.2455733805,0.07763365772,0.52,0.5738005051
+plancraft-test|gemini-2.0-flash,PlanCraft,gemini-2.0-flash,single-agent,0.52,1,0.52,0.4780636874,0.4731660202,0.5678226712,0.5738005051
+plancraft-test|gemini-2.5-flash,PlanCraft,gemini-2.5-flash,multi-agent-centralized,0.38,0,0.4034725456,0.4034725456,0.2839888062,0.51,0.5750505051
+plancraft-test|gemini-2.5-flash,PlanCraft,gemini-2.5-flash,multi-agent-decentralized,0.41,0,0.4282014076,0.4282014076,0.3154332096,0.51,0.5750505051
+plancraft-test|gemini-2.5-flash,PlanCraft,gemini-2.5-flash,multi-agent-hybrid,0.41,0,0.4191545877,0.4191545877,0.2911265648,0.51,0.5750505051
+plancraft-test|gemini-2.5-flash,PlanCraft,gemini-2.5-flash,multi-agent-independent,0.19,0,0.333841048,0.333841048,0.1623653043,0.51,0.5750505051
+plancraft-test|gemini-2.5-flash,PlanCraft,gemini-2.5-flash,single-agent,0.51,1,0.51,0.5637082714,0.5563377743,0.5678226712,0.5750505051
+plancraft-test|gemini-2.5-pro,PlanCraft,gemini-2.5-pro,multi-agent-centralized,0.34,0,0.4464839758,0.4464839758,0.3348703225,0.51,0.5750505051
+plancraft-test|gemini-2.5-pro,PlanCraft,gemini-2.5-pro,multi-agent-decentralized,0.38,0,0.4699482605,0.4699482605,0.3667295849,0.51,0.5750505051
+plancraft-test|gemini-2.5-pro,PlanCraft,gemini-2.5-pro,multi-agent-hybrid,0.42,0,0.4703213849,0.4703213849,0.3454743423,0.51,0.5750505051
+plancraft-test|gemini-2.5-pro,PlanCraft,gemini-2.5-pro,multi-agent-independent,0.14,0,0.3925553999,0.3925553999,0.2257987586,0.51,0.5750505051
+plancraft-test|gemini-2.5-pro,PlanCraft,gemini-2.5-pro,single-agent,0.51,1,0.51,0.616288916,0.6113075469,0.5678226712,0.5750505051
+plancraft-test|gpt-5,PlanCraft,gpt-5,multi-agent-centralized,0.32,0,0.4942971805,0.4942971805,0.3800917592,0.61,0.5625505051
+plancraft-test|gpt-5,PlanCraft,gpt-5,multi-agent-decentralized,0.46,0,0.5222445237,0.5222445237,0.4024301463,0.61,0.5625505051
+plancraft-test|gpt-5,PlanCraft,gpt-5,multi-agent-hybrid,0.336,0,0.5271589938,0.5271589938,0.3961444043,0.61,0.5625505051
+plancraft-test|gpt-5,PlanCraft,gpt-5,multi-agent-independent,0.28,0,0.4299307286,0.4299307286,0.2579587724,0.61,0.5625505051
+plancraft-test|gpt-5,PlanCraft,gpt-5,single-agent,0.61,1,0.61,0.6514485568,0.6403207495,0.5678226712,0.5625505051
+plancraft-test|gpt-5-mini,PlanCraft,gpt-5-mini,multi-agent-centralized,0.35,0,0.4660828492,0.4660828492,0.3560150528,0.54,0.5713005051
+plancraft-test|gpt-5-mini,PlanCraft,gpt-5-mini,multi-agent-decentralized,0.45,0,0.4898094809,0.4898094809,0.3814759174,0.54,0.5713005051
+plancraft-test|gpt-5-mini,PlanCraft,gpt-5-mini,multi-agent-hybrid,0.35,0,0.4953220593,0.4953220593,0.3697057197,0.54,0.5713005051
+plancraft-test|gpt-5-mini,PlanCraft,gpt-5-mini,multi-agent-independent,0.28,0,0.4087672504,0.4087672504,0.232534815,0.54,0.5713005051
+plancraft-test|gpt-5-mini,PlanCraft,gpt-5-mini,single-agent,0.54,1,0.54,0.6346567043,0.6288628722,0.5678226712,0.5713005051
+plancraft-test|gpt-5-nano,PlanCraft,gpt-5-nano,multi-agent-centralized,0.29,0,0.4125567499,0.4125567499,0.2998504149,0.38,0.5913005051
+plancraft-test|gpt-5-nano,PlanCraft,gpt-5-nano,multi-agent-decentralized,0.38,1,0.4240397781,0.4240397781,0.3291545101,0.38,0.5913005051
+plancraft-test|gpt-5-nano,PlanCraft,gpt-5-nano,multi-agent-hybrid,0.35,0,0.4314854983,0.4314854983,0.3076741934,0.38,0.5913005051
+plancraft-test|gpt-5-nano,PlanCraft,gpt-5-nano,multi-agent-independent,0.24,0,0.3627842613,0.3627842613,0.1661372715,0.38,0.5913005051
+plancraft-test|gpt-5-nano,PlanCraft,gpt-5-nano,single-agent,0.38,1,0.38,0.5902534274,0.5838975664,0.5678226712,0.5913005051
+swebench-verified|claude-sonnet-4-20250514,SWE-bench Verified,claude-sonnet-4-20250514,multi-agent-centralized,0.5,0,0.4522421359,0.4522421359,0.4651666679,0.7,0.4571428571
+swebench-verified|claude-sonnet-4-20250514,SWE-bench Verified,claude-sonnet-4-20250514,multi-agent-decentralized,0.55,0,0.499326353,0.499326353,0.49049406,0.7,0.4571428571
+swebench-verified|claude-sonnet-4-20250514,SWE-bench Verified,claude-sonnet-4-20250514,multi-agent-hybrid,0.45,0,0.4527124435,0.4527124435,0.479051442,0.7,0.4571428571
+swebench-verified|claude-sonnet-4-20250514,SWE-bench Verified,claude-sonnet-4-20250514,multi-agent-independent,0.3,0,0.3366890591,0.3366890591,0.3999759747,0.7,0.4571428571
+swebench-verified|claude-sonnet-4-20250514,SWE-bench Verified,claude-sonnet-4-20250514,single-agent,0.7,1,0.7,0.4483743736,0.4656771054,0.4875,0.4571428571
+swebench-verified|claude-sonnet-4-5,SWE-bench Verified,claude-sonnet-4-5,multi-agent-centralized,0.7,0,0.4633060266,0.4633060266,0.4933914616,0.75,0.45
+swebench-verified|claude-sonnet-4-5,SWE-bench Verified,claude-sonnet-4-5,multi-agent-decentralized,0.7,0,0.5178314535,0.5178314535,0.5191415814,0.75,0.45
+swebench-verified|claude-sonnet-4-5,SWE-bench Verified,claude-sonnet-4-5,multi-agent-hybrid,0.7,0,0.4689415198,0.4689415198,0.5080839105,0.75,0.45
+swebench-verified|claude-sonnet-4-5,SWE-bench Verified,claude-sonnet-4-5,multi-agent-independent,0.55,0,0.3516449546,0.3516449546,0.4358838588,0.75,0.45
+swebench-verified|claude-sonnet-4-5,SWE-bench Verified,claude-sonnet-4-5,single-agent,0.75,1,0.75,0.4825179543,0.4969144244,0.4875,0.45
+swebench-verified|gemini-2.0-flash,SWE-bench Verified,gemini-2.0-flash,multi-agent-centralized,0.25,0,0.4883900703,0.4883900703,0.4494936436,0.15,0.5357142857
+swebench-verified|gemini-2.0-flash,SWE-bench Verified,gemini-2.0-flash,multi-agent-decentralized,0.25,0,0.4846223475,0.4846223475,0.4844980732,0.15,0.5357142857
+swebench-verified|gemini-2.0-flash,SWE-bench Verified,gemini-2.0-flash,multi-agent-hybrid,0.3,0,0.4894066205,0.4894066205,0.4470358911,0.15,0.5357142857
+swebench-verified|gemini-2.0-flash,SWE-bench Verified,gemini-2.0-flash,multi-agent-independent,0.4,1,0.4404172281,0.4404172281,0.3424865325,0.15,0.5357142857
+swebench-verified|gemini-2.0-flash,SWE-bench Verified,gemini-2.0-flash,single-agent,0.15,0,0.15,0.5349670782,0.5569825407,0.4875,0.5357142857
+swebench-verified|gemini-2.5-flash,SWE-bench Verified,gemini-2.5-flash,multi-agent-centralized,0.35,0,0.5167021632,0.5167021632,0.5191356014,0.5,0.4857142857
+swebench-verified|gemini-2.5-flash,SWE-bench Verified,gemini-2.5-flash,multi-agent-decentralized,0.35,0,0.5435904159,0.5435904159,0.5476863212,0.5,0.4857142857
+swebench-verified|gemini-2.5-flash,SWE-bench Verified,gemini-2.5-flash,multi-agent-hybrid,0.45,0,0.5277697125,0.5277697125,0.5305840457,0.5,0.4857142857
+swebench-verified|gemini-2.5-flash,SWE-bench Verified,gemini-2.5-flash,multi-agent-independent,0.4,0,0.4478495687,0.4478495687,0.4464309768,0.5,0.4857142857
+swebench-verified|gemini-2.5-flash,SWE-bench Verified,gemini-2.5-flash,single-agent,0.5,1,0.5,0.5460987878,0.5657521351,0.4875,0.4857142857
+swebench-verified|gemini-2.5-pro,SWE-bench Verified,gemini-2.5-pro,multi-agent-centralized,0.55,0,0.5395445075,0.5395445075,0.5544417923,0.7,0.4571428571
+swebench-verified|gemini-2.5-pro,SWE-bench Verified,gemini-2.5-pro,multi-agent-decentralized,0.45,0,0.5864845695,0.5864845695,0.5818265722,0.7,0.4571428571
+swebench-verified|gemini-2.5-pro,SWE-bench Verified,gemini-2.5-pro,multi-agent-hybrid,0.6,0,0.5559951975,0.5559951975,0.5722114601,0.7,0.4571428571
+swebench-verified|gemini-2.5-pro,SWE-bench Verified,gemini-2.5-pro,multi-agent-independent,0.5,0,0.4510387711,0.4510387711,0.5001176817,0.7,0.4571428571
+swebench-verified|gemini-2.5-pro,SWE-bench Verified,gemini-2.5-pro,single-agent,0.7,1,0.7,0.5528985726,0.5681855213,0.4875,0.4571428571
+swebench-verified|gpt-5,SWE-bench Verified,gpt-5,multi-agent-centralized,0.6,0,0.5594356146,0.5594356146,0.5744627546,0.65,0.4642857143
+swebench-verified|gpt-5,SWE-bench Verified,gpt-5,multi-agent-decentralized,0.7,1,0.5948364741,0.5948364741,0.5976415773,0.65,0.4642857143
+swebench-verified|gpt-5,SWE-bench Verified,gpt-5,multi-agent-hybrid,0.55,0,0.5887442265,0.5887442265,0.6000255257,0.65,0.4642857143
+swebench-verified|gpt-5,SWE-bench Verified,gpt-5,multi-agent-independent,0.55,0,0.493717195,0.493717195,0.5275214836,0.65,0.4642857143
+swebench-verified|gpt-5,SWE-bench Verified,gpt-5,single-agent,0.65,0,0.65,0.5858244377,0.6036049824,0.4875,0.4642857143
+swebench-verified|gpt-5-mini,SWE-bench Verified,gpt-5-mini,multi-agent-centralized,0.5,1,0.5656190275,0.5656190275,0.5616730987,0.4,0.5
+swebench-verified|gpt-5-mini,SWE-bench Verified,gpt-5-mini,multi-agent-decentralized,0.3,0,0.5862132751,0.5862132751,0.5953398197,0.4,0.5
+swebench-verified|gpt-5-mini,SWE-bench Verified,gpt-5-mini,multi-agent-hybrid,0.5,1,0.590285584,0.590285584,0.5772583149,0.4,0.5
+swebench-verified|gpt-5-mini,SWE-bench Verified,gpt-5-mini,multi-agent-independent,0.45,0,0.5321463093,0.5321463093,0.4932322526,0.4,0.5
+swebench-verified|gpt-5-mini,SWE-bench Verified,gpt-5-mini,single-agent,0.4,0,0.4,0.6167117689,0.6368541681,0.4875,0.5
+swebench-verified|gpt-5-nano,SWE-bench Verified,gpt-5-nano,multi-agent-centralized,0.35,1,0.5653761069,0.5653761069,0.5020747722,0.05,0.55
+swebench-verified|gpt-5-nano,SWE-bench Verified,gpt-5-nano,multi-agent-decentralized,0.35,1,0.554416975,0.554416975,0.5377479354,0.05,0.55
+swebench-verified|gpt-5-nano,SWE-bench Verified,gpt-5-nano,multi-agent-hybrid,0.3,0,0.5893110658,0.5893110658,0.5138146787,0.05,0.55
+swebench-verified|gpt-5-nano,SWE-bench Verified,gpt-5-nano,multi-agent-independent,0.25,0,0.5850959828,0.5850959828,0.4173134075,0.05,0.55
+swebench-verified|gpt-5-nano,SWE-bench Verified,gpt-5-nano,single-agent,0.05,0,0.05,0.6108994956,0.6307964282,0.4875,0.55
+terminalbench|claude-sonnet-4-20250514,Terminal-Bench,claude-sonnet-4-20250514,multi-agent-centralized,0.25,0,0.1692292924,0.1692292924,0.1796701612,0.25,0.3214285714
+terminalbench|claude-sonnet-4-20250514,Terminal-Bench,claude-sonnet-4-20250514,multi-agent-decentralized,0.35,1,0.1689444078,0.1689444078,0.1710495045,0.25,0.3214285714
+terminalbench|claude-sonnet-4-20250514,Terminal-Bench,claude-sonnet-4-20250514,multi-agent-hybrid,0.25,0,0.1824298853,0.1824298853,0.19164552,0.25,0.3214285714
+terminalbench|claude-sonnet-4-20250514,Terminal-Bench,claude-sonnet-4-20250514,multi-agent-independent,0.35,1,0.1080914545,0.1080914545,0.1218621967,0.25,0.3214285714
+terminalbench|claude-sonnet-4-20250514,Terminal-Bench,claude-sonnet-4-20250514,single-agent,0.25,0,0.25,0.1519559295,0.1294509274,0.3125,0.3214285714
+terminalbench|claude-sonnet-4-5,Terminal-Bench,claude-sonnet-4-5,multi-agent-centralized,0.45,0,0.2036152836,0.2036152836,0.2407461253,0.6,0.2714285714
+terminalbench|claude-sonnet-4-5,Terminal-Bench,claude-sonnet-4-5,multi-agent-decentralized,0.4,0,0.2375225067,0.2375225067,0.2384240214,0.6,0.2714285714
+terminalbench|claude-sonnet-4-5,Terminal-Bench,claude-sonnet-4-5,multi-agent-hybrid,0.5,0,0.2206183885,0.2206183885,0.2689593174,0.6,0.2714285714
+terminalbench|claude-sonnet-4-5,Terminal-Bench,claude-sonnet-4-5,multi-agent-independent,0.4,0,0.1077567336,0.1077567336,0.2261544757,0.6,0.2714285714
+terminalbench|claude-sonnet-4-5,Terminal-Bench,claude-sonnet-4-5,single-agent,0.6,1,0.6,0.1761786051,0.1532582289,0.3125,0.2714285714
+terminalbench|gemini-2.0-flash,Terminal-Bench,gemini-2.0-flash,multi-agent-centralized,0.15,0,0.2053492146,0.2053492146,0.2100590957,0.15,0.3357142857
+terminalbench|gemini-2.0-flash,Terminal-Bench,gemini-2.0-flash,multi-agent-decentralized,0.05,0,0.1973459363,0.1973459363,0.2050022627,0.15,0.3357142857
+terminalbench|gemini-2.0-flash,Terminal-Bench,gemini-2.0-flash,multi-agent-hybrid,0.05,0,0.2171847861,0.2171847861,0.2163318954,0.15,0.3357142857
+terminalbench|gemini-2.0-flash,Terminal-Bench,gemini-2.0-flash,multi-agent-independent,0.2,1,0.1553964668,0.1553964668,0.1422442585,0.15,0.3357142857
+terminalbench|gemini-2.0-flash,Terminal-Bench,gemini-2.0-flash,single-agent,0.15,0,0.15,0.187683461,0.1668579418,0.3125,0.3357142857
+terminalbench|gemini-2.5-flash,Terminal-Bench,gemini-2.5-flash,multi-agent-centralized,0.25,1,0.2753875586,0.2753875586,0.2867178226,0.2,0.3285714286
+terminalbench|gemini-2.5-flash,Terminal-Bench,gemini-2.5-flash,multi-agent-decentralized,0.25,1,0.2705029664,0.2705029664,0.2793722674,0.2,0.3285714286
+terminalbench|gemini-2.5-flash,Terminal-Bench,gemini-2.5-flash,multi-agent-hybrid,0.25,1,0.2988665041,0.2988665041,0.3002592766,0.2,0.3285714286
+terminalbench|gemini-2.5-flash,Terminal-Bench,gemini-2.5-flash,multi-agent-independent,0.2,0,0.250014572,0.250014572,0.2420425219,0.2,0.3285714286
+terminalbench|gemini-2.5-flash,Terminal-Bench,gemini-2.5-flash,single-agent,0.2,0,0.2,0.27027185,0.2489485214,0.3125,0.3285714286
+terminalbench|gemini-2.5-pro,Terminal-Bench,gemini-2.5-pro,multi-agent-centralized,0.1,0,0.3379704763,0.3379704763,0.356438177,0.45,0.2928571429
+terminalbench|gemini-2.5-pro,Terminal-Bench,gemini-2.5-pro,multi-agent-decentralized,0.3,0,0.3494067312,0.3494067312,0.3429472749,0.45,0.2928571429
+terminalbench|gemini-2.5-pro,Terminal-Bench,gemini-2.5-pro,multi-agent-hybrid,0.25,0,0.3617071447,0.3617071447,0.3768518237,0.45,0.2928571429
+terminalbench|gemini-2.5-pro,Terminal-Bench,gemini-2.5-pro,multi-agent-independent,0.3,0,0.2731850107,0.2731850107,0.3249764527,0.45,0.2928571429
+terminalbench|gemini-2.5-pro,Terminal-Bench,gemini-2.5-pro,single-agent,0.45,1,0.45,0.3012649612,0.2732530218,0.3125,0.2928571429
+terminalbench|gpt-5,Terminal-Bench,gpt-5,multi-agent-centralized,0.45,0,0.3454466478,0.3454466478,0.3641159989,0.3,0.3142857143
+terminalbench|gpt-5,Terminal-Bench,gpt-5,multi-agent-decentralized,0.45,0,0.3490581196,0.3490581196,0.3568749235,0.3,0.3142857143
+terminalbench|gpt-5,Terminal-Bench,gpt-5,multi-agent-hybrid,0.5,1,0.3814777967,0.3814777967,0.3872424259,0.3,0.3142857143
+terminalbench|gpt-5,Terminal-Bench,gpt-5,multi-agent-independent,0.45,0,0.3285781778,0.3285781778,0.3391893104,0.3,0.3142857143
+terminalbench|gpt-5,Terminal-Bench,gpt-5,single-agent,0.3,0,0.3,0.3562171732,0.3310550034,0.3125,0.3142857143
+terminalbench|gpt-5-mini,Terminal-Bench,gpt-5-mini,multi-agent-centralized,0.15,0,0.3647721614,0.3647721614,0.380883731,0.3,0.3142857143
+terminalbench|gpt-5-mini,Terminal-Bench,gpt-5-mini,multi-agent-decentralized,0.3,0,0.3625949293,0.3625949293,0.3674026087,0.3,0.3142857143
+terminalbench|gpt-5-mini,Terminal-Bench,gpt-5-mini,multi-agent-hybrid,0.2,0,0.3945121071,0.3945121071,0.3992109889,0.3,0.3142857143
+terminalbench|gpt-5-mini,Terminal-Bench,gpt-5-mini,multi-agent-independent,0.45,1,0.3226339733,0.3226339733,0.3337876865,0.3,0.3142857143
+terminalbench|gpt-5-mini,Terminal-Bench,gpt-5-mini,single-agent,0.3,0,0.3,0.3473998434,0.3225043791,0.3125,0.3142857143
+terminalbench|gpt-5-nano,Terminal-Bench,gpt-5-nano,multi-agent-centralized,0.2,0,0.2854311032,0.2854311032,0.2980425976,0.25,0.3214285714
+terminalbench|gpt-5-nano,Terminal-Bench,gpt-5-nano,multi-agent-decentralized,0.25,0,0.2828278185,0.2828278185,0.2885958511,0.25,0.3214285714
+terminalbench|gpt-5-nano,Terminal-Bench,gpt-5-nano,multi-agent-hybrid,0.2,0,0.3092573816,0.3092573816,0.313624585,0.25,0.3214285714
+terminalbench|gpt-5-nano,Terminal-Bench,gpt-5-nano,multi-agent-independent,0.3,1,0.2463753729,0.2463753729,0.2517031926,0.25,0.3214285714
+terminalbench|gpt-5-nano,Terminal-Bench,gpt-5-nano,single-agent,0.25,0,0.25,0.2729850509,0.2503711822,0.3125,0.3214285714
+workbench|claude-3-7-sonnet-20250219,WorkBench,claude-3-7-sonnet-20250219,multi-agent-centralized,0.63,0,0.5672060362,0.5672060362,0.5462613875,0.53,0.64125
+workbench|claude-3-7-sonnet-20250219,WorkBench,claude-3-7-sonnet-20250219,multi-agent-decentralized,0.67,1,0.6081231636,0.6081231636,0.623352122,0.53,0.64125
+workbench|claude-3-7-sonnet-20250219,WorkBench,claude-3-7-sonnet-20250219,multi-agent-hybrid,0.66,0,0.545106341,0.545106341,0.5479497623,0.53,0.64125
+workbench|claude-3-7-sonnet-20250219,WorkBench,claude-3-7-sonnet-20250219,multi-agent-independent,0.55,0,0.4813716546,0.4813716546,0.4718214175,0.53,0.64125
+workbench|claude-3-7-sonnet-20250219,WorkBench,claude-3-7-sonnet-20250219,single-agent,0.53,0,0.53,0.5474171655,0.5382949425,0.6288888889,0.64125
+workbench|claude-sonnet-4-20250514,WorkBench,claude-sonnet-4-20250514,multi-agent-centralized,0.68,0,0.5822856526,0.5822856526,0.5663717276,0.64,0.6275
+workbench|claude-sonnet-4-20250514,WorkBench,claude-sonnet-4-20250514,multi-agent-decentralized,0.72,1,0.629814285,0.629814285,0.6374383107,0.64,0.6275
+workbench|claude-sonnet-4-20250514,WorkBench,claude-sonnet-4-20250514,multi-agent-hybrid,0.71,0,0.5634952966,0.5634952966,0.5668781811,0.64,0.6275
+workbench|claude-sonnet-4-20250514,WorkBench,claude-sonnet-4-20250514,multi-agent-independent,0.65,0,0.4786224299,0.4786224299,0.487474581,0.64,0.6275
+workbench|claude-sonnet-4-20250514,WorkBench,claude-sonnet-4-20250514,single-agent,0.64,0,0.64,0.552655794,0.5437410497,0.6288888889,0.6275
+workbench|claude-sonnet-4-5,WorkBench,claude-sonnet-4-5,multi-agent-centralized,0.72,0,0.6078973292,0.6078973292,0.5939889683,0.65,0.62625
+workbench|claude-sonnet-4-5,WorkBench,claude-sonnet-4-5,multi-agent-decentralized,0.81,1,0.6526922699,0.6526922699,0.6619885943,0.65,0.62625
+workbench|claude-sonnet-4-5,WorkBench,claude-sonnet-4-5,multi-agent-hybrid,0.74,0,0.5989463953,0.5989463953,0.5989355989,0.65,0.62625
+workbench|claude-sonnet-4-5,WorkBench,claude-sonnet-4-5,multi-agent-independent,0.7,0,0.5181281772,0.5181281772,0.5222746722,0.65,0.62625
+workbench|claude-sonnet-4-5,WorkBench,claude-sonnet-4-5,single-agent,0.65,0,0.65,0.5874089186,0.5779455983,0.6288888889,0.62625
+workbench|gemini-2.0-flash,WorkBench,gemini-2.0-flash,multi-agent-centralized,0.52,0,0.6175889197,0.6175889197,0.5991209992,0.55,0.63875
+workbench|gemini-2.0-flash,WorkBench,gemini-2.0-flash,multi-agent-decentralized,0.52,0,0.6605991275,0.6605991275,0.6761637458,0.55,0.63875
+workbench|gemini-2.0-flash,WorkBench,gemini-2.0-flash,multi-agent-hybrid,0.55,1,0.6105566183,0.6105566183,0.6121325351,0.55,0.63875
+workbench|gemini-2.0-flash,WorkBench,gemini-2.0-flash,multi-agent-independent,0.53,0,0.5316140256,0.5316140256,0.5227292104,0.55,0.63875
+workbench|gemini-2.0-flash,WorkBench,gemini-2.0-flash,single-agent,0.55,1,0.55,0.5841320803,0.5754301203,0.6288888889,0.63875
+workbench|gemini-2.5-flash,WorkBench,gemini-2.5-flash,multi-agent-centralized,0.58,0,0.6337371534,0.6337371534,0.6199385527,0.63,0.62875
+workbench|gemini-2.5-flash,WorkBench,gemini-2.5-flash,multi-agent-decentralized,0.58,0,0.6817188126,0.6817188126,0.6935705945,0.63,0.62875
+workbench|gemini-2.5-flash,WorkBench,gemini-2.5-flash,multi-agent-hybrid,0.63,1,0.6366620718,0.6366620718,0.6348078694,0.63,0.62875
+workbench|gemini-2.5-flash,WorkBench,gemini-2.5-flash,multi-agent-independent,0.54,0,0.5637836694,0.5637836694,0.5616741144,0.63,0.62875
+workbench|gemini-2.5-flash,WorkBench,gemini-2.5-flash,single-agent,0.63,1,0.63,0.6076392029,0.5978363074,0.6288888889,0.62875
+workbench|gemini-2.5-pro,WorkBench,gemini-2.5-pro,multi-agent-centralized,0.66,0,0.6447830004,0.6447830004,0.6327157352,0.64,0.6275
+workbench|gemini-2.5-pro,WorkBench,gemini-2.5-pro,multi-agent-decentralized,0.69,1,0.6917190003,0.6917190003,0.7048542366,0.64,0.6275
+workbench|gemini-2.5-pro,WorkBench,gemini-2.5-pro,multi-agent-hybrid,0.66,0,0.6552863372,0.6552863372,0.6507914875,0.64,0.6275
+workbench|gemini-2.5-pro,WorkBench,gemini-2.5-pro,multi-agent-independent,0.56,0,0.5901578503,0.5901578503,0.584268407,0.64,0.6275
+workbench|gemini-2.5-pro,WorkBench,gemini-2.5-pro,single-agent,0.64,0,0.64,0.6290999866,0.6184531518,0.6288888889,0.6275
+workbench|gpt-5,WorkBench,gpt-5,multi-agent-centralized,0.64,0,0.6625705377,0.6625705377,0.6525027482,0.7,0.62
+workbench|gpt-5,WorkBench,gpt-5,multi-agent-decentralized,0.76,1,0.709940408,0.709940408,0.7189005942,0.7,0.62
+workbench|gpt-5,WorkBench,gpt-5,multi-agent-hybrid,0.6,0,0.685488876,0.685488876,0.6784858577,0.7,0.62
+workbench|gpt-5,WorkBench,gpt-5,multi-agent-independent,0.59,0,0.6047046291,0.6047046291,0.604621725,0.7,0.62
+workbench|gpt-5,WorkBench,gpt-5,single-agent,0.7,0,0.7,0.6394952218,0.6269645392,0.6288888889,0.62
+workbench|gpt-5-mini,WorkBench,gpt-5-mini,multi-agent-centralized,0.6,0,0.6700901876,0.6700901876,0.6602849304,0.7,0.62
+workbench|gpt-5-mini,WorkBench,gpt-5-mini,multi-agent-decentralized,0.62,0,0.7240414263,0.7240414263,0.7324506825,0.7,0.62
+workbench|gpt-5-mini,WorkBench,gpt-5-mini,multi-agent-hybrid,0.56,0,0.6932796101,0.6932796101,0.6879784085,0.7,0.62
+workbench|gpt-5-mini,WorkBench,gpt-5-mini,multi-agent-independent,0.45,0,0.6198534229,0.6198534229,0.6228054079,0.7,0.62
+workbench|gpt-5-mini,WorkBench,gpt-5-mini,single-agent,0.7,1,0.7,0.6409215659,0.6294502461,0.6288888889,0.62
+workbench|gpt-5-nano,WorkBench,gpt-5-nano,multi-agent-centralized,0.56,0,0.6426403795,0.6426403795,0.6287961661,0.62,0.63
+workbench|gpt-5-nano,WorkBench,gpt-5-nano,multi-agent-decentralized,0.61,0,0.6905935615,0.6905935615,0.7036653999,0.62,0.63
+workbench|gpt-5-nano,WorkBench,gpt-5-nano,multi-agent-hybrid,0.48,0,0.6564362081,0.6564362081,0.6541718386,0.62,0.63
+workbench|gpt-5-nano,WorkBench,gpt-5-nano,multi-agent-independent,0.44,0,0.5821638209,0.5821638209,0.5773792808,0.62,0.63
+workbench|gpt-5-nano,WorkBench,gpt-5-nano,single-agent,0.62,1,0.62,0.6146759964,0.604883339,0.6288888889,0.63

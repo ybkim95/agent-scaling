@@ -351,3 +351,29 @@ PYTHONPATH="" PYTHONNOUSERSITE=1 .venv/bin/python -m pytest \
 ```
 
 Expected result of step 7: **28 passed**.
+
+## Reproducing the analysis
+
+The regression and selection analyses run from the deposited Source Data and the released scripts without any experiment runs.
+
+```bash
+# Published N=260 regression (R2_train = 0.463, R2_CV = 0.373; Holm, cluster-robust, LODO, ACI)
+PYTHONPATH="" PYTHONNOUSERSITE=1 .venv/bin/python scripts/reproduce_published_regression.py
+
+# Full 4-benchmark vs 6-benchmark comparison and robustness analyses
+PYTHONPATH="" PYTHONNOUSERSITE=1 .venv/bin/python scripts/extended_mixed_effects_6benchmarks.py
+
+# Architecture selection with complete (benchmark, model) choice sets held out
+PYTHONPATH="" PYTHONNOUSERSITE=1 .venv/bin/python scripts/architecture_selection_eval.py --check
+
+# The same evaluation, written out one row per choice set
+PYTHONPATH="" PYTHONNOUSERSITE=1 .venv/bin/python scripts/architecture_selection_eval.py \
+    --decisions data/architecture_selection_decisions.csv
+
+# Definition and sensitivity of the sign-match rate for the ~45% threshold
+PYTHONPATH="" PYTHONNOUSERSITE=1 .venv/bin/python scripts/threshold_sign_match.py
+```
+
+`data/architecture_selection_decisions.csv` is the decision-level output of that evaluation, one row for each of the 52 choice sets, giving the architecture each rule selected, what that selection scored, the observed optimum of the set and the resulting regret. It is committed so that the per-decision comparison can be made without rerunning the evaluator, and `--decisions` regenerates it byte for byte.
+
+`data/Source_Data_Fig1_Fig2.csv` holds the 260 configurations. The two dataset labels `swe-bench-verified` and `terminal-bench` in that file correspond to `swebench-verified` and `terminalbench` in the run configs and analysis scripts.

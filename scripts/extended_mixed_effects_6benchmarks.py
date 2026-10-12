@@ -4,7 +4,8 @@ Extended Mixed-Effects Regression Analysis: 4 → 6 Benchmarks
 Statistical robustness analysis
 
 Extends the original 4-benchmark analysis (Cell 6, mixed_effect_model.ipynb)
-to include swebench-verified and terminalbench, for a total of 270 data points
+to include swebench-verified and terminalbench, for a total of 260 data points
+(gemini-3-flash-preview held out as an out-of-sample frontier model; see Suppl. Table S11)
 across 6 benchmarks.
 
 Methodology is IDENTICAL to the original:
@@ -290,7 +291,7 @@ INTELLIGENCE_SCORES = {
     "gpt-5-mini": 68,
     "gpt-5": 71,
     # New models in swebench-verified and terminalbench
-    "gemini-3-flash-preview": 71,  # from Artificial Analysis leaderboard
+    "gemini-3-flash-preview": 75,  # Gemini-3.0 Flash, Supplementary Table S1. Out of sample: excluded from the N=260 analysis (see main()), listed here only so the out-of-sample rows in Table S11 can be built.
 }
 
 # ==============================================================================
@@ -869,7 +870,7 @@ def run_cluster_robust_analysis(model, df_scaled: pd.DataFrame) -> None:
 
     print("""
   MOTIVATION (the prior critique):
-    Tool count is constant within each dataset. Treating the 270 per-configuration
+    Tool count is constant within each dataset. Treating the 260 per-configuration
     observations as i.i.d. may overstate effective sample size and yield spuriously
     small p-values for predictors that vary only at the dataset level (e.g.,
     log_tools and all tool-interaction terms).
@@ -1088,9 +1089,13 @@ def main():
     # Step 4: Build 6-benchmark dataframe (original + new)
     # ------------------------------------------------------------------
     all_rows = ORIGINAL_DATA + new_rows
+    # gemini-3-flash-preview is reported as an out-of-sample frontier model
+    # (Supplementary Table S11); exclude it so the in-sample regression matches
+    # the manuscript's N=260 analysis.
+    all_rows = [r for r in all_rows if 'gemini-3' not in str(r[3])]
     df_6bm_raw, intel_mean_6 = build_dataframe(all_rows)
     df_6bm_scaled, scaler_6 = standardize(df_6bm_raw, FEATURE_COLS)
-    assert len(df_6bm_raw) == 270, f"Expected 270 rows, got {len(df_6bm_raw)}"
+    assert len(df_6bm_raw) == 260, f"Expected 260 rows, got {len(df_6bm_raw)}"
 
     # ------------------------------------------------------------------
     # Step 5: Dataset summary
@@ -1168,9 +1173,9 @@ def main():
     print_section("REPRODUCIBILITY NOTES")
     print("""
   1. Original data: embedded from colab_analysis/mixed_effect_model.ipynb Cell 6 (180 rows)
-  2. New data: aggregated from scripts/per_instance_results_swe_tb.csv (90 rows)
+  2. New data: aggregated from scripts/per_instance_results_swe_tb.csv (80 rows; the 10 gemini-3-flash-preview rows are excluded)
      - Each (dataset, architecture, model) cell = mean of 20 instances
-  3. Intelligence scores: Table 6 of paper + gemini-3-flash-preview=71 (Artificial Analysis)
+  3. Intelligence scores: Table 6 of paper; gemini-3-flash-preview=75 (Supplementary Table S1), not used by the N=260 analysis
   4. Coordination metrics: Table 5 of paper (unchanged, per-architecture)
   5. Tool counts: original benchmarks unchanged; swebench-verified=7, terminalbench=2
   6. Model formula: identical 19-predictor formula from Cell 6

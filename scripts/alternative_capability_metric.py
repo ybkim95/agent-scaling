@@ -290,7 +290,7 @@ INTELLIGENCE_SCORES = {
     "gpt-5-nano": 59,
     "gpt-5-mini": 68,
     "gpt-5": 71,
-    "gemini-3-flash-preview": 71,
+    "gemini-3-flash-preview": 75,  # Gemini-3.0 Flash, Supplementary Table S1. Out of sample: excluded from the N=260 analysis (see main()).
 }
 
 # ==============================================================================
@@ -528,7 +528,7 @@ def build_metric_a_df(data_rows: list):
     Metric A: capability = Agentic Capability Index (ACI).
 
     ACI for a model = mean single-agent performance across ALL 6 benchmarks.
-    Computed from the 270-row dataset itself (single-agent rows only).
+    Computed from the 260-row dataset itself (single-agent rows only).
     This directly measures agentic ability on real tasks, distinguishing models
     that share the same static Intelligence Index but behave differently in
     agentic settings (e.g., GPT-5.2 vs Gemini-3.0-Pro, both at index 75).
@@ -914,10 +914,13 @@ def main():
     # ------------------------------------------------------------------
     new_rows  = load_new_data(csv_path)
     all_rows  = ORIGINAL_DATA + new_rows
+    # gemini-3-flash-preview is reported as an out-of-sample frontier model
+    # (Supplementary Table S11); exclude it for the in-sample N=260 analysis.
+    all_rows  = [r for r in all_rows if 'gemini-3' not in str(r[3])]
     print(f"  Original rows : {len(ORIGINAL_DATA)}")
     print(f"  New rows (CSV): {len(new_rows)}")
     print(f"  Total rows    : {len(all_rows)}")
-    assert len(all_rows) == 270, f"Expected 270 rows, got {len(all_rows)}"
+    assert len(all_rows) == 260, f"Expected 260 rows, got {len(all_rows)}"
 
     # ------------------------------------------------------------------
     # Build & verify ACI (agentic capability) rankings vs Intelligence Index
@@ -981,19 +984,19 @@ def main():
     # Run all three models
     # ------------------------------------------------------------------
     model_orig, coef_orig, cv_orig = run_model(
-        "Original — Intelligence Index (N=270)",
+        "Original — Intelligence Index (N=260)",
         df_orig_scaled, FORMULA_ORIGINAL, FEATURE_COLS_ORIGINAL,
         'intelligence_centered', 'intelligence_sq_centered',
     )
 
     model_metA, coef_metA, cv_metA = run_model(
-        "Metric A — Agentic Capability Index (N=270)",
+        "Metric A — Agentic Capability Index (N=260)",
         df_metA_scaled, FORMULA_METRIC_A, FEATURE_COLS_METRIC_A,
         'aci_centered', 'aci_sq_centered',
     )
 
     model_metB, coef_metB, cv_metB = run_model(
-        "Metric B — Per-dataset Single-Agent Baseline (N=270)",
+        "Metric B — Per-dataset Single-Agent Baseline (N=260)",
         df_metB_scaled, FORMULA_METRIC_B, FEATURE_COLS_METRIC_B,
         'psb_centered', 'psb_sq_centered',
     )
@@ -1058,7 +1061,7 @@ def main():
 
   Metric A rationale:
     ACI = mean single-agent performance across all 6 benchmarks.
-    Computed from the same 270-row dataset (single-agent rows only).
+    Computed from the same 260-row dataset (single-agent rows only).
     No external source; fully reproducible from the paper's own data.
     distinguishes models with identical static indices
     but different actual agentic performance.

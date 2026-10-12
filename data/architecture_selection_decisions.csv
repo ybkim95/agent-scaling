@@ -1,0 +1,53 @@
+benchmark,model,observed_optimum,n_architectures_at_optimum,eq1_measured_sa_selected,eq1_measured_sa_performance,eq1_measured_sa_attained,eq1_measured_sa_regret,eq1_all_predicted_selected,eq1_all_predicted_performance,eq1_all_predicted_attained,eq1_all_predicted_regret,eq1_benchmark_mean_baseline_selected,eq1_benchmark_mean_baseline_performance,eq1_benchmark_mean_baseline_attained,eq1_benchmark_mean_baseline_regret,benchmark_mean_rule_selected,benchmark_mean_rule_performance,benchmark_mean_rule_attained,benchmark_mean_rule_regret,always_single_agent_selected,always_single_agent_performance,always_single_agent_attained,always_single_agent_regret
+BrowseComp-Plus,claude-3-7-sonnet-20250219,0.343434,1,single-agent,0.262626,0,0.080808,multi-agent-decentralized,0.292929,0,0.050505,multi-agent-hybrid,0.333333,0,0.010101,multi-agent-decentralized,0.292929,0,0.050505,single-agent,0.262626,0,0.080808
+BrowseComp-Plus,claude-sonnet-4-20250514,0.414141,1,single-agent,0.292929,0,0.121212,multi-agent-hybrid,0.414141,1,0,multi-agent-hybrid,0.414141,1,0,multi-agent-decentralized,0.373737,0,0.040404,single-agent,0.292929,0,0.121212
+BrowseComp-Plus,claude-sonnet-4-5,0.434343,1,single-agent,0.343434,0,0.090909,multi-agent-hybrid,0.40404,0,0.030303,multi-agent-hybrid,0.40404,0,0.030303,multi-agent-decentralized,0.434343,1,0,single-agent,0.343434,0,0.090909
+BrowseComp-Plus,gemini-2.0-flash,0.22,1,multi-agent-hybrid,0.2,0,0.02,multi-agent-hybrid,0.2,0,0.02,multi-agent-hybrid,0.2,0,0.02,multi-agent-decentralized,0.18,0,0.04,single-agent,0.17,0,0.05
+BrowseComp-Plus,gemini-2.5-flash,0.32,1,multi-agent-hybrid,0.32,1,0,multi-agent-hybrid,0.32,1,0,multi-agent-hybrid,0.32,1,0,multi-agent-decentralized,0.26,0,0.06,single-agent,0.28,0,0.04
+BrowseComp-Plus,gemini-2.5-pro,0.43,1,multi-agent-hybrid,0.4,0,0.03,multi-agent-hybrid,0.4,0,0.03,multi-agent-hybrid,0.4,0,0.03,multi-agent-decentralized,0.43,1,0,single-agent,0.36,0,0.07
+BrowseComp-Plus,gpt-5,0.5,1,multi-agent-hybrid,0.38,0,0.12,multi-agent-hybrid,0.38,0,0.12,multi-agent-hybrid,0.38,0,0.12,multi-agent-hybrid,0.38,0,0.12,single-agent,0.37,0,0.13
+BrowseComp-Plus,gpt-5-mini,0.41,1,multi-agent-hybrid,0.24,0,0.17,multi-agent-hybrid,0.24,0,0.17,multi-agent-hybrid,0.24,0,0.17,multi-agent-decentralized,0.33,0,0.08,single-agent,0.41,1,0
+BrowseComp-Plus,gpt-5-nano,0.37,1,multi-agent-hybrid,0.33,0,0.04,multi-agent-hybrid,0.33,0,0.04,multi-agent-hybrid,0.33,0,0.04,multi-agent-decentralized,0.32,0,0.05,single-agent,0.37,1,0
+Finance Agent,claude-3-7-sonnet-20250219,0.3,2,multi-agent-decentralized,0.2,0,0.1,multi-agent-decentralized,0.2,0,0.1,multi-agent-hybrid,0.24,0,0.06,multi-agent-centralized,0.3,1,0,single-agent,0.3,1,0
+Finance Agent,claude-sonnet-4-20250514,0.42,1,multi-agent-decentralized,0.32,0,0.1,multi-agent-decentralized,0.32,0,0.1,multi-agent-hybrid,0.38,0,0.04,multi-agent-centralized,0.42,1,0,single-agent,0.32,0,0.1
+Finance Agent,claude-sonnet-4-5,0.46,2,multi-agent-hybrid,0.46,1,0,multi-agent-hybrid,0.46,1,0,multi-agent-hybrid,0.46,1,0,multi-agent-centralized,0.46,1,0,single-agent,0.28,0,0.18
+Finance Agent,gemini-2.0-flash,0.72,1,multi-agent-hybrid,0.68,0,0.04,single-agent,0.1,0,0.62,multi-agent-decentralized,0.72,1,0,multi-agent-centralized,0.7,0,0.02,single-agent,0.1,0,0.62
+Finance Agent,gemini-2.5-flash,0.74,3,multi-agent-hybrid,0.74,1,0,multi-agent-hybrid,0.74,1,0,multi-agent-hybrid,0.74,1,0,multi-agent-centralized,0.74,1,0,single-agent,0.16,0,0.58
+Finance Agent,gemini-2.5-pro,0.78,1,single-agent,0.58,0,0.2,multi-agent-decentralized,0.76,0,0.02,multi-agent-hybrid,0.76,0,0.02,multi-agent-centralized,0.78,1,0,single-agent,0.58,0,0.2
+Finance Agent,gpt-5,0.8,1,single-agent,0.62,0,0.18,multi-agent-decentralized,0.78,0,0.02,multi-agent-hybrid,0.78,0,0.02,multi-agent-centralized,0.8,1,0,single-agent,0.62,0,0.18
+Finance Agent,gpt-5-mini,0.78,1,single-agent,0.54,0,0.24,multi-agent-hybrid,0.66,0,0.12,multi-agent-hybrid,0.66,0,0.12,multi-agent-centralized,0.72,0,0.06,single-agent,0.54,0,0.24
+Finance Agent,gpt-5-nano,0.76,3,multi-agent-hybrid,0.74,0,0.02,multi-agent-hybrid,0.74,0,0.02,multi-agent-hybrid,0.74,0,0.02,multi-agent-centralized,0.76,1,0,single-agent,0.24,0,0.52
+PlanCraft,claude-3-7-sonnet-20250219,0.59596,1,single-agent,0.59596,1,0,single-agent,0.59596,1,0,single-agent,0.59596,1,0,single-agent,0.59596,1,0,single-agent,0.59596,1,0
+PlanCraft,claude-sonnet-4-20250514,0.676768,1,single-agent,0.676768,1,0,single-agent,0.676768,1,0,single-agent,0.676768,1,0,single-agent,0.676768,1,0,single-agent,0.676768,1,0
+PlanCraft,claude-sonnet-4-5,0.767677,1,single-agent,0.767677,1,0,single-agent,0.767677,1,0,single-agent,0.767677,1,0,single-agent,0.767677,1,0,single-agent,0.767677,1,0
+PlanCraft,gemini-2.0-flash,0.52,1,single-agent,0.52,1,0,single-agent,0.52,1,0,single-agent,0.52,1,0,single-agent,0.52,1,0,single-agent,0.52,1,0
+PlanCraft,gemini-2.5-flash,0.51,1,single-agent,0.51,1,0,single-agent,0.51,1,0,single-agent,0.51,1,0,single-agent,0.51,1,0,single-agent,0.51,1,0
+PlanCraft,gemini-2.5-pro,0.51,1,single-agent,0.51,1,0,single-agent,0.51,1,0,single-agent,0.51,1,0,single-agent,0.51,1,0,single-agent,0.51,1,0
+PlanCraft,gpt-5,0.61,1,single-agent,0.61,1,0,single-agent,0.61,1,0,single-agent,0.61,1,0,single-agent,0.61,1,0,single-agent,0.61,1,0
+PlanCraft,gpt-5-mini,0.54,1,single-agent,0.54,1,0,single-agent,0.54,1,0,single-agent,0.54,1,0,single-agent,0.54,1,0,single-agent,0.54,1,0
+PlanCraft,gpt-5-nano,0.38,2,multi-agent-hybrid,0.35,0,0.03,single-agent,0.38,1,0,single-agent,0.38,1,0,single-agent,0.38,1,0,single-agent,0.38,1,0
+SWE-bench Verified,claude-sonnet-4-20250514,0.7,1,single-agent,0.7,1,0,multi-agent-decentralized,0.55,0,0.15,multi-agent-decentralized,0.55,0,0.15,multi-agent-hybrid,0.45,0,0.25,single-agent,0.7,1,0
+SWE-bench Verified,claude-sonnet-4-5,0.75,1,single-agent,0.75,1,0,multi-agent-decentralized,0.7,0,0.05,multi-agent-decentralized,0.7,0,0.05,multi-agent-hybrid,0.7,0,0.05,single-agent,0.75,1,0
+SWE-bench Verified,gemini-2.0-flash,0.4,1,multi-agent-hybrid,0.3,0,0.1,single-agent,0.15,0,0.25,single-agent,0.15,0,0.25,single-agent,0.15,0,0.25,single-agent,0.15,0,0.25
+SWE-bench Verified,gemini-2.5-flash,0.5,1,multi-agent-decentralized,0.35,0,0.15,single-agent,0.5,1,0,single-agent,0.5,1,0,multi-agent-centralized,0.35,0,0.15,single-agent,0.5,1,0
+SWE-bench Verified,gemini-2.5-pro,0.7,1,single-agent,0.7,1,0,multi-agent-decentralized,0.45,0,0.25,multi-agent-decentralized,0.45,0,0.25,multi-agent-centralized,0.55,0,0.15,single-agent,0.7,1,0
+SWE-bench Verified,gpt-5,0.7,1,single-agent,0.65,0,0.05,multi-agent-decentralized,0.7,1,0,single-agent,0.65,0,0.05,multi-agent-hybrid,0.55,0,0.15,single-agent,0.65,0,0.05
+SWE-bench Verified,gpt-5-mini,0.5,2,multi-agent-hybrid,0.5,1,0,single-agent,0.4,0,0.1,single-agent,0.4,0,0.1,single-agent,0.4,0,0.1,single-agent,0.4,0,0.1
+SWE-bench Verified,gpt-5-nano,0.35,2,multi-agent-hybrid,0.3,0,0.05,single-agent,0.05,0,0.3,single-agent,0.05,0,0.3,single-agent,0.05,0,0.3,single-agent,0.05,0,0.3
+Terminal-Bench,claude-sonnet-4-20250514,0.35,2,single-agent,0.25,0,0.1,multi-agent-hybrid,0.25,0,0.1,multi-agent-hybrid,0.25,0,0.1,multi-agent-independent,0.35,1,0,single-agent,0.25,0,0.1
+Terminal-Bench,claude-sonnet-4-5,0.6,1,single-agent,0.6,1,0,multi-agent-decentralized,0.4,0,0.2,multi-agent-hybrid,0.5,0,0.1,multi-agent-independent,0.4,0,0.2,single-agent,0.6,1,0
+Terminal-Bench,gemini-2.0-flash,0.2,1,multi-agent-hybrid,0.05,0,0.15,multi-agent-hybrid,0.05,0,0.15,multi-agent-hybrid,0.05,0,0.15,multi-agent-independent,0.2,1,0,single-agent,0.15,0,0.05
+Terminal-Bench,gemini-2.5-flash,0.25,3,multi-agent-hybrid,0.25,1,0,multi-agent-hybrid,0.25,1,0,multi-agent-hybrid,0.25,1,0,multi-agent-independent,0.2,0,0.05,single-agent,0.2,0,0.05
+Terminal-Bench,gemini-2.5-pro,0.45,1,single-agent,0.45,1,0,multi-agent-hybrid,0.25,0,0.2,multi-agent-hybrid,0.25,0,0.2,multi-agent-independent,0.3,0,0.15,single-agent,0.45,1,0
+Terminal-Bench,gpt-5,0.5,1,multi-agent-hybrid,0.5,1,0,multi-agent-hybrid,0.5,1,0,multi-agent-hybrid,0.5,1,0,multi-agent-independent,0.45,0,0.05,single-agent,0.3,0,0.2
+Terminal-Bench,gpt-5-mini,0.45,1,multi-agent-hybrid,0.2,0,0.25,multi-agent-hybrid,0.2,0,0.25,multi-agent-hybrid,0.2,0,0.25,multi-agent-independent,0.45,1,0,single-agent,0.3,0,0.15
+Terminal-Bench,gpt-5-nano,0.3,1,multi-agent-hybrid,0.2,0,0.1,multi-agent-hybrid,0.2,0,0.1,multi-agent-hybrid,0.2,0,0.1,multi-agent-independent,0.3,1,0,single-agent,0.25,0,0.05
+WorkBench,claude-3-7-sonnet-20250219,0.67,1,multi-agent-decentralized,0.67,1,0,multi-agent-decentralized,0.67,1,0,multi-agent-decentralized,0.67,1,0,multi-agent-decentralized,0.67,1,0,single-agent,0.53,0,0.14
+WorkBench,claude-sonnet-4-20250514,0.72,1,single-agent,0.64,0,0.08,multi-agent-decentralized,0.72,1,0,multi-agent-decentralized,0.72,1,0,multi-agent-decentralized,0.72,1,0,single-agent,0.64,0,0.08
+WorkBench,claude-sonnet-4-5,0.81,1,multi-agent-decentralized,0.81,1,0,multi-agent-decentralized,0.81,1,0,multi-agent-decentralized,0.81,1,0,multi-agent-decentralized,0.81,1,0,single-agent,0.65,0,0.16
+WorkBench,gemini-2.0-flash,0.55,2,multi-agent-decentralized,0.52,0,0.03,multi-agent-decentralized,0.52,0,0.03,multi-agent-decentralized,0.52,0,0.03,multi-agent-decentralized,0.52,0,0.03,single-agent,0.55,1,0
+WorkBench,gemini-2.5-flash,0.63,2,multi-agent-decentralized,0.58,0,0.05,multi-agent-decentralized,0.58,0,0.05,multi-agent-decentralized,0.58,0,0.05,multi-agent-decentralized,0.58,0,0.05,single-agent,0.63,1,0
+WorkBench,gemini-2.5-pro,0.69,1,multi-agent-decentralized,0.69,1,0,multi-agent-decentralized,0.69,1,0,multi-agent-decentralized,0.69,1,0,multi-agent-decentralized,0.69,1,0,single-agent,0.64,0,0.05
+WorkBench,gpt-5,0.76,1,multi-agent-decentralized,0.76,1,0,multi-agent-decentralized,0.76,1,0,multi-agent-decentralized,0.76,1,0,multi-agent-decentralized,0.76,1,0,single-agent,0.7,0,0.06
+WorkBench,gpt-5-mini,0.7,1,multi-agent-decentralized,0.62,0,0.08,multi-agent-decentralized,0.62,0,0.08,multi-agent-decentralized,0.62,0,0.08,multi-agent-decentralized,0.62,0,0.08,single-agent,0.7,1,0
+WorkBench,gpt-5-nano,0.62,1,multi-agent-decentralized,0.61,0,0.01,multi-agent-decentralized,0.61,0,0.01,multi-agent-decentralized,0.61,0,0.01,multi-agent-decentralized,0.61,0,0.01,single-agent,0.62,1,0

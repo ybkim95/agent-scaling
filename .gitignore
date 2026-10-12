@@ -62,7 +62,6 @@ tests/test_tool_and_env.py
 
 # Exclude private/sensitive dirs (NMI rebuttal)
 nmi_rebuttal/
-colab_analysis/
 latex/
 .omc/
 
