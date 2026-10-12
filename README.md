@@ -1,3 +1,5 @@
+
+
 # Agent Scaling
 
 A framework for studying scaling behaviors of LLM-based single-agent and multi-agent systems on complex reasoning tasks. Code release accompanying [*Capable language models can outgrow the benefits of collaboration*](https://doi.org/10.1038/s42256-026-01268-y), published in *Nature Machine Intelligence* in 2026. The [arXiv preprint](https://arxiv.org/abs/2512.08296) retains the earlier title *Towards a science of scaling agent systems*.
@@ -8,6 +10,7 @@ A framework for studying scaling behaviors of LLM-based single-agent and multi-a
 
 - Python 3.11+
 - [uv](https://docs.astral.sh/uv/getting-started/installation/) package manager
+- Docker (required for SWE-bench Verified and Terminal-Bench experiments)
 
 ### Installation
 
