@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.2.3
+
+### Changed
+
+- `REPRODUCTION.md`: the set-up instructions check out the latest release instead of v2.1.3. The experiment code is the same in v2.1.3 and v2.2.x.
+
 ## 2.2.2
 
 ### Changed
