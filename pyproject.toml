@@ -1,6 +1,6 @@
 [project]
 name = "agent_scaling"
-version = "2.2.1"
+version = "2.2.2"
 description = "Experimental framework for controlled single-agent and multi-agent LLM agent scaling studies, accompanying the Nature Machine Intelligence article 'Capable language models can outgrow the benefits of collaboration' (Nat. Mach. Intell. 8, 1157-1172, 2026)."
 readme = "README.md"
 requires-python = ">=3.11"

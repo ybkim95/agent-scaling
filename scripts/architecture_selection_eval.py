@@ -377,9 +377,8 @@ def mcnemar(a, b):
 def decision_table(full, sets):
     """One row per choice set, giving what every rule selected and what it cost.
 
-    This is the decision-level output referred to in the Reply. It is what
-    another group needs in order to locate the source of any difference between
-    their counts and ours without re-deriving the protocol.
+    This is the decision-level output. It allows the selections to be compared,
+    decision by decision, with any other implementation of the protocol.
     """
     recs = []
     for g in sets:
@@ -491,10 +490,9 @@ def main(check=False, decisions=None):
         lo, hi = ci(k, n)
         return f"| {label:46s} | {k:2d} of {n} | {k/n*100:5.1f}% | {lo*100:4.1f} to {hi*100:4.1f} | {R.regret.mean():.4f} |"
 
-    print("REPLY TABLE 1a. Architecture selection with complete choice sets held out,")
-    print("260 configurations, 52 decisions. These rows, and only these rows, are the")
-    print("Reply's Table 1a. The capability metric throughout is the Intelligence Index,")
-    print("which is the specification the article tabulates.")
+    print("Architecture selection with complete choice sets held out,")
+    print("260 configurations, 52 decisions. The capability metric throughout is the")
+    print("Intelligence Index, which is the specification the article tabulates.")
     print("| Selection procedure | Correct | Accuracy | 95% CI | Mean regret |")
     print("|---|---|---|---|---|")
     print(line("Intelligence Index, measured single-agent supplied", P1))
@@ -506,9 +504,8 @@ def main(check=False, decisions=None):
     print(f"| {'Uniform random among five, ties credited':46s} |          | {RND['chance_ties_credited']*100:5.1f}% |              | {RND['regret']:.4f} |")
     print(f"  chance rate with ties not credited: {RND['chance_strict']*100:.1f}%")
     print()
-    print("ADDITIONAL SENSITIVITY, NOT IN THE REPLY. The Agentic Capability Index is the")
-    print("article's alternative capability metric. These rows are reported for")
-    print("completeness only and no claim in the Reply rests on them.")
+    print("Sensitivity to the capability metric. The Agentic Capability Index is the")
+    print("article's alternative capability metric.")
     print("| Selection procedure | Correct | Accuracy | 95% CI | Mean regret |")
     print("|---|---|---|---|---|")
     print(line("ACI metric, measured single-agent supplied", A1))
@@ -516,7 +513,7 @@ def main(check=False, decisions=None):
     print(line("ACI metric, ties not credited", A3))
     print()
 
-    print("Table 1b. Decisions attained per benchmark")
+    print("Decisions attained per benchmark")
     print("| Benchmark | Sets | ACI, measured SA | Intelligence Index, measured SA | Benchmark mean rule |")
     print("|---|---|---|---|---|")
     per = {}

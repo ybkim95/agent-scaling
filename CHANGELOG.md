@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.2.2
+
+### Changed
+
+- `scripts/architecture_selection_eval.py`: output headings and docstrings reworded. No computed value changes, and `--decisions` writes the same file.
+
 ## 2.2.1
 
 ### Fixed

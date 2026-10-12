@@ -15,7 +15,7 @@ A framework for studying scaling behaviors of LLM-based single-agent and multi-a
 # Clone the repository and check out the release used for the manuscript
 git clone https://github.com/ybkim95/agent-scaling.git
 cd agent-scaling
-git checkout v2.2.1   # v2.1.3 is the tag cited in the manuscript; v2.2.x corrects its analysis scripts (see CHANGELOG)
+git checkout v2.2.2   # v2.1.3 is the tag cited in the manuscript; v2.2.x corrects its analysis scripts (see CHANGELOG)
 
 # Install dependencies
 uv sync --prerelease=allow
