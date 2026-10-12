@@ -1052,8 +1052,9 @@ def main():
     print(f"""
   Script    : scripts/alternative_capability_metric.py
   Data      : 180 original rows (ORIGINAL_DATA embedded) +
-              {len(new_rows)} rows from scripts/per_instance_results_swe_tb.csv
-  Total N   : 270 (6 benchmarks × 9 models × 5 architectures)
+              {len(new_rows)} rows from scripts/per_instance_results_swe_tb.csv,
+              of which the ten gemini-3-flash-preview rows are excluded
+  Total N   : {len(all_rows)} (52 benchmark × model pairs × 5 architectures)
   Formula   : 19-predictor OLS, identical structure to extended_mixed_effects_6benchmarks.py
   CV        : 5-fold KFold(shuffle=True, random_state=42)
   Scaling   : StandardScaler on full dataset (same as original)

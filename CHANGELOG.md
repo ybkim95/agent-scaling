@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.2.1
+
+### Fixed
+
+- `scripts/error_amplification_analysis.py` built 270 rows, including the ten `gemini-3-flash-preview` configurations, for its task-level error-amplification tables. It now uses the 260 configurations analysed in the article. No value reported in the article is computed by this script.
+- `scripts/alternative_capability_metric.py` and `scripts/extended_mixed_effects_6benchmarks.py` printed stale configuration counts in their notes. The printed counts now match the 260 configurations analysed.
+
 ## 2.2.0
 
 Maintenance release. Corrects the default analysis set of the regression scripts, adds the analysis scripts and data for the regression, the complete-choice-set evaluation of architecture selection and the threshold sign check, and includes the analysis notebooks.

@@ -1076,7 +1076,7 @@ def main():
     # ------------------------------------------------------------------
     new_rows = load_new_data(csv_path)
     print(f"\n  Loaded {len(new_rows)} new rows from CSV "
-          f"(swebench-verified + terminalbench, 5 architectures × 9 models each)")
+          f"(swebench-verified + terminalbench, 5 architectures × 9 models each; the ten gemini-3-flash-preview rows are excluded below)")
 
     # ------------------------------------------------------------------
     # Step 3: Build 4-benchmark dataframe (original)

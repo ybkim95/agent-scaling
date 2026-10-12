@@ -7,7 +7,7 @@ or how it is measured."
 This script provides TWO distinct analyses:
 
 Analysis A -- Task-level error amplification (from performance data)
-    Formally defines and computes A_e from the 180 (original) + 90 (new)
+    Formally defines and computes A_e from the 180 (original) + 80 (new)
     aggregated task success rates spanning 6 benchmarks.
 
 Analysis B -- Trace-level error amplification (Table 4 in the paper)
@@ -38,9 +38,11 @@ Data sources
 ------------
     Original 180 rows  : colab_analysis/mixed_effect_model.ipynb Cell 4
                          4 benchmarks x 5 architectures x 9 models
-    New 90 rows        : scripts/per_instance_results_swe_tb.csv
-                         2 benchmarks x 5 architectures x 9 models
-    Combined           : 270 rows, 6 benchmarks total
+    New 80 rows        : scripts/per_instance_results_swe_tb.csv
+                         2 benchmarks x 5 architectures x 8 models
+                         (the ten gemini-3-flash-preview rows, out of sample
+                         per Supplementary Table S11, are excluded)
+    Combined           : 260 rows, 6 benchmarks total
 """
 
 import os
@@ -248,12 +250,14 @@ df_orig = pd.DataFrame(
 df_orig["source"] = "original_4bench"
 
 # ─────────────────────────────────────────────────────────────────────────────
-# 2.  LOAD AND AGGREGATE THE 90 NEW DATA POINTS
+# 2.  LOAD AND AGGREGATE THE 80 NEW DATA POINTS
 # ─────────────────────────────────────────────────────────────────────────────
 
 csv_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                         "per_instance_results_swe_tb.csv")
 df_raw = pd.read_csv(csv_path)
+# gemini-3-flash-preview is an out-of-sample frontier model (Supplementary Table S11)
+df_raw = df_raw[df_raw["model"] != "gemini-3-flash-preview"]
 
 # Performance metric = fraction of instances resolved (binary per instance)
 df_new = (
@@ -272,13 +276,13 @@ df_orig["model_key"] = df_orig["model"].apply(strip_date_suffix)
 df_new["model_key"]  = df_new["model"].apply(strip_date_suffix)
 
 # ─────────────────────────────────────────────────────────────────────────────
-# 3.  COMBINE INTO 270 ROWS
+# 3.  COMBINE INTO 260 ROWS
 # ─────────────────────────────────────────────────────────────────────────────
 
 COLS = ["dataset", "architecture", "provider", "model", "model_key", "performance", "source"]
 df_all = pd.concat([df_orig[COLS], df_new[COLS]], ignore_index=True)
 
-assert len(df_all) == 270, f"Expected 270 rows, got {len(df_all)}"
+assert len(df_all) == 260, f"Expected 260 rows, got {len(df_all)}"
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 4.  COMPUTE TASK-LEVEL ERROR RATES AND ERROR AMPLIFICATION
@@ -452,7 +456,7 @@ for arch_key in ARCH_KEYS:
 
 print()
 print(SEP)
-print("SECTION B: TASK-LEVEL ERROR AMPLIFICATION -- ALL 6 BENCHMARKS (270 rows)")
+print("SECTION B: TASK-LEVEL ERROR AMPLIFICATION -- ALL 6 BENCHMARKS (260 rows)")
 print(SEP)
 
 res_all = arch_table(mas, "All 6 benchmarks combined")
